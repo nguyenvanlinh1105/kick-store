@@ -5,11 +5,9 @@ import KvFilterPill from '@/components/ui/KvFilterPill.vue'
 import KvProductCard from '@/components/ui/KvProductCard.vue'
 import { DEMO_PRODUCTS } from '@/data/demo'
 import { useCartStore } from '@/stores/cart'
-import { useResponsive } from '@/composables/useResponsive'
 
 const route = useRoute()
 const cart = useCartStore()
-const { isMobile } = useResponsive()
 
 const filters = ['Tất cả', 'Nike', 'Adidas', 'Jordan', 'New Balance', 'Puma', 'Converse']
 const active = ref('Tất cả')

@@ -39,12 +39,7 @@ onUnmounted(() => {
       @click.self="emit('close')"
     >
       <div
-        class="max-h-[90vh] w-full overflow-y-auto rounded-t-lg bg-canvas-light kv:rounded-lg"
-        :class="{
-          'kv:max-w-md': size === 'sm',
-          'kv:max-w-lg': size === 'md',
-          'kv:max-w-2xl': size === 'lg',
-        }"
+        class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-t-lg bg-canvas-light kv:rounded-lg"
         role="dialog"
         aria-modal="true"
       >

@@ -14,7 +14,7 @@ const sizeClass = {
 
 <template>
   <div
-    class="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-on-primary font-semibold"
+    class="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-100 text-neutral-800 border border-neutral-200/60 font-semibold"
     :class="sizeClass[size] || sizeClass.md"
   >
     <img v-if="src" :src="src" :alt="name" class="h-full w-full object-cover" />

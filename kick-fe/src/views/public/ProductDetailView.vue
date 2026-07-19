@@ -5,12 +5,10 @@ import KvBadge from '@/components/ui/KvBadge.vue'
 import { DEMO_PRODUCTS } from '@/data/demo'
 import { useCartStore } from '@/stores/cart'
 import { useWishlistStore } from '@/stores/wishlist'
-import { useResponsive } from '@/composables/useResponsive'
 
 const route = useRoute()
 const cart = useCartStore()
 const wishlist = useWishlistStore()
-const { isMobile } = useResponsive()
 
 const product = computed(
   () => DEMO_PRODUCTS.find((p) => p.slug === route.params.slug) || DEMO_PRODUCTS[0],

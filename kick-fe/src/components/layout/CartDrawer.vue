@@ -1,6 +1,5 @@
 <script setup>
 import { storeToRefs } from 'pinia'
-import { RouterLink } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import KvButton from '@/components/ui/KvButton.vue'
 import KvModal from '@/components/ui/KvModal.vue'
