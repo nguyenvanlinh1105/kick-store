@@ -16,6 +16,8 @@ public interface ConversationRepository extends JpaRepository<Conversation, Long
 
     Page<Conversation> findAllBySalesManagerId(Long salesManagerId, Pageable pageable);
 
+    Page<Conversation> findAllBySalesManagerIdIsNull(Pageable pageable);
+
     @Query("SELECT c FROM Conversation c WHERE c.customer.id = :customerId AND c.status = 'OPEN'")
     Optional<Conversation> findActiveConversationByCustomerId(@Param("customerId") Long customerId);
 }

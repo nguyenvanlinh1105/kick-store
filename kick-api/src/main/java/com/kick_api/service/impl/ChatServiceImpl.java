@@ -114,4 +114,16 @@ public class ChatServiceImpl implements ChatService {
         }
         return messageRepository.findAllByConversationIdOrderBySentAtDesc(conversationId, pageable);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Conversation> getConversationsByStaff(Long staffId, Pageable pageable) {
+        return conversationRepository.findAllBySalesManagerId(staffId, pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Conversation> getUnassignedConversations(Pageable pageable) {
+        return conversationRepository.findAllBySalesManagerIdIsNull(pageable);
+    }
 }

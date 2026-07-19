@@ -11,4 +11,6 @@ public interface ChatService {
     Message sendMessage(Long conversationId, Long senderId, String content, List<String> attachmentUrls);
     void assignSalesManager(Long conversationId, Long salesManagerId);
     Page<Message> getMessageHistory(Long conversationId, Pageable pageable);
+    Page<Conversation> getConversationsByStaff(Long staffId, Pageable pageable);
+    Page<Conversation> getUnassignedConversations(Pageable pageable);
 }

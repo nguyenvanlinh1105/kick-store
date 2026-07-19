@@ -167,4 +167,33 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(newStatus);
         orderRepository.save(order);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public org.springframework.data.domain.Page<Order> getUserOrders(Long userId, org.springframework.data.domain.Pageable pageable) {
+        return orderRepository.findAllByUserId(userId, pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Order getOrderDetails(Long userId, Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
+        if (!order.getUser().getId().equals(userId)) {
+            throw new AppException(ErrorCode.INVALID_INPUT, "Không có quyền truy cập thông tin đơn hàng này!");
+        }
+        return order;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public org.springframework.data.domain.Page<Order> getOrdersByStatus(OrderStatus status, org.springframework.data.domain.Pageable pageable) {
+        return orderRepository.findAllByStatus(status, pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public org.springframework.data.domain.Page<Order> getAllOrders(org.springframework.data.domain.Pageable pageable) {
+        return orderRepository.findAll(pageable);
+    }
 }
