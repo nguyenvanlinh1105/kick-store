@@ -1,5 +1,6 @@
 package com.kick_api.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,6 +19,9 @@ import java.util.List;
 @EnableWebSecurity // Kích hoạt tính năng bảo mật web của Spring Security
 @EnableMethodSecurity // Kích hoạt phân quyền chi tiết mức phương thức ở Controller bằng @PreAuthorize
 public class SecurityConfig {
+
+    @Value("${app.cors.allowed-origins}")
+    private List<String> allowedOrigins;
 
     /**
      * Cấu hình Filter Chain để kiểm soát luồng bảo mật của toàn bộ ứng dụng
@@ -65,8 +69,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Cho phép các domain của Frontend gọi tới API (Cổng mặc định của Vue 3 và cổng test khác)
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000"));
+        // Cho phép các domain của Frontend gọi tới API lấy động từ file application.properties
+        configuration.setAllowedOrigins(allowedOrigins);
         
         // Cho phép sử dụng tất cả các phương thức HTTP cần thiết
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
