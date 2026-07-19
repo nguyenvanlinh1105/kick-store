@@ -49,11 +49,11 @@ public class SecurityConfig {
                 // Đường dẫn chứa các hành động của khách hàng (Customer)
                 .requestMatchers("/api/v1/customer/**").hasRole("CUSTOMER")
                 
-                // Đường dẫn chứa các hành động của ban quản trị (Admin)
-                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                // Đường dẫn chứa các hành động của ban quản trị (Admin & Sales Manager)
+                .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN", "SALES_MANAGER")
                 
                 // Đường dẫn chứa các hành động của nhân viên và quản trị (Staff & Admin)
-                .requestMatchers("/api/v1/staff/**").hasAnyRole("ADMIN", "STAFF")
+                .requestMatchers("/api/v1/staff/**").hasAnyRole( "STAFF")
                 
                 // Các API còn lại bắt buộc phải đăng nhập (Authenticated) mới được gọi
                 .anyRequest().authenticated()
