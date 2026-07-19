@@ -11,25 +11,35 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
 @Slf4j
 public class JwtTokenProvider {
 
-    @Value("${app.jwt.secret:SuperSecretKeyForJWTTokenSigningMustBeAtLeast256BitsLong12345678901234567890}")
+    @Value("${app.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${app.jwt.expiration-in-ms:86400000}") // Mặc định 24h
+    // Thời gian sống của Access Token (mặc định 24h = 86400000ms)
+    @Value("${app.jwt.expiration-in-ms}")
     private long jwtExpirationInMs;
+
+    // Thời gian sống của Refresh Token (mặc định 7 ngày = 604800000ms)
+    @Value("${app.jwt.refresh-expiration-in-ms}")
+    private long refreshExpirationInMs;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(Authentication authentication) {
+    /**
+     * Sinh Access Token JWT ngắn hạn chứa email và danh sách roles của user
+     */
+    public String generateAccessToken(Authentication authentication) {
         User userPrincipal = (User) authentication.getPrincipal();
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
@@ -47,6 +57,24 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    /**
+     * Sinh một chuỗi Refresh Token ngẫu nhiên (UUID) - không cần mã hóa JWT
+     * vì nó sẽ được lưu thẳng vào cột refresh_token trong bảng users và đối chiếu trực tiếp
+     */
+    public String generateRefreshToken() {
+        return UUID.randomUUID().toString();
+    }
+
+    /**
+     * Tính thời điểm hết hạn của Refresh Token dựa trên cấu hình
+     */
+    public Instant calculateRefreshTokenExpiry() {
+        return Instant.now().plusMillis(refreshExpirationInMs);
+    }
+
+    /**
+     * Trích xuất email của người dùng từ Access Token JWT
+     */
     public String getUserEmailFromJWT(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -57,6 +85,9 @@ public class JwtTokenProvider {
         return claims.getSubject();
     }
 
+    /**
+     * Xác thực tính hợp lệ và thời hạn của Access Token JWT
+     */
     public boolean validateToken(String authToken) {
         try {
             Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(authToken);

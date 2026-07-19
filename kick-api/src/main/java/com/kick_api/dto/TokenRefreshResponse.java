@@ -1,6 +1,5 @@
 package com.kick_api.dto;
 
-import com.kick_api.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,13 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class LoginResponse {
+public class TokenRefreshResponse {
     private String token;
-    
     private String refreshToken;
 
     @Builder.Default
     private String tokenType = "Bearer";
-    
-    private User user;
 }

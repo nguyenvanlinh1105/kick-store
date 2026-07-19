@@ -1,8 +1,10 @@
 package com.kick_api.entity;
 
 import com.kick_api.constant.UserStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.Instant;
 import java.util.Set;
 
 @Entity
@@ -43,4 +45,13 @@ public class User extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
+    // Refresh Token lưu trực tiếp trong bảng users (hỗ trợ 1 phiên đăng nhập tại 1 thời điểm)
+    @JsonIgnore
+    @Column(name = "refresh_token", length = 255)
+    private String refreshToken;
+
+    @JsonIgnore
+    @Column(name = "refresh_token_expiry")
+    private Instant refreshTokenExpiry;
 }

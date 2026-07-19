@@ -39,3 +39,14 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 # ==========================================
 # Cho phép lấy danh sách domain CORS từ biến môi trường, mặc định dự phòng là localhost
 app.cors.allowed-origins=${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
+
+# ==========================================
+# 6. CAU HINH JWT
+# ==========================================
+# Secret key de ky va xac thuc Access Token (phai dai hon 256 bits - thay bang gia tri rieng khi deploy)
+app.jwt.secret=${JWT_SECRET:SuperSecretKeyForJWTTokenSigningMustBeAtLeast256BitsLong12345678901234567890}
+# Thoi gian song cua Access Token: 24h (86400000 ms)
+app.jwt.expiration-in-ms=${JWT_EXPIRATION_MS:86400000}
+# Thoi gian song cua Refresh Token: 7 ngay (604800000 ms)
+app.jwt.refresh-expiration-in-ms=${JWT_REFRESH_EXPIRATION_MS:604800000}
+

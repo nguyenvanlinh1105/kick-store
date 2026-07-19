@@ -15,4 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
 
     boolean existsByPhone(String phone);
+
+    // Tìm user theo refresh token để xác thực khi cấp lại access token
+    Optional<User> findByRefreshToken(String refreshToken);
 }
+
