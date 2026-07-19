@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Guide Documents ###
+*_GUIDE.md
+
+### Local Properties Configuration ###
+src/main/resources/application.properties

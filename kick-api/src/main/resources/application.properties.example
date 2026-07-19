@@ -1,4 +1,4 @@
-﻿spring.application.name=kickverse
+spring.application.name=kickverse
 
 # ==========================================
 # 1. CAU HINH DOCKER COMPOSE
@@ -9,9 +9,9 @@ spring.docker.compose.enabled=false
 # ==========================================
 # 2. CAU HINH KET NOI DATABASE LOCAL
 # ==========================================
-spring.datasource.url=jdbc:postgresql://localhost:5432/mydatabase
-spring.datasource.username=postgre
-spring.datasource.password=admin
+spring.datasource.url=jdbc:postgresql://localhost:5432/your_database_name
+spring.datasource.username=your_db_username
+spring.datasource.password=your_db_password
 spring.datasource.driver-class-name=org.postgresql.Driver
 
 # ==========================================
