@@ -14,17 +14,17 @@ const topics = [
 </script>
 
 <template>
-  <div class="kv-support">
+  <div class="bg-surface-0 min-h-screen text-text-primary">
     <!-- Header Banner -->
-    <section class="kv-support-hero">
-      <div class="kv-container kv-support-hero__inner">
-        <span class="kv-section-tag">Hỗ trợ</span>
-        <h1 class="kv-support-hero__title">Chúng tôi có thể giúp gì cho bạn?</h1>
-        <p class="kv-support-hero__desc">Tìm câu trả lời nhanh chóng cho các thắc mắc về đơn hàng, vận chuyển và chính sách thành viên.</p>
+    <section class="pt-20 pb-15 bg-gradient-to-b from-surface-1 to-surface-0 border-b border-white/5">
+      <div class="kv-container flex flex-col items-start max-w-3xl">
+        <span class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">Hỗ trợ</span>
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-white mt-4 mb-3">Chúng tôi có thể giúp gì cho bạn?</h1>
+        <p class="text-sm leading-relaxed text-text-secondary mb-8">Tìm câu trả lời nhanh chóng cho các thắc mắc về đơn hàng, vận chuyển và chính sách thành viên.</p>
         
-        <!-- Premium Search Bar -->
-        <div class="kv-support-search">
-          <span class="kv-support-search__icon" aria-hidden="true">
+        <!-- Search Bar -->
+        <div class="relative w-full">
+          <span class="absolute left-5 top-1/2 -translate-y-1/2 text-text-muted/40 flex items-center" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
@@ -33,7 +33,7 @@ const topics = [
             v-model="query"
             type="search"
             placeholder="Tìm kiếm nội dung hướng dẫn..."
-            class="kv-support-search__input"
+            class="w-full h-14 pl-14 pr-6 text-sm text-white bg-white/4 border border-white/10 rounded-full outline-none focus:border-primary/50 focus:bg-white/6 focus:shadow-[0_0_0_3px_rgb(200_169_110/0.08)] transition-all duration-300"
             aria-label="Tìm kiếm trợ giúp"
           />
         </div>
@@ -41,21 +41,21 @@ const topics = [
     </section>
 
     <!-- Main Content Area -->
-    <section class="kv-container kv-support-content">
-      <div class="kv-support-layout" :class="{ 'kv-support-layout--mobile': isMobile }">
+    <section class="kv-container pt-16 pb-28">
+      <div class="grid gap-10 md:gap-16 items-start" :class="isMobile ? 'grid-cols-1' : 'grid-cols-[280px_1fr]'">
         
         <!-- Sidebar Navigation -->
-        <aside class="kv-support-sidebar">
-          <h2 class="kv-support-sidebar__title">Chủ đề phổ biến</h2>
-          <nav class="kv-support-sidebar__nav" aria-label="Danh mục hỗ trợ">
+        <aside class="sticky top-24" v-if="!isMobile">
+          <h2 class="text-[11px] font-bold tracking-widest uppercase text-primary mb-5">Chủ đề phổ biến</h2>
+          <nav class="flex flex-col gap-1" aria-label="Danh mục hỗ trợ">
             <a
               v-for="t in topics"
               :key="t.id"
               :href="`#${t.id}`"
-              class="kv-support-sidebar__link"
+              class="group flex items-center justify-between p-3.5 px-4 text-sm font-semibold text-text-secondary/70 no-underline rounded-lg hover:text-white hover:bg-white/4 transition-all duration-200"
             >
               <span>{{ t.title }}</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-primary transition-all duration-200">
                 <polyline points="9 18 15 12 9 6"/>
               </svg>
             </a>
@@ -63,19 +63,19 @@ const topics = [
         </aside>
 
         <!-- Topic Details -->
-        <main class="kv-support-main">
+        <main class="flex flex-col gap-6">
           <article
             v-for="t in topics"
             :id="t.id"
             :key="t.id"
-            class="kv-support-card"
+            class="p-8 bg-surface-1 border border-white/4 rounded-2xl hover:border-white/8 transition-all duration-300"
           >
-            <div class="kv-support-card__header">
-              <span class="kv-support-card__icon">✦</span>
-              <h3 class="kv-support-card__title">{{ t.title }}</h3>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-base text-primary">✦</span>
+              <h3 class="text-lg font-bold text-white m-0">{{ t.title }}</h3>
             </div>
-            <p class="kv-support-card__desc">{{ t.desc }}</p>
-            <div class="kv-support-card__content">
+            <p class="text-sm leading-relaxed text-text-secondary m-0 font-medium mb-4">{{ t.desc }}</p>
+            <div class="text-[13px] leading-relaxed text-text-muted/50 border-t border-white/5 pt-4">
               <p>Nội dung chi tiết sẽ được tự động đồng bộ qua hệ thống FAQ API của KickVerse. Nếu bạn có bất kỳ câu hỏi khẩn cấp nào khác, vui lòng liên hệ đội ngũ Chăm sóc khách hàng qua Hotline hoặc mục Chat trực tuyến của chúng tôi.</p>
             </div>
           </article>
@@ -85,218 +85,3 @@ const topics = [
     </section>
   </div>
 </template>
-
-<style scoped>
-.kv-support {
-  background: #0a0a0a;
-  min-height: 100vh;
-  color: #f5f4f0;
-}
-
-/* Hero Section */
-.kv-support-hero {
-  padding-top: 80px;
-  padding-bottom: 60px;
-  background: linear-gradient(to bottom, #111111 0%, #0a0a0a 100%);
-  border-bottom: 1px solid rgb(255 255 255 / 0.04);
-}
-
-.kv-support-hero__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  max-width: 800px;
-}
-
-.kv-support-hero__title {
-  font-size: clamp(32px, 5vw, 54px);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
-  color: #f5f4f0;
-  margin: 16px 0 12px;
-}
-
-.kv-support-hero__desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgb(245 244 240 / 0.6);
-  margin: 0 0 32px;
-}
-
-/* Search Box */
-.kv-support-search {
-  position: relative;
-  width: 100%;
-}
-
-.kv-support-search__icon {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgb(245 244 240 / 0.3);
-  display: flex;
-  align-items: center;
-}
-
-.kv-support-search__input {
-  width: 100%;
-  height: 56px;
-  padding-left: 56px;
-  padding-right: 24px;
-  font-size: 15px;
-  color: #f5f4f0;
-  background: rgb(255 255 255 / 0.04);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: 9999px;
-  outline: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.kv-support-search__input::placeholder { color: rgb(245 244 240 / 0.25); }
-
-.kv-support-search__input:focus {
-  border-color: rgb(200 169 110 / 0.5);
-  background: rgb(255 255 255 / 0.06);
-  box-shadow: 0 0 0 3px rgb(200 169 110 / 0.08);
-}
-
-/* Layout */
-.kv-support-content {
-  padding-top: 64px;
-  padding-bottom: 120px;
-}
-
-.kv-support-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 60px;
-  align-items: start;
-}
-
-.kv-support-layout--mobile {
-  grid-template-columns: 1fr;
-  gap: 40px;
-}
-
-/* Sidebar */
-.kv-support-sidebar {
-  position: sticky;
-  top: 100px;
-}
-
-.kv-support-sidebar__title {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #c8a96e;
-  margin: 0 0 20px;
-}
-
-.kv-support-sidebar__nav {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.kv-support-sidebar__link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: rgb(245 244 240 / 0.6);
-  text-decoration: none;
-  background: transparent;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.kv-support-sidebar__link:hover {
-  color: #f5f4f0;
-  background: rgb(255 255 255 / 0.04);
-}
-
-.kv-support-sidebar__link svg {
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: all 0.2s ease;
-}
-
-.kv-support-sidebar__link:hover svg {
-  opacity: 1;
-  transform: translateX(0);
-  color: #c8a96e;
-}
-
-/* Cards */
-.kv-support-main {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.kv-support-card {
-  padding: 32px;
-  background: #111111;
-  border: 1px solid rgb(255 255 255 / 0.04);
-  border-radius: 16px;
-  transition: border-color 0.3s ease;
-}
-
-.kv-support-card:hover {
-  border-color: rgb(255 255 255 / 0.08);
-}
-
-.kv-support-card__header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.kv-support-card__icon {
-  font-size: 16px;
-  color: #c8a96e;
-}
-
-.kv-support-card__title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #f5f4f0;
-  margin: 0;
-}
-
-.kv-support-card__desc {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgb(245 244 240 / 0.75);
-  margin: 0 0 16px;
-  font-weight: 500;
-}
-
-.kv-support-card__content {
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgb(245 244 240 / 0.45);
-  border-top: 1px solid rgb(255 255 255 / 0.05);
-  padding-top: 16px;
-}
-
-/* Tag */
-.kv-section-tag {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #c8a96e;
-  padding: 4px 10px;
-  background: rgb(200 169 110 / 0.1);
-  border: 1px solid rgb(200 169 110 / 0.2);
-  border-radius: 4px;
-}
-</style>

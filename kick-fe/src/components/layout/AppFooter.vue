@@ -31,33 +31,41 @@ const columns = [
 </script>
 
 <template>
-  <footer class="kv-footer">
-    <div class="kv-container kv-footer__inner">
+  <footer class="bg-surface-0 border-t border-white/5 text-text-secondary pt-20 pb-10 relative z-10">
+    <div class="kv-container flex flex-col gap-16">
       
       <!-- Top Section -->
-      <div class="kv-footer__top">
-        <div class="kv-footer__brand">
-          <RouterLink to="/" class="kv-footer__logo">
-            KICK<span>VERSE</span>
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12">
+        <div class="flex flex-col items-start">
+          <RouterLink to="/" class="font-display text-3xl tracking-[3px] text-white no-underline mb-4 inline-block">
+            KICK<span class="bg-gradient-to-r from-primary via-primary-hover to-primary-pressed bg-clip-text text-transparent">VERSE</span>
           </RouterLink>
-          <p class="kv-footer__tagline">
+          <p class="text-sm leading-relaxed text-text-muted max-w-xs mb-6">
             Định nghĩa lại phong cách sneaker streetwear cao cấp.
           </p>
-          <div class="kv-footer__socials">
-            <a href="#" aria-label="Instagram" class="kv-footer__social-link">IG</a>
-            <a href="#" aria-label="Facebook" class="kv-footer__social-link">FB</a>
-            <a href="#" aria-label="Twitter" class="kv-footer__social-link">TW</a>
-            <a href="#" aria-label="Youtube" class="kv-footer__social-link">YT</a>
+          <div class="flex gap-4">
+            <a 
+              v-for="s in ['IG', 'FB', 'TW', 'YT']" 
+              :key="s" 
+              href="#" 
+              :aria-label="s"
+              class="w-9 h-9 rounded-full border border-white/10 text-xs font-bold text-text-muted flex items-center justify-center transition-all duration-200 hover:bg-primary hover:text-black hover:border-primary hover:-translate-y-0.5 hover:shadow-lg no-underline"
+            >
+              {{ s }}
+            </a>
           </div>
         </div>
 
         <!-- Links Columns -->
-        <div class="kv-footer__grid">
-          <div v-for="col in columns" :key="col.title" class="kv-footer__col">
-            <h3 class="kv-footer__col-title">{{ col.title }}</h3>
-            <ul class="kv-footer__col-links">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+          <div v-for="col in columns" :key="col.title" class="flex flex-col">
+            <h3 class="text-xs font-bold tracking-widest uppercase text-primary mb-5">{{ col.title }}</h3>
+            <ul class="list-none p-0 m-0 flex flex-col gap-3">
               <li v-for="link in col.links" :key="link.to">
-                <RouterLink :to="link.to" class="kv-footer__link">
+                <RouterLink 
+                  :to="link.to" 
+                  class="text-[13.5px] text-text-secondary/70 no-underline transition-all duration-200 hover:text-white hover:pl-1 inline-block"
+                >
                   {{ link.label }}
                 </RouterLink>
               </li>
@@ -67,201 +75,15 @@ const columns = [
       </div>
 
       <!-- Bottom Section -->
-      <div class="kv-footer__bottom">
-        <p class="kv-footer__copy">© 2026 KickVerse. Crafted with luxury aesthetics.</p>
-        <div class="kv-footer__legal">
-          <a href="#" class="kv-footer__legal-link">Điều khoản dịch vụ</a>
-          <span class="kv-footer__divider">|</span>
-          <a href="#" class="kv-footer__legal-link">Chính sách bảo mật</a>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-5 border-t border-white/5 pt-8">
+        <p class="text-xs text-text-muted/80 m-0">© 2026 KickVerse. Crafted with luxury aesthetics.</p>
+        <div class="flex items-center gap-3">
+          <a href="#" class="text-xs text-text-muted/80 no-underline transition-colors duration-200 hover:text-primary">Điều khoản dịch vụ</a>
+          <span class="text-[10px] text-white/10">|</span>
+          <a href="#" class="text-xs text-text-muted/80 no-underline transition-colors duration-200 hover:text-primary">Chính sách bảo mật</a>
         </div>
       </div>
 
     </div>
   </footer>
 </template>
-
-<style scoped>
-.kv-footer {
-  background: #0a0a0a;
-  border-top: 1px solid rgb(255 255 255 / 0.05);
-  color: rgb(245 244 240 / 0.75);
-  padding-top: 80px;
-  padding-bottom: 40px;
-  position: relative;
-  z-index: 10;
-}
-
-.kv-footer__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-.kv-footer__top {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 60px;
-}
-
-@media (max-width: 959px) {
-  .kv-footer__top {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-}
-
-.kv-footer__brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.kv-footer__logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 3px;
-  color: #f5f4f0;
-  text-decoration: none;
-  margin-bottom: 16px;
-  display: inline-block;
-}
-
-.kv-footer__logo span {
-  background: linear-gradient(135deg, #c8a96e, #e8c97e, #c8a96e);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.kv-footer__tagline {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgb(245 244 240 / 0.5);
-  max-width: 320px;
-  margin: 0 0 24px;
-}
-
-.kv-footer__socials {
-  display: flex;
-  gap: 16px;
-}
-
-.kv-footer__social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid rgb(255 255 255 / 0.08);
-  font-size: 11px;
-  font-weight: 700;
-  color: rgb(245 244 240 / 0.5);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.kv-footer__social-link:hover {
-  color: #0a0a0a;
-  background: #c8a96e;
-  border-color: #c8a96e;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgb(200 169 110 / 0.2);
-}
-
-/* Links Columns */
-.kv-footer__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-
-@media (max-width: 639px) {
-  .kv-footer__grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-}
-
-.kv-footer__col {
-  display: flex;
-  flex-direction: column;
-}
-
-.kv-footer__col-title {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #c8a96e;
-  margin: 0 0 20px;
-}
-
-.kv-footer__col-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.kv-footer__link {
-  font-size: 13.5px;
-  color: rgb(245 244 240 / 0.55);
-  text-decoration: none;
-  transition: color 0.2s ease, padding-left 0.2s ease;
-  display: inline-block;
-}
-
-.kv-footer__link:hover {
-  color: #f5f4f0;
-  padding-left: 4px;
-}
-
-/* Bottom Section */
-.kv-footer__bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border-top: 1px solid rgb(255 255 255 / 0.05);
-  padding-top: 32px;
-}
-
-@media (max-width: 639px) {
-  .kv-footer__bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-}
-
-.kv-footer__copy {
-  font-size: 12px;
-  color: rgb(245 244 240 / 0.4);
-  margin: 0;
-}
-
-.kv-footer__legal {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.kv-footer__legal-link {
-  font-size: 12px;
-  color: rgb(245 244 240 / 0.4);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.kv-footer__legal-link:hover {
-  color: #c8a96e;
-}
-
-.kv-footer__divider {
-  font-size: 10px;
-  color: rgb(245 244 240 / 0.2);
-}
-</style>

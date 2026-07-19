@@ -29,12 +29,12 @@ ensureDefaults()
 </script>
 
 <template>
-  <div class="kv-detail">
+  <div class="bg-surface-0 min-h-screen pt-10 pb-28 text-text-primary">
     <div class="kv-container">
       
       <!-- Back Link -->
-      <div class="kv-detail__header">
-        <RouterLink to="/shop" class="kv-detail__back">
+      <div class="mb-8">
+        <RouterLink to="/shop" class="inline-flex items-center gap-1.5 text-xs font-medium text-text-muted hover:text-primary transition-colors no-underline">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
@@ -43,52 +43,54 @@ ensureDefaults()
       </div>
 
       <!-- Main Layout Grid -->
-      <div class="kv-detail__grid" :class="{ 'kv-detail__grid--mobile': isMobile }">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
         
         <!-- Left: Image Gallery -->
-        <div class="kv-detail__media-panel">
-          <div class="kv-detail__image-box">
-            <img :src="product.image" :alt="product.name" class="kv-detail__img animate-fade-in" />
-            <div class="kv-detail__image-overlay"></div>
+        <div class="w-full">
+          <div class="relative w-full aspect-square bg-surface-1 border border-white/5 rounded-2xl overflow-hidden">
+            <img :src="product.image" :alt="product.name" class="w-full h-full object-cover block animate-fade-in" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
         </div>
 
         <!-- Right: Info Panel -->
-        <div class="kv-detail__info-panel">
+        <div class="flex flex-col">
           
           <!-- Category & Brand -->
-          <div class="kv-detail__meta">
-            <span class="kv-detail__brand">{{ product.brand }}</span>
-            <span class="kv-detail__cat" v-if="product.category">{{ product.category }}</span>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-[11px] font-bold tracking-wider uppercase text-primary px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">{{ product.brand }}</span>
+            <span class="text-[11px] font-semibold tracking-wide uppercase text-text-muted/65" v-if="product.category">{{ product.category }}</span>
           </div>
 
           <!-- Product Name -->
-          <h1 class="kv-detail__title">{{ product.name }}</h1>
+          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-white mb-5">{{ product.name }}</h1>
 
           <!-- Price Row -->
-          <div class="kv-detail__price-row">
-            <span class="kv-detail__price">{{ product.priceLabel }}</span>
-            <span v-if="product.compareAt" class="kv-detail__compare">{{ product.compareAt }}</span>
-            <KvBadge v-if="product.badge" :variant="product.badgeVariant || 'gold'" class="kv-detail__badge">
+          <div class="flex items-baseline gap-4 mb-6">
+            <span class="text-2xl md:text-3xl font-bold text-white">{{ product.priceLabel }}</span>
+            <span v-if="product.compareAt" class="text-base text-text-muted/40 line-through">{{ product.compareAt }}</span>
+            <KvBadge v-if="product.badge" :variant="product.badgeVariant || 'gold'" class="ml-2">
               {{ product.badge }}
             </KvBadge>
           </div>
 
           <!-- Description -->
-          <p class="kv-detail__desc">
+          <p class="text-sm leading-relaxed text-text-secondary mb-9">
             Trải nghiệm phong cách đỉnh cao với dòng giày thể thao cao cấp. Chất liệu da/mesh bền bỉ, lưỡi gà êm ái cùng bộ đế đệm giảm chấn giúp bạn tự tin di chuyển suốt ngày dài.
           </p>
 
           <!-- Colors -->
-          <div class="kv-detail__options" v-if="product.colors && product.colors.length">
-            <h3 class="kv-detail__option-title">Chọn màu</h3>
-            <div class="kv-detail__option-list">
+          <div class="mb-7" v-if="product.colors && product.colors.length">
+            <h3 class="text-xs font-bold tracking-wide uppercase text-text-muted/50 mb-3">Chọn màu</h3>
+            <div class="flex flex-wrap gap-2.5">
               <button
                 v-for="c in product.colors"
                 :key="c"
                 type="button"
-                class="kv-detail__color-btn"
-                :class="{ 'kv-detail__color-btn--active': color === c }"
+                class="px-5 py-2.5 text-xs font-bold tracking-wide rounded-lg cursor-pointer transition-all duration-200 border"
+                :class="color === c 
+                  ? 'text-black bg-primary border-primary shadow-[0_4px_12px_rgb(200_169_110/0.2)]'
+                  : 'text-text-secondary/70 bg-white/3 border-white/8 hover:text-white hover:border-white/25'"
                 @click="color = c"
               >
                 {{ c }}
@@ -97,15 +99,17 @@ ensureDefaults()
           </div>
 
           <!-- Sizes -->
-          <div class="kv-detail__options" v-if="product.sizes && product.sizes.length">
-            <h3 class="kv-detail__option-title">Chọn Size (US)</h3>
-            <div class="kv-detail__option-list kv-detail__option-list--grid">
+          <div class="mb-7" v-if="product.sizes && product.sizes.length">
+            <h3 class="text-xs font-bold tracking-wide uppercase text-text-muted/50 mb-3">Chọn Size (US)</h3>
+            <div class="grid grid-cols-4 sm:grid-cols-6 gap-2.5">
               <button
                 v-for="s in product.sizes"
                 :key="s"
                 type="button"
-                class="kv-detail__size-btn"
-                :class="{ 'kv-detail__size-btn--active': size === s }"
+                class="h-12 flex items-center justify-center text-xs font-bold rounded-lg cursor-pointer transition-all duration-200 border"
+                :class="size === s
+                  ? 'text-black bg-primary border-primary shadow-[0_4px_12px_rgb(200_169_110/0.2)]'
+                  : 'text-text-secondary/70 bg-white/3 border-white/8 hover:text-white hover:border-white/25'"
                 @click="size = s"
               >
                 {{ s }}
@@ -114,10 +118,10 @@ ensureDefaults()
           </div>
 
           <!-- Actions -->
-          <div class="kv-detail__actions">
+          <div class="flex gap-3 mt-3 mb-10">
             <button
               type="button"
-              class="kv-detail__add-btn"
+              class="flex-1 inline-flex items-center justify-center gap-2.5 h-13 text-xs font-extrabold tracking-widest uppercase text-black bg-gradient-to-r from-primary via-primary-hover to-primary-pressed rounded-lg shadow-lg hover:bg-right hover:-translate-y-0.5 hover:shadow-primary/35 transition-all duration-300 border-0 cursor-pointer"
               @click="cart.addItem(product, { size, color })"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -128,8 +132,10 @@ ensureDefaults()
             
             <button
               type="button"
-              class="kv-detail__wish-btn"
-              :class="{ 'kv-detail__wish-btn--active': wishlist.has(product.id) }"
+              class="w-13 h-13 flex items-center justify-center rounded-lg cursor-pointer transition-all duration-200 border"
+              :class="wishlist.has(product.id)
+                ? 'text-commerce border-commerce/20 bg-commerce/8 hover:border-commerce/30'
+                : 'text-text-secondary/70 bg-white/4 border-white/8 hover:text-white hover:border-white/25'"
               @click="wishlist.toggle(product)"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" :fill="wishlist.has(product.id) ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -139,19 +145,19 @@ ensureDefaults()
           </div>
 
           <!-- Brand Guarantees -->
-          <div class="kv-detail__guarantees">
-            <div class="kv-detail__guarantee">
-              <span class="kv-detail__guarantee-icon">⚡</span>
+          <div class="border-t border-white/5 pt-8 flex flex-col gap-5">
+            <div class="flex gap-4">
+              <span class="text-xl flex items-center justify-center w-10 h-10 bg-white/3 border border-white/6 rounded-full flex-shrink-0">⚡</span>
               <div>
-                <p class="kv-detail__guarantee-title">Giao Hàng Siêu Tốc 24H</p>
-                <p class="kv-detail__guarantee-desc">Nội thành TP.HCM & Hà Nội nhận hàng sớm nhất.</p>
+                <p class="text-[13.5px] font-bold text-white mb-1">Giao Hàng Siêu Tốc 24H</p>
+                <p class="text-[12.5px] text-text-muted/55 m-0">Nội thành TP.HCM & Hà Nội nhận hàng sớm nhất.</p>
               </div>
             </div>
-            <div class="kv-detail__guarantee">
-              <span class="kv-detail__guarantee-icon">🔄</span>
+            <div class="flex gap-4">
+              <span class="text-xl flex items-center justify-center w-10 h-10 bg-white/3 border border-white/6 rounded-full flex-shrink-0">🔄</span>
               <div>
-                <p class="kv-detail__guarantee-title">Hỗ Trợ Đổi Size Miễn Phí</p>
-                <p class="kv-detail__guarantee-desc">Bảo hành 14 ngày, đổi size thuận tiện nếu còn tem mác.</p>
+                <p class="text-[13.5px] font-bold text-white mb-1">Hỗ Trợ Đổi Size Miễn Phí</p>
+                <p class="text-[12.5px] text-text-muted/55 m-0">Bảo hành 14 ngày, đổi size thuận tiện nhanh chóng nếu còn tem mác.</p>
               </div>
             </div>
           </div>
@@ -163,321 +169,3 @@ ensureDefaults()
     </div>
   </div>
 </template>
-
-<style scoped>
-.kv-detail {
-  background: #0a0a0a;
-  min-height: 100vh;
-  padding-top: 40px;
-  padding-bottom: 120px;
-  color: #f5f4f0;
-}
-
-.kv-detail__header {
-  margin-bottom: 32px;
-}
-
-.kv-detail__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgb(245 244 240 / 0.45);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.kv-detail__back:hover { color: #c8a96e; }
-
-.kv-detail__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-}
-
-.kv-detail__grid--mobile {
-  grid-template-columns: 1fr;
-  gap: 40px;
-}
-
-/* Image gallery panel */
-.kv-detail__media-panel {
-  width: 100%;
-}
-
-.kv-detail__image-box {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #111111;
-  border: 1px solid rgb(255 255 255 / 0.05);
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.kv-detail__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.kv-detail__image-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgb(10 10 10 / 0.2) 0%, transparent 100%);
-}
-
-/* Info Panel */
-.kv-detail__info-panel {
-  display: flex;
-  flex-direction: column;
-}
-
-.kv-detail__meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.kv-detail__brand {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #c8a96e;
-  padding: 4px 10px;
-  background: rgb(200 169 110 / 0.1);
-  border: 1px solid rgb(200 169 110 / 0.2);
-  border-radius: 4px;
-}
-
-.kv-detail__cat {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgb(245 244 240 / 0.4);
-}
-
-.kv-detail__title {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
-  color: #f5f4f0;
-  margin: 0 0 20px;
-}
-
-.kv-detail__price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.kv-detail__price {
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 700;
-  color: #f5f4f0;
-}
-
-.kv-detail__compare {
-  font-size: 16px;
-  color: rgb(245 244 240 / 0.4);
-  text-decoration: line-through;
-}
-
-.kv-detail__desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgb(245 244 240 / 0.65);
-  margin: 0 0 36px;
-}
-
-/* Options */
-.kv-detail__options {
-  margin-bottom: 28px;
-}
-
-.kv-detail__option-title {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgb(245 244 240 / 0.5);
-  margin: 0 0 12px;
-}
-
-.kv-detail__option-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.kv-detail__option-list--grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-
-@media (max-width: 639px) {
-  .kv-detail__option-list--grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Color & Size buttons */
-.kv-detail__color-btn {
-  padding: 10px 20px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: rgb(245 244 240 / 0.7);
-  background: rgb(255 255 255 / 0.03);
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.kv-detail__color-btn:hover {
-  color: #f5f4f0;
-  border-color: rgb(255 255 255 / 0.2);
-}
-
-.kv-detail__color-btn--active {
-  color: #0a0a0a;
-  background: #c8a96e;
-  border-color: #c8a96e;
-  box-shadow: 0 4px 12px rgb(200 169 110 / 0.2);
-}
-
-.kv-detail__size-btn {
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
-  color: rgb(245 244 240 / 0.7);
-  background: rgb(255 255 255 / 0.03);
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.kv-detail__size-btn:hover {
-  color: #f5f4f0;
-  border-color: rgb(255 255 255 / 0.2);
-}
-
-.kv-detail__size-btn--active {
-  color: #0a0a0a;
-  background: #c8a96e;
-  border-color: #c8a96e;
-  box-shadow: 0 4px 12px rgb(200 169 110 / 0.2);
-}
-
-/* Actions Row */
-.kv-detail__actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
-  margin-bottom: 40px;
-}
-
-.kv-detail__add-btn {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  height: 52px;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #0a0a0a;
-  background: linear-gradient(135deg, #c8a96e 0%, #e8c97e 50%, #c8a96e 100%);
-  background-size: 200% auto;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgb(200 169 110 / 0.2);
-}
-
-.kv-detail__add-btn:hover {
-  background-position: right center;
-  transform: translateY(-1px);
-  box-shadow: 0 12px 32px rgb(200 169 110 / 0.35);
-}
-
-.kv-detail__wish-btn {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(245 244 240 / 0.7);
-  background: rgb(255 255 255 / 0.04);
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.kv-detail__wish-btn:hover {
-  color: #f5f4f0;
-  border-color: rgb(255 255 255 / 0.2);
-}
-
-.kv-detail__wish-btn--active {
-  color: #ef4444;
-  border-color: rgb(239 68 68 / 0.2);
-  background: rgb(239 68 68 / 0.08);
-}
-
-/* Guarantees */
-.kv-detail__guarantees {
-  border-top: 1px solid rgb(255 255 255 / 0.05);
-  padding-top: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.kv-detail__guarantee {
-  display: flex;
-  gap: 16px;
-}
-
-.kv-detail__guarantee-icon {
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: rgb(255 255 255 / 0.03);
-  border: 1px solid rgb(255 255 255 / 0.06);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.kv-detail__guarantee-title {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: #f5f4f0;
-  margin: 0 0 4px;
-}
-
-.kv-detail__guarantee-desc {
-  font-size: 12.5px;
-  color: rgb(245 244 240 / 0.5);
-  margin: 0;
-}
-</style>

@@ -17,19 +17,19 @@ defineEmits(['add-to-cart'])
 </script>
 
 <template>
-  <article class="kv-card-premium">
+  <article class="flex flex-col bg-surface-dark-card border border-white/5 rounded-xl overflow-hidden hover:-translate-y-1 hover:border-primary/15 hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)] transition-all duration-300 relative group">
     <!-- Image Area -->
-    <RouterLink :to="`/shop/${product.slug}`" class="kv-card-premium__image-wrap">
+    <RouterLink :to="`/shop/${product.slug}`" class="relative w-full aspect-square overflow-hidden block bg-neutral-900 no-underline">
       <img
         :src="product.image"
         :alt="product.name"
-        class="kv-card-premium__img"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
       />
-      <div class="kv-card-premium__overlay"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
       
       <!-- Badges -->
-      <div class="kv-card-premium__badges" v-if="product.badge">
+      <div class="absolute top-3 left-3 z-10 flex flex-wrap gap-1.5" v-if="product.badge">
         <KvBadge :variant="product.badgeVariant || 'gold'">
           {{ product.badge }}
         </KvBadge>
@@ -37,23 +37,23 @@ defineEmits(['add-to-cart'])
     </RouterLink>
 
     <!-- Info Area -->
-    <div class="kv-card-premium__info">
-      <div class="kv-card-premium__header">
-        <span class="kv-card-premium__brand">{{ product.brand }}</span>
-        <RouterLink :to="`/shop/${product.slug}`" class="kv-card-premium__title">
+    <div class="p-5 flex flex-col flex-1 gap-4">
+      <div class="flex flex-col gap-1">
+        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">{{ product.brand }}</span>
+        <RouterLink :to="`/shop/${product.slug}`" class="text-base font-semibold text-white no-underline hover:text-primary transition-colors duration-200 line-clamp-2">
           {{ product.name }}
         </RouterLink>
       </div>
 
-      <div class="kv-card-premium__footer">
-        <div class="kv-card-premium__price-box">
-          <span class="kv-card-premium__price">{{ product.priceLabel }}</span>
-          <span v-if="product.compareAt" class="kv-card-premium__compare">{{ product.compareAt }}</span>
+      <div class="flex items-center justify-between mt-auto gap-3">
+        <div class="flex flex-col">
+          <span class="text-base font-bold text-white">{{ product.priceLabel }}</span>
+          <span v-if="product.compareAt" class="text-xs text-text-muted/40 line-through">{{ product.compareAt }}</span>
         </div>
         
         <button
           type="button"
-          class="kv-card-premium__buy-btn"
+          class="inline-flex items-center gap-1.5 h-9 px-4 text-[11px] font-extrabold tracking-wider text-black bg-primary border-0 rounded-md cursor-pointer hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(200,169,110,0.25)] transition-all duration-200"
           aria-label="Thêm vào giỏ hàng"
           @click.stop.prevent="$emit('add-to-cart', product)"
         >
@@ -66,148 +66,3 @@ defineEmits(['add-to-cart'])
     </div>
   </article>
 </template>
-
-<style scoped>
-.kv-card-premium {
-  display: flex;
-  flex-direction: column;
-  background: #111111;
-  border: 1px solid rgb(255 255 255 / 0.04);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-}
-
-.kv-card-premium:hover {
-  transform: translateY(-4px);
-  border-color: rgb(200 169 110 / 0.15);
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.6);
-}
-
-.kv-card-premium__image-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  display: block;
-  background: #181818;
-}
-
-.kv-card-premium__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.kv-card-premium:hover .kv-card-premium__img {
-  transform: scale(1.05);
-}
-
-.kv-card-premium__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgb(10 10 10 / 0.2) 0%, transparent 100%);
-  pointer-events: none;
-}
-
-.kv-card-premium__badges {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-/* Info */
-.kv-card-premium__info {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 16px;
-}
-
-.kv-card-premium__header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.kv-card-premium__brand {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #c8a96e;
-}
-
-.kv-card-premium__title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #f5f4f0;
-  line-height: 1.4;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.kv-card-premium__title:hover {
-  color: #c8a96e;
-}
-
-/* Footer */
-.kv-card-premium__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  gap: 12px;
-}
-
-.kv-card-premium__price-box {
-  display: flex;
-  flex-direction: column;
-}
-
-.kv-card-premium__price {
-  font-size: 16px;
-  font-weight: 700;
-  color: #f5f4f0;
-}
-
-.kv-card-premium__compare {
-  font-size: 12px;
-  color: rgb(245 244 240 / 0.4);
-  text-decoration: line-through;
-}
-
-.kv-card-premium__buy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 36px;
-  padding: 0 16px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #0a0a0a;
-  background: #c8a96e;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.kv-card-premium__buy-btn:hover {
-  background: #d4ba80;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgb(200 169 110 / 0.25);
-}
-</style>

@@ -26,22 +26,22 @@ const products = computed(() => {
 </script>
 
 <template>
-  <div class="kv-shop">
+  <div class="bg-surface-0 min-h-screen text-text-primary">
     <!-- Header Banner -->
-    <header class="kv-shop-header">
+    <header class="pt-16 pb-10 bg-gradient-to-b from-surface-1 to-surface-0 border-b border-white/5">
       <div class="kv-container">
-        <div class="kv-shop-header__inner">
-          <div class="kv-shop-header__text">
-            <span class="kv-section-tag">Catalog</span>
-            <h1 class="kv-shop-header__title">Cửa hàng</h1>
-            <p class="kv-shop-header__desc">
+        <div class="flex flex-col gap-8">
+          <div class="flex flex-col">
+            <span class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded self-start">Catalog</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-none text-white mt-3 mb-2">Cửa hàng</h1>
+            <p class="text-sm text-text-muted m-0">
               Khám phá {{ products.length }} sản phẩm tuyển chọn từ các thương hiệu hàng đầu.
             </p>
           </div>
           
           <!-- Brand filter row -->
-          <div class="kv-shop-header__filters">
-            <div class="kv-shop-header__filters-scroll">
+          <div class="relative w-full">
+            <div class="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               <KvFilterPill
                 v-for="f in filters"
                 :key="f"
@@ -57,22 +57,22 @@ const products = computed(() => {
     </header>
 
     <!-- Main Products Area -->
-    <main class="kv-shop-main">
+    <main class="pt-12 pb-28">
       <div class="kv-container">
         
         <!-- Empty State -->
-        <div v-if="products.length === 0" class="kv-shop-empty">
-          <p class="kv-shop-empty__title">Không tìm thấy sản phẩm</p>
-          <p class="kv-shop-empty__desc">Vui lòng chọn bộ lọc hoặc phân loại khác.</p>
+        <div v-if="products.length === 0" class="py-28 px-6 text-center bg-surface-1 border border-white/5 rounded-xl">
+          <p class="text-xl font-bold text-white mb-2">Không tìm thấy sản phẩm</p>
+          <p class="text-sm text-text-muted m-0">Vui lòng chọn bộ lọc hoặc phân loại khác.</p>
         </div>
 
         <!-- Product Grid -->
-        <div v-else class="kv-shop-grid" :class="{ 'kv-shop-grid--mobile': isMobile }">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           <KvProductCard
             v-for="p in products"
             :key="p.id"
             :product="p"
-            class="kv-animate-fade-up"
+            class="animate-fade-in-up"
             @add-to-cart="cart.addItem"
           />
         </div>
@@ -81,124 +81,3 @@ const products = computed(() => {
     </main>
   </div>
 </template>
-
-<style scoped>
-.kv-shop {
-  background: #0a0a0a;
-  min-height: 100vh;
-  color: #f5f4f0;
-}
-
-/* Header */
-.kv-shop-header {
-  padding-top: 60px;
-  padding-bottom: 40px;
-  background: linear-gradient(to bottom, #111111 0%, #0a0a0a 100%);
-  border-bottom: 1px solid rgb(255 255 255 / 0.04);
-}
-
-.kv-shop-header__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.kv-shop-header__title {
-  font-size: clamp(40px, 6vw, 64px);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1;
-  color: #f5f4f0;
-  margin: 12px 0 8px;
-}
-
-.kv-shop-header__desc {
-  font-size: 15px;
-  color: rgb(245 244 240 / 0.55);
-  margin: 0;
-}
-
-.kv-shop-header__filters {
-  position: relative;
-  width: 100%;
-}
-
-.kv-shop-header__filters-scroll {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Hide scrollbar */
-.kv-shop-header__filters-scroll::-webkit-scrollbar {
-  display: none;
-}
-.kv-shop-header__filters-scroll {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Grid Area */
-.kv-shop-main {
-  padding-top: 48px;
-  padding-bottom: 120px;
-}
-
-.kv-shop-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-@media (max-width: 959px) {
-  .kv-shop-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-
-@media (max-width: 599px) {
-  .kv-shop-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
-/* Empty state */
-.kv-shop-empty {
-  padding: 120px 24px;
-  text-align: center;
-  background: #111111;
-  border: 1px solid rgb(255 255 255 / 0.04);
-  border-radius: 12px;
-}
-
-.kv-shop-empty__title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #f5f4f0;
-  margin: 0 0 8px;
-}
-
-.kv-shop-empty__desc {
-  font-size: 14px;
-  color: rgb(245 244 240 / 0.55);
-  margin: 0;
-}
-
-/* Tag */
-.kv-section-tag {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #c8a96e;
-  padding: 4px 10px;
-  background: rgb(200 169 110 / 0.1);
-  border: 1px solid rgb(200 169 110 / 0.2);
-  border-radius: 4px;
-}
-</style>

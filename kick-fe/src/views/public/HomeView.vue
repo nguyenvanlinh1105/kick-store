@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import KvButton from '@/components/ui/KvButton.vue'
 import KvProductCard from '@/components/ui/KvProductCard.vue'
 import { DEMO_PRODUCTS } from '@/data/demo'
 import { useCartStore } from '@/stores/cart'
@@ -43,98 +42,98 @@ const stats = [
 </script>
 
 <template>
-  <div class="kv-home">
+  <div class="bg-surface-0 text-text-primary">
 
-    <!-- ═══════════════════════════════════════
-         HERO — Full-bleed cinematic
-    ═══════════════════════════════════════ -->
-    <section class="kv-hero" id="hero" aria-label="Hero section">
-      <!-- BG Image Layer -->
-      <div class="kv-hero__bg">
+    <!-- HERO Section -->
+    <section class="relative min-h-[100svh] flex items-center overflow-hidden" id="hero" aria-label="Hero section">
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1920&q=85&auto=format&fit=crop"
           alt=""
           aria-hidden="true"
-          class="kv-hero__bg-img"
+          class="w-full h-full object-cover object-[center_30%] saturate-[0.7]"
         />
-        <div class="kv-hero__bg-overlay"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-neutral-950/95 via-neutral-950/80 to-transparent"></div>
       </div>
 
-      <!-- Noise Texture -->
-      <div class="kv-hero__noise" aria-hidden="true"></div>
+      <!-- Noise Overlay -->
+      <div 
+        class="absolute inset-0 z-10 opacity-3 pointer-events-none"
+        style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E&quot;); background-size: 200px;"
+        aria-hidden="true"
+      ></div>
 
       <!-- Content -->
-      <div class="kv-container kv-hero__content">
-        <div class="kv-hero__eyebrow">
-          <span class="kv-hero__eyebrow-dot"></span>
+      <div class="relative z-20 kv-container pt-20 pb-28">
+        <div class="flex items-center gap-2.5 text-[11px] font-bold tracking-[3px] uppercase text-primary mb-7 animate-pulse">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
           KickVerse · SS 2026
         </div>
 
-        <h1 class="kv-hero__title">
-          <span class="kv-hero__title-line">Đôi giày</span>
-          <span class="kv-hero__title-line kv-hero__title-line--accent">định nghĩa</span>
-          <span class="kv-hero__title-line">phong cách.</span>
+        <h1 class="flex flex-col font-display text-[64px] sm:text-[96px] md:text-[120px] leading-[0.92] tracking-[-1px] text-white mb-8">
+          <span class="block">Đôi giày</span>
+          <span class="block bg-gradient-to-r from-primary via-primary-hover to-primary-pressed bg-clip-text text-transparent">định nghĩa</span>
+          <span class="block">phong cách.</span>
         </h1>
 
-        <p class="kv-hero__desc">
+        <p class="max-w-md text-base leading-relaxed text-text-secondary/95 mb-12">
           Curated sneakers từ các thương hiệu hàng đầu.<br v-if="!isMobile" />
           Từ limited drops đến everyday essentials.
         </p>
 
-        <div class="kv-hero__actions">
-          <RouterLink to="/shop" class="kv-btn-primary-hero" id="hero-shop-btn">
+        <div class="flex flex-wrap gap-3.5 mb-16">
+          <RouterLink to="/shop" class="inline-flex items-center gap-2.5 px-7 py-3.5 text-xs font-bold tracking-widest uppercase text-black bg-primary rounded-md hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgb(200_169_110/0.3)] transition-all duration-200 no-underline" id="hero-shop-btn">
             Khám phá ngay
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
             </svg>
           </RouterLink>
-          <RouterLink to="/shop?cat=new" class="kv-btn-ghost-hero" id="hero-new-btn">
+          <RouterLink to="/shop?cat=new" class="inline-flex items-center px-7 py-3.5 text-xs font-bold tracking-widest uppercase text-white bg-transparent border border-white/20 rounded-md hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 no-underline" id="hero-new-btn">
             Hàng mới về
           </RouterLink>
         </div>
 
         <!-- Stats Row -->
-        <div class="kv-hero__stats">
-          <div v-for="stat in stats" :key="stat.label" class="kv-hero__stat">
-            <span class="kv-hero__stat-value">{{ stat.value }}</span>
-            <span class="kv-hero__stat-label">{{ stat.label }}</span>
+        <div class="flex flex-wrap gap-10">
+          <div v-for="stat in stats" :key="stat.label" class="flex flex-col gap-1">
+            <span class="font-display text-4xl tracking-wider text-primary leading-none">{{ stat.value }}</span>
+            <span class="text-[11px] font-semibold tracking-widest uppercase text-text-muted/85">{{ stat.label }}</span>
           </div>
         </div>
       </div>
 
       <!-- Scroll indicator -->
-      <div class="kv-hero__scroll" aria-hidden="true">
-        <div class="kv-hero__scroll-line"></div>
-        <span>Scroll</span>
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2" aria-hidden="true">
+        <div class="w-px h-12 bg-gradient-to-b from-primary to-transparent animate-bounce"></div>
+        <span class="text-[9px] font-bold tracking-[3px] uppercase text-text-muted/65">Scroll</span>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         COLLECTIONS — 3-col grid
-    ═══════════════════════════════════════ -->
-    <section class="kv-collections kv-section" id="collections" aria-label="Bộ sưu tập">
+    <!-- COLLECTIONS Section -->
+    <section class="bg-white py-24" id="collections" aria-label="Bộ sưu tập">
       <div class="kv-container">
-        <div class="kv-section-header">
-          <div class="kv-section-tag">Bộ sưu tập</div>
-          <h2 class="kv-section-title">Chọn phong cách của bạn</h2>
+        <div class="mb-12">
+          <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary/5 border border-primary/15 rounded">Bộ sưu tập</div>
+          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] text-black m-0">Chọn phong cách của bạn</h2>
         </div>
 
-        <div class="kv-collections__grid" :class="{ 'kv-collections__grid--mobile': isMobile }">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <RouterLink
             v-for="col in collections"
             :key="col.id"
             :to="col.to"
-            class="kv-collection-card"
+            class="relative block rounded-xl overflow-hidden aspect-[3/4] group no-underline"
             :id="`collection-${col.id}`"
           >
-            <div class="kv-collection-card__img-wrap">
-              <img :src="col.img" :alt="col.label" class="kv-collection-card__img" loading="lazy" />
-              <div class="kv-collection-card__overlay"></div>
+            <div class="absolute inset-0">
+              <img :src="col.img" :alt="col.label" class="w-full h-full object-cover saturate-[0.8] group-hover:scale-105 group-hover:saturate-100 transition-all duration-500" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent group-hover:from-black/95 group-hover:via-black/30 transition-all duration-300"></div>
             </div>
-            <div class="kv-collection-card__info">
-              <span class="kv-collection-card__tag">{{ col.tag }}</span>
-              <h3 class="kv-collection-card__name">{{ col.label }}</h3>
-              <span class="kv-collection-card__cta">
+            <div class="absolute bottom-0 inset-x-0 p-7 flex flex-col gap-1.5 z-10">
+              <span class="text-[10px] font-bold tracking-widest uppercase text-primary">{{ col.tag }}</span>
+              <h3 class="font-display text-4xl tracking-wider text-white m-0 leading-none">{{ col.label }}</h3>
+              <span class="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-white/50 group-hover:text-primary group-hover:gap-3 transition-all duration-200 mt-1">
                 Xem ngay
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
@@ -146,24 +145,23 @@ const stats = [
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         FEATURED PRODUCTS
-    ═══════════════════════════════════════ -->
-    <section class="kv-featured kv-section" id="featured-products" aria-label="Sản phẩm nổi bật">
+    <!-- FEATURED PRODUCTS -->
+    <section class="bg-surface-1 py-24" id="featured-products" aria-label="Sản phẩm nổi bật">
       <div class="kv-container">
-        <div class="kv-section-header kv-section-header--split">
+        <div class="flex items-end justify-between gap-6 mb-12">
           <div>
-            <div class="kv-section-tag">Hot này tuần</div>
-            <h2 class="kv-section-title">Bán chạy nhất</h2>
+            <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">Hot tuần này</div>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] text-white m-0">Bán chạy nhất</h2>
           </div>
-          <RouterLink to="/shop" class="kv-link-cta" id="view-all-products-link">
+          <RouterLink to="/shop" class="inline-flex items-center gap-2 text-xs font-bold tracking-wide text-primary transition-all duration-200 hover:gap-3 hover:opacity-80 pb-1 no-underline" id="view-all-products-link">
             Xem tất cả
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
             </svg>
           </RouterLink>
         </div>
-        <div class="kv-product-grid" :class="{ 'kv-product-grid--mobile': isMobile }">
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <KvProductCard
             v-for="p in featured"
             :key="p.id"
@@ -174,39 +172,37 @@ const stats = [
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         EDITORIAL SPLIT — Brand story
-    ═══════════════════════════════════════ -->
-    <section class="kv-editorial kv-section" id="editorial" aria-label="Câu chuyện thương hiệu">
+    <!-- EDITORIAL SPLIT -->
+    <section class="bg-surface-0 py-24" id="editorial" aria-label="Câu chuyện thương hiệu">
       <div class="kv-container">
-        <div class="kv-editorial__grid" :class="{ 'kv-editorial__grid--mobile': isMobile }">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
           <!-- Image -->
-          <div class="kv-editorial__media">
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/5] group">
             <img
               src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1000&q=85&auto=format&fit=crop"
               alt="KickVerse — Crafted for the street"
-              class="kv-editorial__img"
+              class="w-full h-full object-cover group-hover:scale-[1.02] transition-all duration-500"
               loading="lazy"
             />
-            <div class="kv-editorial__media-badge">
+            <div class="absolute bottom-6 right-6 px-4.5 py-2.5 bg-primary/90 backdrop-blur-md rounded-md text-[12px] font-bold tracking-wider uppercase text-black">
               <span>Since 2024</span>
             </div>
           </div>
 
           <!-- Text -->
-          <div class="kv-editorial__text">
-            <div class="kv-section-tag">Về chúng tôi</div>
-            <h2 class="kv-editorial__title">
+          <div class="flex flex-col">
+            <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">Về chúng tôi</div>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-white mt-4 mb-7">
               Chất liệu.<br/>Form dáng.<br/>
-              <span class="kv-text-gold">Cảm giác đi.</span>
+              <span class="bg-gradient-to-r from-primary via-primary-hover to-primary-pressed bg-clip-text text-transparent">Cảm giác đi.</span>
             </h2>
-            <p class="kv-editorial__desc">
+            <p class="text-sm leading-relaxed text-text-secondary mb-4">
               Mỗi đôi giày trên KickVerse được chọn lọc theo tiêu chí thực tế: đế êm, form chuẩn streetwear, và bảng size rõ ràng trước khi bạn thêm vào giỏ hàng.
             </p>
-            <p class="kv-editorial__desc">
+            <p class="text-sm leading-relaxed text-text-secondary mb-8">
               Chúng tôi tin rằng sneaker không chỉ là thời trang — đó là cách bạn bước đi trong cuộc sống.
             </p>
-            <RouterLink to="/support" class="kv-btn-outline" id="editorial-learn-more-btn">
+            <RouterLink to="/support" class="inline-flex items-center self-start px-6 py-3 text-[11px] font-bold tracking-widest uppercase text-white border border-white/20 rounded-md hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 no-underline" id="editorial-learn-more-btn">
               Tìm hiểu thêm
             </RouterLink>
           </div>
@@ -214,19 +210,22 @@ const stats = [
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════
-         MEMBERSHIP CTA — Gold gradient
-    ═══════════════════════════════════════ -->
-    <section class="kv-membership" id="membership" aria-label="Thành viên KickVerse">
-      <div class="kv-container kv-membership__inner" :class="{ 'kv-membership__inner--mobile': isMobile }">
-        <div class="kv-membership__text">
-          <div class="kv-section-tag kv-section-tag--dark">Thành viên</div>
-          <h2 class="kv-membership__title">Trở thành KickVerse Member</h2>
-          <p class="kv-membership__desc">
+    <!-- MEMBERSHIP CTA -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-yellow-950/20 via-surface-0 to-neutral-900/40 border-y border-primary/10 py-24" id="membership" aria-label="Thành viên KickVerse">
+      <!-- Watermark Background -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] md:text-[200px] tracking-[8px] text-primary/3 select-none pointer-events-none whitespace-nowrap" aria-hidden="true">
+        KICKVERSE
+      </div>
+      
+      <div class="relative z-10 kv-container flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
+        <div class="flex flex-col">
+          <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">Thành viên</div>
+          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-white mt-4 mb-4">Trở thành KickVerse Member</h2>
+          <p class="text-sm leading-relaxed text-text-secondary max-w-md m-0">
             Nhận thông báo drop mới sớm nhất, theo dõi đơn và lưu wishlist trên mọi thiết bị.
           </p>
         </div>
-        <RouterLink to="/register" class="kv-btn-membership" id="membership-register-btn">
+        <RouterLink to="/register" class="inline-flex items-center gap-3 px-8 py-4 text-xs font-bold tracking-widest uppercase text-black bg-gradient-to-r from-primary via-primary-hover to-primary-pressed rounded-lg shadow-lg hover:bg-right hover:scale-[1.02] hover:shadow-primary-hover/35 transition-all duration-200 no-underline" id="membership-register-btn">
           Tạo tài khoản miễn phí
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
@@ -237,592 +236,3 @@ const stats = [
 
   </div>
 </template>
-
-<style scoped>
-/* ── HOME WRAPPER ── */
-.kv-home { background: #0a0a0a; color: #f5f4f0; }
-
-/* ══════════════════════════════════════
-   HERO
-══════════════════════════════════════ */
-.kv-hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.kv-hero__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.kv-hero__bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-  filter: saturate(0.7);
-}
-
-.kv-hero__bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    105deg,
-    rgb(10 10 10 / 0.95) 0%,
-    rgb(10 10 10 / 0.8) 45%,
-    rgb(10 10 10 / 0.3) 100%
-  );
-}
-
-/* Grain noise texture */
-.kv-hero__noise {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  background-size: 200px;
-  pointer-events: none;
-}
-
-.kv-hero__content {
-  position: relative;
-  z-index: 2;
-  padding-top: 80px;
-  padding-bottom: 120px;
-}
-
-/* Eyebrow */
-.kv-hero__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #c8a96e;
-  margin-bottom: 28px;
-  animation: kv-fade-in-up 0.6s 0.1s both;
-}
-
-.kv-hero__eyebrow-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #c8a96e;
-  animation: kv-pulse-gold 2s ease infinite;
-  flex-shrink: 0;
-}
-
-/* Title */
-.kv-hero__title {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(64px, 10vw, 120px);
-  line-height: 0.92;
-  letter-spacing: -1px;
-  color: #f5f4f0;
-  margin: 0 0 32px;
-}
-
-.kv-hero__title-line { display: block; }
-
-.kv-hero__title-line--accent {
-  background: linear-gradient(135deg, #c8a96e 0%, #e8c97e 50%, #b8944e 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.kv-hero__title-line:nth-child(1) { animation: kv-fade-in-up 0.6s 0.2s both; }
-.kv-hero__title-line:nth-child(2) { animation: kv-fade-in-up 0.6s 0.35s both; }
-.kv-hero__title-line:nth-child(3) { animation: kv-fade-in-up 0.6s 0.5s both; }
-
-.kv-hero__desc {
-  max-width: 480px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: rgb(245 244 240 / 0.65);
-  margin-bottom: 48px;
-  animation: kv-fade-in-up 0.6s 0.6s both;
-}
-
-/* Hero Buttons */
-.kv-hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 64px;
-  animation: kv-fade-in-up 0.6s 0.7s both;
-}
-
-.kv-btn-primary-hero {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #0a0a0a;
-  background: #c8a96e;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-
-.kv-btn-primary-hero:hover {
-  background: #d4ba80;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgb(200 169 110 / 0.3);
-}
-
-.kv-btn-ghost-hero {
-  display: inline-flex;
-  align-items: center;
-  padding: 14px 28px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #f5f4f0;
-  background: transparent;
-  border: 1px solid rgb(255 255 255 / 0.2);
-  border-radius: 6px;
-  text-decoration: none;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
-}
-
-.kv-btn-ghost-hero:hover {
-  border-color: #c8a96e;
-  color: #c8a96e;
-  background: rgb(200 169 110 / 0.05);
-}
-
-/* Stats */
-.kv-hero__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  animation: kv-fade-in-up 0.6s 0.85s both;
-}
-
-.kv-hero__stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.kv-hero__stat-value {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px;
-  letter-spacing: 1px;
-  color: #c8a96e;
-  line-height: 1;
-}
-
-.kv-hero__stat-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: rgb(245 244 240 / 0.45);
-}
-
-/* Scroll Indicator */
-.kv-hero__scroll {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  animation: kv-fade-in-up 0.6s 1.2s both;
-}
-
-.kv-hero__scroll-line {
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, #c8a96e, transparent);
-  animation: kv-float 2s ease-in-out infinite;
-}
-
-.kv-hero__scroll span {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgb(245 244 240 / 0.35);
-}
-
-/* ══════════════════════════════════════
-   SECTION COMMON
-══════════════════════════════════════ */
-.kv-section-header {
-  margin-bottom: 48px;
-}
-
-.kv-section-header--split {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.kv-section-tag {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #c8a96e;
-  margin-bottom: 12px;
-  padding: 4px 10px;
-  background: rgb(200 169 110 / 0.1);
-  border: 1px solid rgb(200 169 110 / 0.2);
-  border-radius: 4px;
-}
-
-.kv-section-tag--dark {
-  color: rgb(10 10 10 / 0.7);
-  background: rgb(10 10 10 / 0.06);
-  border-color: rgb(10 10 10 / 0.12);
-}
-
-.kv-section-title {
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 800;
-  letter-spacing: -1px;
-  line-height: 1.05;
-  color: #f5f4f0;
-  margin: 0;
-}
-
-.kv-link-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #c8a96e;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: gap 0.2s, opacity 0.2s;
-  flex-shrink: 0;
-  padding-bottom: 4px;
-}
-
-.kv-link-cta:hover { gap: 12px; opacity: 0.8; }
-
-/* ══════════════════════════════════════
-   COLLECTIONS
-══════════════════════════════════════ */
-.kv-collections {
-  background: #0a0a0a;
-}
-
-.kv-collections__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.kv-collections__grid--mobile {
-  grid-template-columns: 1fr;
-}
-
-.kv-collection-card {
-  position: relative;
-  display: block;
-  border-radius: 12px;
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  text-decoration: none;
-  group: true;
-}
-
-.kv-collection-card__img-wrap {
-  position: absolute;
-  inset: 0;
-}
-
-.kv-collection-card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
-  filter: saturate(0.8);
-}
-
-.kv-collection-card:hover .kv-collection-card__img {
-  transform: scale(1.06);
-  filter: saturate(1);
-}
-
-.kv-collection-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgb(10 10 10 / 0.9) 0%, rgb(10 10 10 / 0.1) 60%, transparent 100%);
-  transition: opacity 0.3s;
-}
-
-.kv-collection-card:hover .kv-collection-card__overlay {
-  background: linear-gradient(to top, rgb(10 10 10 / 0.95) 0%, rgb(10 10 10 / 0.3) 60%, transparent 100%);
-}
-
-.kv-collection-card__info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 1;
-}
-
-.kv-collection-card__tag {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #c8a96e;
-}
-
-.kv-collection-card__name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 40px;
-  letter-spacing: 1px;
-  line-height: 1;
-  color: #f5f4f0;
-  margin: 0;
-}
-
-.kv-collection-card__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgb(245 244 240 / 0.5);
-  transition: color 0.2s, gap 0.2s;
-  margin-top: 4px;
-}
-
-.kv-collection-card:hover .kv-collection-card__cta {
-  color: #c8a96e;
-  gap: 12px;
-}
-
-/* ══════════════════════════════════════
-   FEATURED PRODUCTS
-══════════════════════════════════════ */
-.kv-featured {
-  background: #111111;
-}
-
-.kv-product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-.kv-product-grid--mobile {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-/* ══════════════════════════════════════
-   EDITORIAL
-══════════════════════════════════════ */
-.kv-editorial {
-  background: #0a0a0a;
-}
-
-.kv-editorial__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.kv-editorial__grid--mobile {
-  grid-template-columns: 1fr;
-  gap: 40px;
-}
-
-.kv-editorial__media {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-}
-
-.kv-editorial__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.kv-editorial__media:hover .kv-editorial__img {
-  transform: scale(1.04);
-}
-
-.kv-editorial__media-badge {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  padding: 10px 18px;
-  background: rgb(200 169 110 / 0.9);
-  backdrop-filter: blur(12px);
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #0a0a0a;
-}
-
-.kv-editorial__title {
-  font-size: clamp(36px, 4vw, 52px);
-  font-weight: 800;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  color: #f5f4f0;
-  margin: 16px 0 28px;
-}
-
-.kv-text-gold {
-  background: linear-gradient(135deg, #c8a96e 0%, #e8c97e 50%, #b8944e 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.kv-editorial__desc {
-  font-size: 15px;
-  line-height: 1.8;
-  color: rgb(245 244 240 / 0.6);
-  margin-bottom: 16px;
-}
-
-.kv-btn-outline {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 12px;
-  padding: 12px 24px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #f5f4f0;
-  border: 1px solid rgb(255 255 255 / 0.2);
-  border-radius: 6px;
-  text-decoration: none;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-}
-
-.kv-btn-outline:hover {
-  border-color: #c8a96e;
-  color: #c8a96e;
-  background: rgb(200 169 110 / 0.05);
-}
-
-/* ══════════════════════════════════════
-   MEMBERSHIP CTA
-══════════════════════════════════════ */
-.kv-membership {
-  background: linear-gradient(135deg, #1a1408 0%, #0a0a0a 40%, #0d0d0d 100%);
-  border-top: 1px solid rgb(200 169 110 / 0.1);
-  border-bottom: 1px solid rgb(200 169 110 / 0.1);
-  padding-block: 96px;
-  position: relative;
-  overflow: hidden;
-}
-
-.kv-membership::before {
-  content: 'KICKVERSE';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(80px, 15vw, 200px);
-  letter-spacing: 8px;
-  color: rgb(200 169 110 / 0.03);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-}
-
-.kv-membership__inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 48px;
-}
-
-.kv-membership__inner--mobile {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.kv-membership__title {
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 800;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  color: #f5f4f0;
-  margin: 12px 0 16px;
-}
-
-.kv-membership__desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgb(245 244 240 / 0.55);
-  max-width: 440px;
-  margin: 0;
-}
-
-.kv-btn-membership {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 32px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #0a0a0a;
-  background: linear-gradient(135deg, #c8a96e, #e8c97e, #c8a96e);
-  background-size: 200% auto;
-  border-radius: 8px;
-  text-decoration: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: background-position 0.4s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 8px 24px rgb(200 169 110 / 0.2);
-}
-
-.kv-btn-membership:hover {
-  background-position: right center;
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgb(200 169 110 / 0.35);
-}
-</style>
