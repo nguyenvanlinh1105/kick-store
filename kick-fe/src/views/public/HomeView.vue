@@ -146,12 +146,12 @@ const stats = [
     </section>
 
     <!-- FEATURED PRODUCTS -->
-    <section class="bg-surface-1 py-24" id="featured-products" aria-label="Sản phẩm nổi bật">
+    <section class="bg-white py-24" id="featured-products" aria-label="Sản phẩm nổi bật">
       <div class="kv-container">
         <div class="flex items-end justify-between gap-6 mb-12">
           <div>
-            <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">Hot tuần này</div>
-            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] text-white m-0">Bán chạy nhất</h2>
+            <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary/5 border border-primary/15 rounded">Hot tuần này</div>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] text-black m-0">Bán chạy nhất</h2>
           </div>
           <RouterLink to="/shop" class="inline-flex items-center gap-2 text-xs font-bold tracking-wide text-primary transition-all duration-200 hover:gap-3 hover:opacity-80 pb-1 no-underline" id="view-all-products-link">
             Xem tất cả
@@ -173,7 +173,7 @@ const stats = [
     </section>
 
     <!-- EDITORIAL SPLIT -->
-    <section class="bg-surface-0 py-24" id="editorial" aria-label="Câu chuyện thương hiệu">
+    <section class="bg-white py-24 border-t border-black/5" id="editorial" aria-label="Câu chuyện thương hiệu">
       <div class="kv-container">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
           <!-- Image -->
@@ -191,18 +191,18 @@ const stats = [
 
           <!-- Text -->
           <div class="flex flex-col">
-            <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">Về chúng tôi</div>
-            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-white mt-4 mb-7">
+            <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary/5 border border-primary/15 rounded self-start">Về chúng tôi</div>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-black mt-4 mb-7">
               Chất liệu.<br/>Form dáng.<br/>
               <span class="bg-gradient-to-r from-primary via-primary-hover to-primary-pressed bg-clip-text text-transparent">Cảm giác đi.</span>
             </h2>
-            <p class="text-sm leading-relaxed text-text-secondary mb-4">
+            <p class="text-sm leading-relaxed text-neutral-600 mb-4 font-medium">
               Mỗi đôi giày trên KickVerse được chọn lọc theo tiêu chí thực tế: đế êm, form chuẩn streetwear, và bảng size rõ ràng trước khi bạn thêm vào giỏ hàng.
             </p>
-            <p class="text-sm leading-relaxed text-text-secondary mb-8">
+            <p class="text-sm leading-relaxed text-neutral-500 mb-8">
               Chúng tôi tin rằng sneaker không chỉ là thời trang — đó là cách bạn bước đi trong cuộc sống.
             </p>
-            <RouterLink to="/support" class="inline-flex items-center self-start px-6 py-3 text-[11px] font-bold tracking-widest uppercase text-white border border-white/20 rounded-md hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 no-underline" id="editorial-learn-more-btn">
+            <RouterLink to="/support" class="inline-flex items-center self-start px-6 py-3 text-[11px] font-bold tracking-widest uppercase text-black border border-black/15 rounded-md hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 no-underline" id="editorial-learn-more-btn">
               Tìm hiểu thêm
             </RouterLink>
           </div>
@@ -211,21 +211,21 @@ const stats = [
     </section>
 
     <!-- MEMBERSHIP CTA -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-yellow-950/20 via-surface-0 to-neutral-900/40 border-y border-primary/10 py-24" id="membership" aria-label="Thành viên KickVerse">
+    <section class="relative overflow-hidden bg-white border-y border-black/5 py-28" id="membership" aria-label="Thành viên KickVerse">
       <!-- Watermark Background -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] md:text-[200px] tracking-[8px] text-primary/3 select-none pointer-events-none whitespace-nowrap" aria-hidden="true">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] md:text-[200px] tracking-[8px] text-black/[0.02] select-none pointer-events-none whitespace-nowrap" aria-hidden="true">
         KICKVERSE
       </div>
       
-      <div class="relative z-10 kv-container flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
+      <div class="relative z-10 kv-container flex flex-col md:flex-row items-start md:items-center justify-between gap-12 p-10 md:p-14 bg-neutral-50 rounded-2xl border border-black/5">
         <div class="flex flex-col">
-          <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary-dim border border-primary/20 rounded">Thành viên</div>
-          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-white mt-4 mb-4">Trở thành KickVerse Member</h2>
-          <p class="text-sm leading-relaxed text-text-secondary max-w-md m-0">
+          <div class="inline-block text-[10px] font-bold tracking-[2.5px] uppercase text-primary mb-3 px-2.5 py-1 bg-primary/5 border border-primary/15 rounded self-start">Thành viên</div>
+          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.1] text-black mt-4 mb-4">Trở thành KickVerse Member</h2>
+          <p class="text-sm leading-relaxed text-neutral-500 max-w-md m-0 font-medium">
             Nhận thông báo drop mới sớm nhất, theo dõi đơn và lưu wishlist trên mọi thiết bị.
           </p>
         </div>
-        <RouterLink to="/register" class="inline-flex items-center gap-3 px-8 py-4 text-xs font-bold tracking-widest uppercase text-black bg-gradient-to-r from-primary via-primary-hover to-primary-pressed rounded-lg shadow-lg hover:bg-right hover:scale-[1.02] hover:shadow-primary-hover/35 transition-all duration-200 no-underline" id="membership-register-btn">
+        <RouterLink to="/register" class="inline-flex items-center gap-3 px-8 py-4 text-xs font-bold tracking-widest uppercase text-white bg-black hover:bg-neutral-800 rounded-lg shadow-md hover:scale-[1.02] transition-all duration-200 no-underline" id="membership-register-btn">
           Tạo tài khoản miễn phí
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
