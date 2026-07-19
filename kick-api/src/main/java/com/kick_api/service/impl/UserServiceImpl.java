@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -37,6 +38,8 @@ public class UserServiceImpl implements UserService {
             user.setRoles(roles);
         }
 
+        // Mã hóa mật khẩu sử dụng BCrypt trước khi lưu
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(UserStatus.ACTIVE);
         return userRepository.save(user);
     }

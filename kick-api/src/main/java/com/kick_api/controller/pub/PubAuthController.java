@@ -10,12 +10,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.kick_api.dto.LoginRequest;
+import com.kick_api.dto.LoginResponse;
+import com.kick_api.config.JwtTokenProvider;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @RestController
 @RequestMapping("/api/v1/pub/auth")
 @RequiredArgsConstructor
 public class PubAuthController {
 
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider tokenProvider;
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<User>> register(@Valid @RequestBody RegisterRequest request) {
@@ -34,15 +44,29 @@ public class PubAuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<User>> login(@RequestParam String email, @RequestParam String password) {
-        User user = userService.getUserByEmail(email);
-        // Kiểm tra mật khẩu (đơn giản cho mục đích demo/chạy thử)
-        if (!user.getPassword().equals(password)) {
-            throw new com.kick_api.exception.AppException(
-                    com.kick_api.constant.ErrorCode.INVALID_INPUT, 
-                    "Mật khẩu đăng nhập không chính xác!"
-            );
-        }
-        return ResponseEntity.ok(ApiResponse.success("Đăng nhập thành công!", user));
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
+        // Thực hiện xác thực người dùng bằng email và mật khẩu
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getEmail(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        // Nạp thông tin xác thực vào Security Context của Spring
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // Sinh chuỗi JWT Token
+        String jwt = tokenProvider.generateToken(authentication);
+
+        // Đọc thông tin chi tiết user từ DB để trả về cho Frontend hiển thị profile
+        User user = userService.getUserByEmail(loginRequest.getEmail());
+
+        LoginResponse loginResponse = LoginResponse.builder()
+                .token(jwt)
+                .user(user)
+                .build();
+
+        return ResponseEntity.ok(ApiResponse.success("Đăng nhập thành công!", loginResponse));
     }
 }
