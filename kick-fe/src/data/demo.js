@@ -4,6 +4,7 @@ export const DEMO_PRODUCTS = [
     slug: 'air-force-kinetic',
     name: 'Air Force Kinetic',
     brand: 'Nike',
+    category: 'lifestyle',
     price: 2890000,
     priceLabel: '2.890.000đ',
     compareAt: '3.290.000đ',
@@ -19,6 +20,7 @@ export const DEMO_PRODUCTS = [
     slug: 'ultraboost-city',
     name: 'Ultraboost City',
     brand: 'Adidas',
+    category: 'running',
     price: 3590000,
     priceLabel: '3.590.000đ',
     badge: 'Bán chạy',
@@ -33,6 +35,7 @@ export const DEMO_PRODUCTS = [
     slug: 'jordan-retro-low',
     name: 'Jordan Retro Low',
     brand: 'Jordan',
+    category: 'lifestyle',
     price: 4290000,
     priceLabel: '4.290.000đ',
     image:
@@ -45,6 +48,7 @@ export const DEMO_PRODUCTS = [
     slug: 'new-balance-574',
     name: '574 Core',
     brand: 'New Balance',
+    category: 'running',
     price: 2490000,
     priceLabel: '2.490.000đ',
     badge: 'Sale',
@@ -60,6 +64,7 @@ export const DEMO_PRODUCTS = [
     slug: 'puma-suede-classic',
     name: 'Suede Classic',
     brand: 'Puma',
+    category: 'lifestyle',
     price: 1990000,
     priceLabel: '1.990.000đ',
     image:
@@ -72,6 +77,7 @@ export const DEMO_PRODUCTS = [
     slug: 'converse-chuck-70',
     name: 'Chuck 70 Hi',
     brand: 'Converse',
+    category: 'lifestyle',
     price: 1890000,
     priceLabel: '1.890.000đ',
     image:

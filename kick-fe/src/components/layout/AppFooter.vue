@@ -40,7 +40,7 @@ const columns = [
           <RouterLink to="/" class="font-display text-3xl tracking-[3px] text-white no-underline mb-4 inline-block">
             KICK<span class="bg-gradient-to-r from-primary via-primary-hover to-primary-pressed bg-clip-text text-transparent">VERSE</span>
           </RouterLink>
-          <p class="text-sm leading-relaxed text-text-muted max-w-xs mb-6">
+          <p class="text-sm leading-relaxed text-text-muted mb-6">
             Định nghĩa lại phong cách sneaker streetwear cao cấp.
           </p>
           <div class="flex gap-4">

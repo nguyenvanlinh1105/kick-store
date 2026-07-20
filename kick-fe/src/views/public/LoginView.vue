@@ -87,7 +87,7 @@ async function submit() {
 
 <template>
   <div
-    class="relative flex items-center justify-center bg-canvas-light pt-6 pb-10 px-6 overflow-hidden"
+    class="relative w-full flex flex-col items-center justify-center bg-canvas-light py-6 px-4 sm:px-6 overflow-hidden"
   >
     <!-- Subtle neutral background accents for modern clean aesthetic -->
     <div
@@ -99,10 +99,10 @@ async function submit() {
       aria-hidden="true"
     ></div>
 
-    <div class="w-full max-w-2xl relative z-10 animate-fade-in-up">
+    <div class="w-full max-w-[450px] relative z-10 kv-animate-fade-up">
       <!-- Main Frosted Glass Card -->
       <div
-        class="bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl px-6 py-10 shadow-[0_12px_40px_rgba(0,0,0,0.03)]"
+        class="w-full bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.03)]"
       >
         <!-- Brand Signature -->
         <div class="text-center mb-8 flex flex-col items-center">

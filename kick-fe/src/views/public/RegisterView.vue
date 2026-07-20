@@ -129,25 +129,15 @@ async function submit() {
 </script>
 
 <template>
-  <div class="relative min-h-[90vh] flex items-center justify-center bg-canvas-light py-16 px-6 overflow-hidden">
+  <div class="relative w-full flex flex-col items-center justify-center bg-canvas-light py-6 px-4 sm:px-6 overflow-hidden">
     
     <!-- Subtle neutral background accents for modern clean aesthetic -->
     <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-neutral-200/20 rounded-full blur-[100px] pointer-events-none" aria-hidden="true"></div>
     <div class="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-neutral-100/30 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
 
-    <div class="w-full max-w-lg relative z-10 animate-fade-in-up">
-      <!-- Back Link -->
-      <div class="mb-6 flex justify-start">
-        <RouterLink to="/" class="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-black transition-colors duration-200 no-underline">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
-          </svg>
-          Quay lại trang chủ
-        </RouterLink>
-      </div>
-
+    <div class="w-full max-w-[450px] relative z-10 kv-animate-fade-up">
       <!-- Main Frosted Glass Card -->
-      <div class="bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-8 sm:p-12 shadow-[0_12px_40px_rgba(0,0,0,0.03)]">
+      <div class="w-full bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.03)]">
         
         <!-- Brand Signature -->
         <div class="text-center mb-8 flex flex-col items-center">

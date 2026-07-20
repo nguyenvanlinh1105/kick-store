@@ -332,7 +332,7 @@ const stats = [
     >
       <!-- Watermark Background -->
       <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] md:text-[200px] tracking-[8px] text-primary/8 select-none pointer-events-none whitespace-nowrap"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] md:text-[200px] tracking-[8px] text-primary/20 select-none pointer-events-none whitespace-nowrap"
         aria-hidden="true"
       >
         KICKVERSE

@@ -17,16 +17,30 @@ defineEmits(['add-to-cart'])
 </script>
 
 <template>
-  <article class="flex flex-col bg-surface-dark-card border border-white/5 rounded-xl overflow-hidden hover:-translate-y-1 hover:border-primary/15 hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)] transition-all duration-300 relative group">
+  <article 
+    class="flex flex-col border rounded-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 relative group"
+    :class="[
+      dark 
+        ? 'bg-surface-dark-card border-white/5 hover:border-primary/15 hover:shadow-[0_12px_32px_rgba(0,0,0,0.6)]' 
+        : 'bg-white border-neutral-200/80 hover:border-neutral-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)]'
+    ]"
+  >
     <!-- Image Area -->
-    <RouterLink :to="`/shop/${product.slug}`" class="relative w-full aspect-square overflow-hidden block bg-neutral-900 no-underline">
+    <RouterLink 
+      :to="`/shop/${product.slug}`" 
+      class="relative w-full aspect-square overflow-hidden block no-underline"
+      :class="[dark ? 'bg-neutral-900' : 'bg-neutral-50']"
+    >
       <img
         :src="product.image"
         :alt="product.name"
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+      <div 
+        class="absolute inset-0 pointer-events-none"
+        :class="[dark ? 'bg-gradient-to-t from-black/20 to-transparent' : 'bg-black/5']"
+      ></div>
       
       <!-- Badges -->
       <div class="absolute top-3 left-3 z-10 flex flex-wrap gap-1.5" v-if="product.badge">
@@ -40,15 +54,34 @@ defineEmits(['add-to-cart'])
     <div class="p-5 flex flex-col flex-1 gap-4">
       <div class="flex flex-col gap-1">
         <span class="text-[11px] font-bold tracking-widest uppercase text-primary">{{ product.brand }}</span>
-        <RouterLink :to="`/shop/${product.slug}`" class="text-base font-semibold text-white no-underline hover:text-primary transition-colors duration-200 line-clamp-2">
+        <RouterLink 
+          :to="`/shop/${product.slug}`" 
+          class="text-base font-semibold no-underline transition-colors duration-200 line-clamp-2"
+          :class="[
+            dark 
+              ? 'text-white hover:text-primary' 
+              : 'text-neutral-900 hover:text-primary'
+          ]"
+        >
           {{ product.name }}
         </RouterLink>
       </div>
 
       <div class="flex items-center justify-between mt-auto gap-3">
         <div class="flex flex-col">
-          <span class="text-base font-bold text-white">{{ product.priceLabel }}</span>
-          <span v-if="product.compareAt" class="text-xs text-text-muted/40 line-through">{{ product.compareAt }}</span>
+          <span 
+            class="text-base font-bold"
+            :class="[dark ? 'text-white' : 'text-neutral-900']"
+          >
+            {{ product.priceLabel }}
+          </span>
+          <span 
+            v-if="product.compareAt" 
+            class="text-xs line-through"
+            :class="[dark ? 'text-text-muted/40' : 'text-neutral-400']"
+          >
+            {{ product.compareAt }}
+          </span>
         </div>
         
         <button
