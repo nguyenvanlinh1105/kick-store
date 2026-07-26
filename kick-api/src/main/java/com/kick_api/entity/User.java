@@ -4,6 +4,7 @@ import com.kick_api.constant.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Set;
 
@@ -38,6 +39,18 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 20)
     private UserStatus status = UserStatus.ACTIVE;
 
+    @Column(nullable = false, length = 20)
+    @Builder.Default
+    private String tier = "BRONZE";
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer points = 0;
+
+    @Column(name = "total_spent", nullable = false, precision = 19, scale = 2)
+    @Builder.Default
+    private BigDecimal totalSpent = BigDecimal.ZERO;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_roles",
@@ -46,7 +59,7 @@ public class User extends BaseEntity {
     )
     private Set<Role> roles;
 
-    // Refresh Token lưu trực tiếp trong bảng users (hỗ trợ 1 phiên đăng nhập tại 1 thời điểm)
+    // Refresh Token lưu trực tiếp trong bảng users
     @JsonIgnore
     @Column(name = "refresh_token", length = 255)
     private String refreshToken;
