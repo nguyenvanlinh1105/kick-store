@@ -44,6 +44,7 @@ const router = createRouter({
       component: CustomerLayout,
       children: [
         { path: 'account', name: 'account', component: () => import('@/views/customer/AccountView.vue') },
+        { path: 'account/profile', name: 'account-profile', component: () => import('@/views/customer/ProfileView.vue') },
         { path: 'account/addresses', name: 'account-addresses', component: () => import('@/views/customer/AddressesView.vue') },
         { path: 'account/orders', name: 'account-orders', component: () => import('@/views/customer/OrdersView.vue') },
         { path: 'account/orders/:id', name: 'account-order-detail', component: () => import('@/views/customer/OrderDetailView.vue') },

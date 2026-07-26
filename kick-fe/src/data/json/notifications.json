@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "type": "Đơn hàng",
+    "title": "Đơn hàng KV-1042 đang được giao!",
+    "body": "Đơn hàng đôi Air Force Kinetic White Gold của bạn đã được đóng gói và bàn giao cho đơn vị vận chuyển GHN. Dự kiến giao trong hôm nay.",
+    "createdAt": "14:30 25/07/2026",
+    "read": false
+  },
+  {
+    "id": 2,
+    "type": "Khuyến mãi",
+    "title": "🎁 Tặng Voucher 100.000đ vào ví cá nhân!",
+    "body": "Chúc mừng bạn đã lên hạng VIP Hạng Vàng. Mã giảm giá KICK100 đã được cộng tự động vào Ví Voucher của bạn.",
+    "createdAt": "09:15 24/07/2026",
+    "read": false
+  },
+  {
+    "id": 3,
+    "type": "Flash Sale",
+    "title": "⚡ Flash Sale Cuối Tuần Sôi Động giảm đến 40%",
+    "body": "Sự kiện Flash Sale đếm ngược đã chính thức khởi động trên trang chủ. Nhanh tay săn ngay đôi sneaker yêu thích với mức giá độc quyền.",
+    "createdAt": "08:00 22/07/2026",
+    "read": true
+  },
+  {
+    "id": 4,
+    "type": "Hệ thống",
+    "title": "Cập nhật chính sách Đổi trả 14 ngày",
+    "body": "KickVerse vừa nâng cấp chính sách hỗ trợ shipper đến tận nhà đổi size miễn phí trong vòng 14 ngày dành cho tất cả thành viên.",
+    "createdAt": "10:00 20/07/2026",
+    "read": true
+  }
+]

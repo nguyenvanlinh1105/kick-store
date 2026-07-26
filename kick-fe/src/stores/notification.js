@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { DEMO_NOTIFICATIONS } from '@/data/demo'
+import notificationsJson from '@/data/json/notifications.json'
 
 export const useNotificationStore = defineStore('notification', () => {
-  const items = ref([...DEMO_NOTIFICATIONS])
+  const items = ref([...notificationsJson])
   const panelOpen = ref(false)
 
   const unreadCount = computed(() => items.value.filter((n) => !n.read).length)
