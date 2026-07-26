@@ -1,41 +1,69 @@
 <script setup>
-import KvBadge from '@/components/ui/KvBadge.vue'
-import KvButton from '@/components/ui/KvButton.vue'
-import KvPageHeader from '@/components/ui/KvPageHeader.vue'
+import { ref } from 'vue'
+import staffJson from '@/data/json/staff.json'
 
-const users = [
-  { name: 'Admin KickVerse', email: 'admin@kickverse.vn', role: 'ADMIN', status: 'ACTIVE' },
-  {
-    name: 'Quản lý bán hàng',
-    email: 'manager@kickverse.vn',
-    role: 'SALES_MANAGER',
-    status: 'ACTIVE',
-  },
-  { name: 'Nhân viên kho', email: 'staff@kickverse.vn', role: 'STAFF', status: 'ACTIVE' },
+const staffList = ref([...staffJson])
+
+const availableModules = [
+  { key: 'PRODUCTS', label: 'Sản phẩm & Danh mục' },
+  { key: 'ORDERS', label: 'Xử lý Đơn hàng' },
+  { key: 'INVENTORY', label: 'Nhập kho & Quản lý tồn' },
+  { key: 'PROMOTIONS', label: 'Khuyến mãi & Voucher' },
+  { key: 'CUSTOMERS', label: 'Khách hàng (CRM)' },
+  { key: 'STAFF', label: 'Nhân sự & Phân quyền' },
+  { key: 'SETTINGS', label: 'Cấu hình Hệ thống' },
 ]
+
+function togglePermission(staff, moduleKey) {
+  if (staff.role === 'SUPER_ADMIN') return // Super Admin has all
+  const idx = staff.permissions.indexOf(moduleKey)
+  if (idx > -1) {
+    staff.permissions.splice(idx, 1)
+  } else {
+    staff.permissions.push(moduleKey)
+  }
+}
 </script>
 
 <template>
-  <div>
-    <KvPageHeader title="Nhân sự" description="Phân quyền ADMIN / SALES_MANAGER / STAFF">
-      <KvButton size="md" variant="primary">Mời thành viên</KvButton>
-    </KvPageHeader>
-    <div class="overflow-x-auto rounded-md bg-canvas-light">
-      <table class="w-full min-w-[560px] text-left text-body-sm">
-        <thead>
-          <tr class="border-b border-hairline-light text-caption-md text-mute-light">
-            <th class="px-lg py-md font-medium">Tên</th>
-            <th class="px-lg py-md font-medium">Email</th>
-            <th class="px-lg py-md font-medium">Role</th>
-            <th class="px-lg py-md font-medium">Status</th>
+  <div class="flex flex-col gap-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-extrabold text-white">Quản Lý Nhân Viên & Ma Trận Phân Quyền RBAC</h1>
+        <p class="text-xs text-neutral-400 mt-1">Thiết lập quyền truy cập theo từng mô-đun chức năng cho tài khoản nội bộ</p>
+      </div>
+
+      <button class="px-5 py-2.5 bg-primary text-black font-extrabold text-xs rounded-xl hover:bg-primary-hover cursor-pointer">
+        + Thêm Nhân Viên Mới
+      </button>
+    </div>
+
+    <!-- RBAC Permissions Matrix Table -->
+    <div class="bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden">
+      <table class="w-full text-left text-xs text-neutral-300">
+        <thead class="bg-black text-white font-bold uppercase border-b border-white/10">
+          <tr>
+            <th class="p-4">Nhân Viên</th>
+            <th class="p-4">Chức Danh / Vai Trò</th>
+            <th v-for="m in availableModules" :key="m.key" class="p-4 text-center">{{ m.label }}</th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="u in users" :key="u.email" class="border-b border-hairline-light">
-            <td class="px-lg py-md">{{ u.name }}</td>
-            <td class="px-lg py-md">{{ u.email }}</td>
-            <td class="px-lg py-md"><KvBadge variant="info">{{ u.role }}</KvBadge></td>
-            <td class="px-lg py-md">{{ u.status }}</td>
+        <tbody class="divide-y divide-white/5">
+          <tr v-for="st in staffList" :key="st.id" class="hover:bg-white/5">
+            <td class="p-4">
+              <span class="font-bold text-white block">{{ st.fullName }}</span>
+              <span class="text-[10px] text-neutral-400 font-mono">{{ st.email }}</span>
+            </td>
+            <td class="p-4 font-bold text-primary">{{ st.roleName }}</td>
+            <td v-for="m in availableModules" :key="m.key" class="p-4 text-center">
+              <input
+                type="checkbox"
+                :checked="st.permissions.includes(m.key)"
+                :disabled="st.role === 'SUPER_ADMIN'"
+                @change="togglePermission(st, m.key)"
+                class="accent-primary w-4 h-4 rounded cursor-pointer disabled:opacity-50"
+              />
+            </td>
           </tr>
         </tbody>
       </table>

@@ -1,50 +1,46 @@
 <script setup>
-import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
-import KvButton from '@/components/ui/KvButton.vue'
-import KvEmptyState from '@/components/ui/KvEmptyState.vue'
-import KvPageHeader from '@/components/ui/KvPageHeader.vue'
+import { ref } from 'vue'
 import KvProductCard from '@/components/ui/KvProductCard.vue'
-import { DEMO_PRODUCTS } from '@/data/demo'
-import { useWishlistStore } from '@/stores/wishlist'
+import KvEmptyState from '@/components/ui/KvEmptyState.vue'
+import productsJson from '@/data/json/products.json'
 import { useCartStore } from '@/stores/cart'
 
-const wishlist = useWishlistStore()
 const cart = useCartStore()
-const { ids } = storeToRefs(wishlist)
+const wishlistItems = ref([...productsJson.slice(0, 3)])
 
-const products = computed(() => DEMO_PRODUCTS.filter((p) => ids.value.includes(p.id)))
+function removeFromWishlist(id) {
+  wishlistItems.value = wishlistItems.value.filter((p) => p.id !== id)
+}
 </script>
 
 <template>
-  <div>
-    <KvPageHeader
-      title="Wishlist"
-      :description="products.length ? `${products.length} sản phẩm đã lưu` : 'Chưa có sản phẩm'"
-    />
+  <div class="flex flex-col gap-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl font-extrabold text-white">Danh Sách Yêu Thích</h1>
+      <span class="text-xs text-neutral-400">{{ wishlistItems.length }} sản phẩm</span>
+    </div>
 
-    <div v-if="products.length" class="grid gap-lg sm:grid-cols-2">
-      <div v-for="p in products" :key="p.id" class="relative">
+    <div v-if="wishlistItems.length === 0" class="py-12">
+      <KvEmptyState
+        title="Danh sách yêu thích trống"
+        description="Hãy thả tim các mẫu giày bạn yêu thích khi lướt xem sản phẩm để lưu tại đây."
+        action-text="Khám phá ngay"
+        @action="$router.push('/shop')"
+      />
+    </div>
+
+    <div v-else class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div v-for="p in wishlistItems" :key="p.id" class="relative group">
         <KvProductCard :product="p" @add-to-cart="cart.addItem" />
         <button
           type="button"
-          class="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-canvas-light text-mute-light shadow-[0_4px_12px_rgba(0,0,0,0.16)]"
-          aria-label="Bỏ khỏi wishlist"
-          @click="wishlist.remove(p.id)"
+          class="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/80 border border-white/20 text-red-400 text-xs flex items-center justify-center cursor-pointer hover:scale-110 transition-transform"
+          @click="removeFromWishlist(p.id)"
+          title="Xóa khỏi Wishlist"
         >
-          ♥
+          ✕
         </button>
       </div>
     </div>
-
-    <KvEmptyState
-      v-else
-      title="Wishlist trống"
-      description="Nhấn lưu trên trang sản phẩm để theo dõi những đôi bạn thích."
-    >
-      <template #action>
-        <KvButton to="/shop" variant="primary">Khám phá</KvButton>
-      </template>
-    </KvEmptyState>
   </div>
 </template>

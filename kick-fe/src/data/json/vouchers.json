@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "code": "KICK100",
+    "title": "Giảm 100.000đ cho đơn hàng từ 1.500.000đ",
+    "desc": "Áp dụng cho toàn bộ dòng Sneaker Running & Lifestyle",
+    "discount": 100000,
+    "minSpend": 1500000,
+    "expiry": "31/08/2026",
+    "usageLimit": 500,
+    "usedCount": 142,
+    "status": "ACTIVE"
+  },
+  {
+    "id": 2,
+    "code": "FREESHIP2026",
+    "title": "Miễn phí vận chuyển toàn quốc",
+    "desc": "Giảm tối đa 40.000đ phí giao hàng cho đơn từ 500k",
+    "discount": 40000,
+    "minSpend": 500000,
+    "expiry": "15/09/2026",
+    "usageLimit": 1000,
+    "usedCount": 680,
+    "status": "ACTIVE"
+  },
+  {
+    "id": 3,
+    "code": "KICKVIP20",
+    "title": "Ưu đãi Vàng/Kim cương - Giảm 20%",
+    "desc": "Giảm tối đa 300.000đ cho thành viên VIP",
+    "discountPercent": 20,
+    "maxDiscount": 300000,
+    "minSpend": 2000000,
+    "expiry": "31/12/2026",
+    "usageLimit": 200,
+    "usedCount": 45,
+    "status": "ACTIVE"
+  }
+]

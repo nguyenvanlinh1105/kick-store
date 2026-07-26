@@ -1,0 +1,173 @@
+[
+  {
+    "id": 1,
+    "slug": "air-force-kinetic",
+    "name": "Air Force Kinetic White Gold",
+    "brand": "Nike",
+    "category": "lifestyle",
+    "price": 2890000,
+    "priceLabel": "2.890.000đ",
+    "compareAt": "3.290.000đ",
+    "badge": "Flash Sale",
+    "badgeVariant": "commerce",
+    "rating": 4.9,
+    "reviewCount": 48,
+    "inStock": true,
+    "stockCount": 15,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=800&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Trắng", "Đen", "Đỏ"],
+    "sizes": [38, 39, 40, 41, 42, 43],
+    "materials": ["Da bò cao cấp", "Đế cao su lưu hóa"],
+    "sku": "NK-AFK-2026-W",
+    "description": "Phiên bản Air Force Kinetic mang nét phối màu Trắng - Vàng Kim sang trọng. Chất da mịn êm chân cùng bộ đệm Air cải tiến hỗ trợ vận động suốt cả ngày.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Nike" },
+      { "label": "Xuất xứ", "value": "Việt Nam / Indonesia" },
+      { "label": "Chất liệu thân", "value": "100% Genuine Leather" },
+      { "label": "Công nghệ đệm", "value": "Nike Air Encapsulated" },
+      { "label": "Bảo hành", "value": "12 tháng chính hãng" }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "ultraboost-city",
+    "name": "Ultraboost City Running 2026",
+    "brand": "Adidas",
+    "category": "running",
+    "price": 3590000,
+    "priceLabel": "3.590.000đ",
+    "badge": "Bán chạy",
+    "badgeVariant": "gold",
+    "rating": 4.8,
+    "reviewCount": 32,
+    "inStock": true,
+    "stockCount": 8,
+    "image": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Xám", "Navy", "Đen"],
+    "sizes": [40, 41, 42, 43, 44],
+    "materials": ["Vải dệt Primeknit", "Đế Boost"],
+    "sku": "AD-UB-CITY-GY",
+    "description": "Cảm nhận năng lượng bứt phá cùng Ultraboost City. Thân vải Primeknit ôm sát như một đôi tất thứ hai, đến Boost phản hồi lực 100%.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Adidas" },
+      { "label": "Chất liệu", "value": "Primeknit Textile" },
+      { "label": "Đế ngoài", "value": "Continental Rubber" }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "jordan-retro-low",
+    "name": "Jordan 1 Retro Low OG Chicago",
+    "brand": "Jordan",
+    "category": "lifestyle",
+    "price": 4290000,
+    "priceLabel": "4.290.000đ",
+    "compareAt": "4.890.000đ",
+    "badge": "Limited",
+    "badgeVariant": "gold",
+    "rating": 5.0,
+    "reviewCount": 64,
+    "inStock": true,
+    "stockCount": 5,
+    "image": "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Đỏ/Trắng/Đen"],
+    "sizes": [39, 40, 41, 42, 43],
+    "materials": ["Da tổng hợp", "Đế cao su"],
+    "sku": "JD-1RETRO-CHI",
+    "description": "Phối màu Chicago huyền thoại trở lại trên dáng cổ thấp Low OG. Hàng giới hạn số lượng có hạn.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Jordan" },
+      { "label": "Bộ sưu tập", "value": "Retro Chicago 2026" }
+    ]
+  },
+  {
+    "id": 4,
+    "slug": "new-balance-574",
+    "name": "New Balance 574 Core Classic",
+    "brand": "New Balance",
+    "category": "running",
+    "price": 2490000,
+    "priceLabel": "2.490.000đ",
+    "badge": "Hot Drop",
+    "badgeVariant": "info",
+    "rating": 4.7,
+    "reviewCount": 19,
+    "inStock": true,
+    "stockCount": 22,
+    "image": "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Xám Classic", "Xanh Rêu"],
+    "sizes": [38, 39, 40, 41, 42],
+    "materials": ["Suede / Mesh"],
+    "sku": "NB-574-GREY",
+    "description": "Mẫu giày biểu tượng của New Balance với đệm ENCAP siêu bền bỉ.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "New Balance" },
+      { "label": "Công nghệ đệm", "value": "ENCAP Technology" }
+    ]
+  },
+  {
+    "id": 5,
+    "slug": "puma-suede-classic",
+    "name": "Puma Suede Classic XXI Black",
+    "brand": "Puma",
+    "category": "lifestyle",
+    "price": 1990000,
+    "priceLabel": "1.990.000đ",
+    "rating": 4.6,
+    "reviewCount": 15,
+    "inStock": true,
+    "stockCount": 10,
+    "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Đen Trắng"],
+    "sizes": [39, 40, 41, 42],
+    "materials": ["Da lộn Suede"],
+    "sku": "PM-SUEDE-BLK",
+    "description": "Thiết kế cổ điển vượt thời gian dành cho tín đồ b-boy và streetwear.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Puma" }
+    ]
+  },
+  {
+    "id": 6,
+    "slug": "converse-chuck-70",
+    "name": "Converse Chuck 70 High Top Black",
+    "brand": "Converse",
+    "category": "lifestyle",
+    "price": 1890000,
+    "priceLabel": "1.890.000đ",
+    "rating": 4.9,
+    "reviewCount": 95,
+    "inStock": true,
+    "stockCount": 30,
+    "image": "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Đen", "Kem", "Đỏ"],
+    "sizes": [36, 37, 38, 39, 40, 41, 42, 43],
+    "materials": ["Vải Canvas 12oz"],
+    "sku": "CV-CHUCK70-HI",
+    "description": "Chất vải canvas dày dặn, đệm lót OrthoLite cực êm cùng đường may tỉ mỉ.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Converse" }
+    ]
+  }
+]

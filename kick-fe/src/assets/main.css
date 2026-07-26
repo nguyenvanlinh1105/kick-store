@@ -1,159 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
 @theme {
   /* ════════════════════════════════════════
-     KICKVERSE — PREMIUM DESIGN SYSTEM
-     Brand: Luxury Streetwear Dark Mode
+     KICKVERSE — LUXURY BRIGHT LIGHT THEME
+     Brand: Modern High-End Sneaker Storefront
   ════════════════════════════════════════ */
 
   /* Brand Colors */
-  --color-primary: #c8a96e;           /* Gold — luxury accent */
-  --color-primary-hover: #d4ba80;
-  --color-primary-pressed: #b8944e;
-  --color-primary-dim: rgb(200 169 110 / 0.15);
-  --color-on-primary: #0a0a0a;
+  --color-primary: #d97706;           /* Amber / Gold luxury accent */
+  --color-primary-hover: #b45309;
+  --color-primary-pressed: #92400e;
+  --color-primary-dim: rgba(217, 119, 6, 0.1);
+  --color-on-primary: #ffffff;
 
-  --color-electric: #6c63ff;          /* Electric violet — secondary accent */
-  --color-electric-dim: rgb(108 99 255 / 0.15);
+  --color-electric: #2563eb;          /* Royal Blue secondary accent */
+  --color-electric-dim: rgba(37, 99, 235, 0.1);
 
-  --color-commerce: #ef4444;
-  --color-commerce-hover: #dc2626;
+  --color-commerce: #dc2626;
+  --color-commerce-hover: #b91c1c;
   --color-on-commerce: #ffffff;
 
-  /* Surface Hierarchy — ink-first */
-  --color-ink: #0a0a0a;               /* Deepest black */
-  --color-surface-0: #0a0a0a;
-  --color-surface-1: #111111;
-  --color-surface-2: #191919;
-  --color-surface-3: #242424;
-  --color-surface-4: #2e2e2e;
+  /* Surface Hierarchy — Clean Light Canvas */
+  --color-ink: #0f172a;               /* Slate 900 */
+  --color-surface-0: #f8fafc;         /* Bright slate 50 */
+  --color-surface-1: #ffffff;         /* Pure white cards */
+  --color-surface-2: #f1f5f9;         /* Slate 100 hover */
+  --color-surface-3: #e2e8f0;         /* Slate 200 border */
+  --color-surface-4: #cbd5e1;
 
-  --color-canvas-light: #f8f7f5;      /* Warm off-white for light sections */
-  --color-surface-card: #1c1c1c;
+  --color-canvas-light: #f8fafc;
+  --color-surface-card: #ffffff;
 
   /* Text hierarchy */
-  --color-text-primary: #f5f4f0;      /* Near-white */
-  --color-text-secondary: rgb(245 244 240 / 0.7);
-  --color-text-muted: rgb(245 244 240 / 0.45);
-  --color-text-disabled: rgb(245 244 240 / 0.25);
+  --color-text-primary: #0f172a;      /* Deep Slate text */
+  --color-text-secondary: #475569;    /* Muted Slate text */
+  --color-text-muted: #64748b;
+  --color-text-disabled: #94a3b8;
 
-  --color-text-dark: #0a0a0a;
-  --color-text-dark-secondary: rgb(10 10 10 / 0.65);
+  --color-text-dark: #0f172a;
+  --color-text-dark-secondary: #475569;
 
   /* Borders */
-  --color-border: rgb(255 255 255 / 0.08);
-  --color-border-hover: rgb(255 255 255 / 0.16);
-  --color-border-gold: rgb(200 169 110 / 0.4);
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-border-gold: rgba(217, 119, 6, 0.4);
 
-  /* Legacy aliases (backward compat) */
-  --color-link-light: #c8a96e;
-  --color-link-dark: #d4ba80;
-  --color-on-dark: #f5f4f0;
-  --color-on-dark-mute: rgb(245 244 240 / 0.6);
-  --color-canvas-dark: #0a0a0a;
-  --color-surface-dark-elevated: #111111;
-  --color-surface-dark-card: #1c1c1c;
-  --color-body-dark: rgb(245 244 240 / 0.7);
-  --color-body-light: rgb(10 10 10 / 0.6);
-  --color-mute-dark: rgb(245 244 240 / 0.45);
-  --color-mute-light: #6b6b6b;
-  --color-ash-dark: rgb(255 255 255 / 0.08);
-  --color-ash-light: #cccccc;
-  --color-warning: #ef4444;
-  --color-accent-gold: #c8a96e;
-  --color-hairline-light: #ebebeb;
-  --color-surface-soft: #f3f3f3;
-  --color-ink-deep: #0a0a0a;
-  --color-ink-elevated: #111111;
-  --color-charcoal: #191919;
-  --color-on-primary: #0a0a0a;
+  /* Legacy aliases */
+  --color-link-light: #d97706;
+  --color-link-dark: #b45309;
+  --color-on-dark: #ffffff;
+  --color-on-dark-mute: #64748b;
+  --color-canvas-dark: #f8fafc;
+  --color-surface-dark-elevated: #ffffff;
+  --color-surface-dark-card: #ffffff;
+  --color-body-dark: #334155;
+  --color-body-light: #475569;
+  --color-mute-dark: #64748b;
+  --color-mute-light: #94a3b8;
+  --color-ash-dark: #e2e8f0;
+  --color-ash-light: #cbd5e1;
+  --color-warning: #dc2626;
+  --color-accent-gold: #d97706;
+  --color-hairline-light: #e2e8f0;
+  --color-surface-soft: #f1f5f9;
+  --color-ink-deep: #0f172a;
+  --color-ink-elevated: #ffffff;
+  --color-charcoal: #1e293b;
 
   /* ── Typography ── */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-display: 'Bebas Neue', 'Impact', sans-serif;   /* For BIG impact headings */
-
-  /* Display scale — brutalist large */
-  --text-display-xl: 80px;
-  --text-display-xl--line-height: 0.95;
-  --text-display-xl--letter-spacing: -2px;
-  --text-display-xl--font-weight: 900;
-
-  --text-display-lg: 60px;
-  --text-display-lg--line-height: 0.95;
-  --text-display-lg--letter-spacing: -1.5px;
-  --text-display-lg--font-weight: 900;
-
-  --text-display-md: 44px;
-  --text-display-md--line-height: 1.05;
-  --text-display-md--letter-spacing: -1px;
-  --text-display-md--font-weight: 800;
-
-  --text-heading-xl: 32px;
-  --text-heading-xl--line-height: 1.1;
-  --text-heading-xl--letter-spacing: -0.5px;
-  --text-heading-xl--font-weight: 700;
-
-  --text-heading-lg: 24px;
-  --text-heading-lg--line-height: 1.2;
-  --text-heading-lg--letter-spacing: -0.3px;
-  --text-heading-lg--font-weight: 700;
-
-  --text-heading-md: 18px;
-  --text-heading-md--line-height: 1.3;
-  --text-heading-md--font-weight: 600;
-
-  --text-body-md: 16px;
-  --text-body-md--line-height: 1.6;
-  --text-body-md--letter-spacing: 0.1px;
-  --text-body-md--font-weight: 400;
-
-  --text-body-strong: 16px;
-  --text-body-strong--line-height: 1.4;
-  --text-body-strong--letter-spacing: 0.3px;
-  --text-body-strong--font-weight: 600;
-
-  --text-body-sm: 14px;
-  --text-body-sm--line-height: 1.6;
-  --text-body-sm--font-weight: 400;
-
-  --text-caption-md: 13px;
-  --text-caption-md--line-height: 1.5;
-  --text-caption-md--font-weight: 500;
-
-  --text-caption-sm: 11px;
-  --text-caption-sm--line-height: 1.5;
-  --text-caption-sm--font-weight: 600;
-
-  --text-button-lg: 14px;
-  --text-button-lg--line-height: 1;
-  --text-button-lg--letter-spacing: 1.5px;
-  --text-button-lg--font-weight: 700;
-
-  --text-button-md: 12px;
-  --text-button-md--line-height: 1;
-  --text-button-md--letter-spacing: 1px;
-  --text-button-md--font-weight: 700;
-
-  /* ── Radius ── */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
-
-  /* ── Spacing ── */
-  --spacing-xxs: 4px;
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 40px;
-  --spacing-xxl: 64px;
-  --spacing-section: 120px;
-
-  /* ── Breakpoint ── */
-  --breakpoint-kv: 960px;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  --font-display: 'Bebas Neue', 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ════════════════════════════════════════
@@ -174,36 +91,28 @@
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.6;
-    color: var(--color-text-primary);
-    background: var(--color-surface-0);
+    color: #0f172a;
+    background: #f8fafc;
   }
 
   #app { min-height: 100vh; }
 
   a { color: inherit; text-decoration: none; }
-
   button, input, textarea, select { font: inherit; }
-
   img { max-width: 100%; display: block; }
 
   ::selection {
     background: var(--color-primary);
-    color: var(--color-on-primary);
+    color: #ffffff;
   }
 
-  /* Custom scrollbar */
+  /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--color-surface-1); }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-surface-4);
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #d97706; }
 }
 
-/* ════════════════════════════════════════
-   LAYOUT UTILITIES
-════════════════════════════════════════ */
 @utility kv-container {
   width: 100%;
   max-width: 1320px;
@@ -211,163 +120,13 @@
   padding-inline: 24px;
 }
 
-@utility kv-section {
-  padding-block: var(--spacing-section);
-}
-
 /* ════════════════════════════════════════
-   TYPOGRAPHY UTILITIES
+   HIDE SCROLLBAR UTILITY
 ════════════════════════════════════════ */
-@utility text-display-xl {
-  font-family: var(--font-display);
-  font-size: var(--text-display-xl);
-  font-weight: 400; /* Bebas Neue is always bold-looking */
-  line-height: 0.95;
-  letter-spacing: -2px;
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
 }
-
-@utility text-display-lg {
-  font-family: var(--font-display);
-  font-size: var(--text-display-lg);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -1.5px;
-}
-
-@utility text-display-md {
-  font-size: var(--text-display-md);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -1px;
-}
-
-@utility text-heading-xl {
-  font-size: var(--text-heading-xl);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-}
-
-@utility text-heading-lg {
-  font-size: var(--text-heading-lg);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.3px;
-}
-
-@utility text-heading-md {
-  font-size: var(--text-heading-md);
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-@utility text-body-md {
-  font-size: var(--text-body-md);
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: 0.1px;
-}
-
-@utility text-body-strong {
-  font-size: var(--text-body-strong);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: 0.3px;
-}
-
-@utility text-body-sm {
-  font-size: var(--text-body-sm);
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-@utility text-caption-md {
-  font-size: var(--text-caption-md);
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-@utility text-caption-sm {
-  font-size: var(--text-caption-sm);
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-@utility text-button-lg {
-  font-size: var(--text-button-lg);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-@utility text-button-md {
-  font-size: var(--text-button-md);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* ════════════════════════════════════════
-   ANIMATION KEYFRAMES
-════════════════════════════════════════ */
-@keyframes kv-shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes kv-float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-@keyframes kv-pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgb(200 169 110 / 0.4); }
-  50% { box-shadow: 0 0 0 8px rgb(200 169 110 / 0); }
-}
-
-@keyframes kv-fade-in-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@utility kv-animate-fade-up {
-  animation: kv-fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* ════════════════════════════════════════
-   GLASS EFFECT
-════════════════════════════════════════ */
-@utility kv-glass {
-  background: rgb(255 255 255 / 0.04);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgb(255 255 255 / 0.08);
-}
-
-@utility kv-glass-gold {
-  background: rgb(200 169 110 / 0.06);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgb(200 169 110 / 0.2);
-}
-
-/* ════════════════════════════════════════
-   GOLD GRADIENT TEXT
-════════════════════════════════════════ */
-@utility kv-text-gold {
-  background: linear-gradient(135deg, #c8a96e 0%, #e8c97e 40%, #c8a96e 70%, #b8944e 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@utility kv-text-shimmer {
-  background: linear-gradient(90deg, #c8a96e 0%, #e8d9a0 25%, #c8a96e 50%, #b8944e 75%, #c8a96e 100%);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: kv-shimmer 3s linear infinite;
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }

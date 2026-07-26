@@ -1,82 +1,92 @@
 <script setup>
 import { ref } from 'vue'
-import KvButton from '@/components/ui/KvButton.vue'
-import KvPageHeader from '@/components/ui/KvPageHeader.vue'
-import { useResponsive } from '@/composables/useResponsive'
+import customersJson from '@/data/json/customers.json'
+import ordersJson from '@/data/json/orders.json'
 
-const { isMobile } = useResponsive()
+const activeChat = ref({
+  customer: customersJson[0],
+  messages: [
+    { sender: 'customer', text: 'Chào shop, đôi Air Force Kinetic size 41 này form có chật không ạ?', time: '14:20' },
+    { sender: 'staff', text: 'Dạ chào bạn! Đôi này form chuẩn EU ạ, nếu bạn chân bè có thể nhích lên 0.5 size nha.', time: '14:22' },
+    { sender: 'customer', text: 'Shop còn sẵn màu Trắng ở cửa hàng Hà Nội không?', time: '14:25' },
+  ],
+})
 
-const conversations = [
-  { id: 1, name: 'Nguyễn An', preview: 'Đơn KV-1042 giao khi nào?', unread: true },
-  { id: 2, name: 'Trần Bảo', preview: 'Muốn đổi size 42 → 43', unread: false },
-]
+const newMessage = ref('')
 
-const active = ref(conversations[0])
-const draft = ref('')
-const messages = ref([
-  { from: 'customer', text: 'Đơn KV-1042 giao khi nào ạ?' },
-  { from: 'staff', text: 'Đơn đang shipping, dự kiến giao trong hôm nay.' },
-])
-
-function send() {
-  if (!draft.value.trim()) return
-  messages.value.push({ from: 'staff', text: draft.value.trim() })
-  draft.value = ''
+function sendMessage() {
+  if (!newMessage.value) return
+  activeChat.value.messages.push({
+    sender: 'staff',
+    text: newMessage.value,
+    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  })
+  newMessage.value = ''
 }
 </script>
 
 <template>
-  <div>
-    <KvPageHeader title="Chat hỗ trợ" description="Conversation OPEN / CLOSED" />
+  <div class="h-[calc(100vh-8rem)] bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden flex">
+    <!-- LEFT: CHAT LIST -->
+    <div class="w-72 border-r border-white/10 p-4 flex flex-col gap-3 shrink-0">
+      <h2 class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Hội Thoại Đang Tương Tác</h2>
+      <div class="p-3 bg-primary/10 border border-primary/30 rounded-xl flex items-center gap-3 cursor-pointer">
+        <img :src="activeChat.customer.avatar" :alt="activeChat.customer.fullName" class="w-10 h-10 rounded-full border border-primary" />
+        <div class="flex flex-col">
+          <span class="text-xs font-bold text-white">{{ activeChat.customer.fullName }}</span>
+          <span class="text-[10px] text-primary">Đang tư vấn size...</span>
+        </div>
+      </div>
+    </div>
 
-    <div
-      class="overflow-hidden rounded-md border border-hairline-light bg-canvas-light"
-      :class="isMobile ? 'flex flex-col' : 'grid grid-cols-[280px_1fr] min-h-[480px]'"
-    >
-      <aside class="border-b border-hairline-light kv:border-b-0 kv:border-r">
-        <button
-          v-for="c in conversations"
-          :key="c.id"
-          type="button"
-          class="flex w-full flex-col border-b border-hairline-light px-md py-md text-left"
-          :class="active?.id === c.id ? 'bg-surface-card' : 'active:bg-surface-soft'"
-          @click="active = c"
+    <!-- CENTER: REALTIME CHAT MESSAGES BOX -->
+    <div class="flex-1 flex flex-col justify-between border-r border-white/10">
+      <!-- Chat Header -->
+      <div class="p-4 border-b border-white/10 flex items-center justify-between bg-black/40">
+        <span class="text-xs font-bold text-white">Trò chuyện trực tiếp với {{ activeChat.customer.fullName }}</span>
+        <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded">Online</span>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="p-4 flex flex-col gap-3 overflow-y-auto flex-1 bg-black/20">
+        <div
+          v-for="(msg, idx) in activeChat.messages"
+          :key="idx"
+          class="flex flex-col max-w-xs text-xs"
+          :class="[msg.sender === 'staff' ? 'self-end items-end' : 'self-start items-start']"
         >
-          <span class="flex items-center justify-between">
-            <span class="text-heading-md">{{ c.name }}</span>
-            <span v-if="c.unread" class="h-2 w-2 rounded-full bg-primary" />
-          </span>
-          <span class="mt-xxs truncate text-caption-md text-mute-light">{{ c.preview }}</span>
-        </button>
-      </aside>
-
-      <div class="flex min-h-[360px] flex-col">
-        <div class="border-b border-hairline-light px-lg py-md">
-          <p class="text-heading-md">{{ active?.name }}</p>
-        </div>
-        <div class="flex flex-1 flex-col gap-sm overflow-y-auto p-lg">
           <div
-            v-for="(m, i) in messages"
-            :key="i"
-            class="max-w-[80%] rounded-md px-md py-sm text-body-sm"
-            :class="
-              m.from === 'staff'
-                ? 'ml-auto bg-primary text-on-primary'
-                : 'bg-surface-soft text-ink'
-            "
+            class="p-3 rounded-2xl leading-relaxed"
+            :class="[msg.sender === 'staff' ? 'bg-primary text-black font-medium' : 'bg-neutral-800 text-white']"
           >
-            {{ m.text }}
+            {{ msg.text }}
           </div>
+          <span class="text-[9px] text-neutral-500 mt-1">{{ msg.time }}</span>
         </div>
-        <form class="flex gap-sm border-t border-hairline-light p-md" @submit.prevent="send">
-          <input
-            v-model="draft"
-            type="text"
-            placeholder="Nhập tin nhắn..."
-            class="h-12 flex-1 rounded-sm border border-ash-light px-md outline-none focus:border-2 focus:border-primary"
-          />
-          <KvButton type="submit" variant="primary">Gửi</KvButton>
-        </form>
+      </div>
+
+      <!-- Message Input Form -->
+      <form @submit.prevent="sendMessage" class="p-4 border-t border-white/10 flex gap-2 bg-black/40">
+        <input
+          v-model="newMessage"
+          type="text"
+          placeholder="Nhập câu trả lời tư vấn cho khách hàng..."
+          class="flex-1 h-10 px-4 text-xs bg-black border border-white/15 rounded-xl text-white focus:outline-none focus:border-primary"
+        />
+        <button type="submit" class="h-10 px-5 bg-primary text-black font-extrabold text-xs rounded-xl hover:bg-primary-hover cursor-pointer shrink-0">
+          Gửi (Enter)
+        </button>
+      </form>
+    </div>
+
+    <!-- RIGHT: CONTEXT SIDEBAR -->
+    <div class="w-72 p-4 flex flex-col gap-4 shrink-0 bg-black/40">
+      <h3 class="text-xs font-bold text-neutral-400 uppercase tracking-wider border-b border-white/10 pb-2">Thông Tin Khách Hàng</h3>
+      <div class="flex flex-col gap-1 text-xs">
+        <span class="text-white font-bold">{{ activeChat.customer.fullName }}</span>
+        <span class="text-neutral-400">SĐT: {{ activeChat.customer.phone }}</span>
+        <span class="text-neutral-400">Hạng: <strong class="text-amber-400">{{ activeChat.customer.tier }}</strong></span>
+        <span class="text-neutral-400">Điểm: {{ activeChat.customer.points }} pts</span>
       </div>
     </div>
   </div>

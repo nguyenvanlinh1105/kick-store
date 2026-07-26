@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "fullName": "Phạm Văn Minh",
+    "email": "minh.pham@kickverse.vn",
+    "phone": "0977889900",
+    "role": "SUPER_ADMIN",
+    "roleName": "Quản trị viên tối cao",
+    "permissions": ["PRODUCTS", "ORDERS", "INVENTORY", "PROMOTIONS", "CUSTOMERS", "STAFF", "SETTINGS"],
+    "status": "ACTIVE"
+  },
+  {
+    "id": 2,
+    "fullName": "Lê Thị Thu",
+    "email": "thu.le@kickverse.vn",
+    "phone": "0988776655",
+    "role": "INVENTORY_MANAGER",
+    "roleName": "Quản lý Kho hàng",
+    "permissions": ["PRODUCTS", "INVENTORY"],
+    "status": "ACTIVE"
+  },
+  {
+    "id": 3,
+    "fullName": "Hoàng Anh Tuấn",
+    "email": "tuan.hoang@kickverse.vn",
+    "phone": "0966554433",
+    "role": "POS_STAFF",
+    "roleName": "Nhân viên Bán quầy & CSKH",
+    "permissions": ["POS", "SUPPORT", "ORDERS"],
+    "status": "ACTIVE"
+  }
+]

@@ -1,294 +1,129 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import authService from '@/services/authService'
 
 const router = useRouter()
 const auth = useAuthStore()
 
-const email = ref('')
-const password = ref('')
-const emailError = ref('')
-const passwordError = ref('')
-const generalError = ref('')
-const loading = ref(false)
+const accountInput = ref('nguyenvana@gmail.com')
+const passwordInput = ref('12345678')
+const rememberMe = ref(true)
+const isLoading = ref(false)
+const isGoogleLoading = ref(false)
 
-// Smooth interactive states
-const emailFocused = ref(false)
-const passwordFocused = ref(false)
-
-const isEmailValid = computed(() => {
-  if (!email.value) return false
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return re.test(email.value)
-})
-
-function validateForm() {
-  let isValid = true
-  emailError.value = ''
-  passwordError.value = ''
-  generalError.value = ''
-
-  if (!email.value) {
-    emailError.value = 'Vui lòng nhập địa chỉ email.'
-    isValid = false
-  } else if (!isEmailValid.value) {
-    emailError.value = 'Địa chỉ email không hợp lệ.'
-    isValid = false
-  }
-
-  if (!password.value) {
-    passwordError.value = 'Vui lòng nhập mật khẩu.'
-    isValid = false
-  } else if (password.value.length < 8) {
-    passwordError.value = 'Mật khẩu phải chứa ít nhất 8 ký tự.'
-    isValid = false
-  }
-
-  return isValid
+function handleLogin() {
+  if (!accountInput.value || !passwordInput.value) return
+  isLoading.value = true
+  setTimeout(() => {
+    isLoading.value = false
+    auth.login({
+      fullName: 'Nguyễn Văn A',
+      email: accountInput.value,
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80',
+    })
+    router.push('/account')
+  }, 500)
 }
 
-async function submit() {
-  if (!validateForm()) return
-
-  loading.value = true
-  generalError.value = ''
-  try {
-    const res = await authService.login({
-      email: email.value,
-      password: password.value,
+function handleGoogleLogin() {
+  isGoogleLoading.value = true
+  setTimeout(() => {
+    isGoogleLoading.value = false
+    auth.login({
+      fullName: 'Nguyễn Văn A (Google)',
+      email: 'nguyenvana@gmail.com',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80',
     })
-    
-    // res is ApiResponse<LoginResponse>, data contains user/tokens
-    auth.login(res.data)
-    
-    // Redirect logic based on role
-    if (auth.isAdmin) {
-      router.push('/admin')
-    } else if (auth.isStaff) {
-      router.push('/staff')
-    } else {
-      const redirectQuery = router.currentRoute.value.query.redirect
-      if (redirectQuery) {
-        router.push(decodeURIComponent(redirectQuery))
-      } else {
-        router.push('/account')
-      }
-    }
-  } catch (error) {
-    console.error('Login error:', error)
-    generalError.value = error.response?.data?.message || 'Tên đăng nhập hoặc mật khẩu không khớp.'
-  } finally {
-    loading.value = false
-  }
+    router.push('/account')
+  }, 600)
 }
 </script>
 
 <template>
-  <div
-    class="relative w-full flex flex-col items-center justify-center bg-canvas-light py-6 px-4 sm:px-6 overflow-hidden"
-  >
-    <!-- Subtle neutral background accents for modern clean aesthetic -->
-    <div
-      class="absolute top-1/4 left-1/4 w-96 h-96 bg-neutral-200/20 rounded-full blur-[100px] pointer-events-none"
-      aria-hidden="true"
-    ></div>
-    <div
-      class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-neutral-100/30 rounded-full blur-[120px] pointer-events-none"
-      aria-hidden="true"
-    ></div>
-
-    <div class="w-full max-w-[450px] relative z-10 kv-animate-fade-up">
-      <!-- Main Frosted Glass Card -->
-      <div
-        class="w-full bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.03)]"
-      >
-        <!-- Brand Signature -->
-        <div class="text-center mb-8 flex flex-col items-center">
-          <img src="/logo.png?v=2" alt="KickVerse Logo" class="h-24 w-auto object-contain" />
-          <h1 class="text-2xl font-bold tracking-tight text-neutral-900 mt-4 mb-2">
-            Chào mừng trở lại
-          </h1>
-          <p class="text-sm text-neutral-500">Đăng nhập tài khoản để tiếp tục trải nghiệm</p>
-        </div>
-
-        <!-- General Error Alert -->
-        <div
-          v-if="generalError"
-          class="mb-6 p-4 bg-commerce/5 border border-commerce/20 rounded-xl flex items-center gap-3 text-xs font-medium text-commerce"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
-          {{ generalError }}
-        </div>
-
-        <!-- Form fields -->
-        <form class="flex flex-col gap-5" @submit.prevent="submit" novalidate>
-          <!-- Email Field -->
-          <div class="flex flex-col gap-1.5 relative">
-            <div class="flex justify-between items-center px-1">
-              <label
-                class="text-[11px] font-bold tracking-wider uppercase text-neutral-500"
-                for="login-email"
-                >Email</label
-              >
-              <span
-                v-if="isEmailValid"
-                class="text-[10px] font-bold text-neutral-800 flex items-center gap-1"
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="3"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Hợp lệ
-              </span>
-            </div>
-
-            <div class="relative">
-              <input
-                id="login-email"
-                v-model="email"
-                type="email"
-                class="w-full h-12 px-4 text-[14.5px] text-black bg-neutral-50/50 border rounded-xl outline-none transition-all duration-200"
-                :class="[
-                  emailError
-                    ? 'border-commerce focus:shadow-[0_0_0_3px_rgba(239,68,68,0.08)]'
-                    : 'border-neutral-200/80 focus:border-black focus:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]',
-                  emailFocused ? 'bg-white' : '',
-                ]"
-                placeholder="tenban@email.com"
-                autocomplete="email"
-                required
-                @focus="emailFocused = true"
-                @blur="emailFocused = false"
-              />
-            </div>
-            <p
-              v-if="emailError"
-              class="text-xs text-commerce px-1 mt-1 font-medium flex items-center gap-1.5"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-              {{ emailError }}
-            </p>
-          </div>
-
-          <!-- Password Field -->
-          <div class="flex flex-col gap-1.5">
-            <div class="flex justify-between items-center px-1">
-              <label
-                class="text-[11px] font-bold tracking-wider uppercase text-neutral-500"
-                for="login-password"
-                >Mật khẩu</label
-              >
-              <a
-                href="#"
-                class="text-xs font-semibold text-neutral-400 hover:text-black transition-colors no-underline"
-                >Quên mật khẩu?</a
-              >
-            </div>
-
-            <div class="relative">
-              <input
-                id="login-password"
-                v-model="password"
-                type="password"
-                class="w-full h-12 px-4 text-[14.5px] text-black bg-neutral-50/50 border rounded-xl outline-none transition-all duration-200"
-                :class="[
-                  passwordError
-                    ? 'border-commerce focus:shadow-[0_0_0_3px_rgba(239,68,68,0.08)]'
-                    : 'border-neutral-200/80 focus:border-black focus:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]',
-                  passwordFocused ? 'bg-white' : '',
-                ]"
-                placeholder="Nhập tối thiểu 8 ký tự"
-                autocomplete="current-password"
-                required
-                @focus="passwordFocused = true"
-                @blur="passwordFocused = false"
-              />
-            </div>
-            <p
-              v-if="passwordError"
-              class="text-xs text-commerce px-1 mt-1 font-medium flex items-center gap-1.5"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-              {{ passwordError }}
-            </p>
-          </div>
-
-          <!-- Submit Button -->
-          <button
-            type="submit"
-            class="w-full mt-4 h-12 text-xs font-bold tracking-widest uppercase text-white bg-black hover:bg-neutral-800 active:scale-[0.98] rounded-xl shadow-md transition-all duration-200 flex items-center justify-center border-0 cursor-pointer"
-            :disabled="loading"
-          >
-            <span v-if="!loading" class="flex items-center gap-2">
-              Đăng nhập
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </span>
-            <span
-              v-else
-              class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
-            ></span>
-          </button>
-        </form>
-
-        <!-- Redirect to register -->
-        <p class="text-center text-sm text-neutral-500 mt-8 mb-0">
-          Chưa có tài khoản?
-          <RouterLink to="/register" class="text-black font-bold no-underline hover:underline"
-            >Đăng ký thành viên</RouterLink
-          >
-        </p>
+  <div class="bg-slate-50 pt-8 pb-24 flex items-center justify-center text-slate-900 px-4">
+    <div class="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-8 md:p-10 shadow-xl flex flex-col gap-6">
+      
+      <!-- Brand Header -->
+      <div class="text-center flex flex-col items-center">
+        <RouterLink to="/" class="font-display text-3xl tracking-[3px] text-slate-900 no-underline mb-2">
+          KICK<span class="text-amber-600 font-extrabold">VERSE</span>
+        </RouterLink>
+        <h1 class="text-xl font-extrabold text-slate-900">Đăng Nhập Tài Khoản</h1>
+        <p class="text-xs text-slate-500 mt-1">Truy cập để quản lý đơn hàng & tích điểm thành viên</p>
       </div>
+
+      <!-- PRIMARY: GOOGLE SINGLE SIGN-ON (1-CLICK GOOGLE LOGIN) -->
+      <div class="flex flex-col gap-3">
+        <button
+          type="button"
+          :disabled="isGoogleLoading"
+          class="w-full h-13 bg-white border-2 border-slate-200 hover:border-amber-600 text-slate-800 font-extrabold text-xs rounded-2xl flex items-center justify-center gap-3 transition-all cursor-pointer shadow-sm hover:shadow-md active:scale-98 disabled:opacity-50"
+          @click="handleGoogleLogin"
+        >
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>{{ isGoogleLoading ? 'Đang xác thực Google...' : 'TIẾP TỤC VỚI GOOGLE (1-CLICK)' }}</span>
+        </button>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="relative flex items-center justify-center my-1">
+        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200"></div></div>
+        <span class="relative bg-white px-3 text-[11px] text-slate-400 font-bold uppercase">Hoặc dùng Email</span>
+      </div>
+
+      <!-- Traditional Email Form -->
+      <form @submit.prevent="handleLogin" class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-bold text-slate-700">Email hoặc Số điện thoại</label>
+          <input
+            v-model="accountInput"
+            type="text"
+            required
+            placeholder="name@example.com"
+            class="h-11 px-4 text-xs bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-amber-600 font-medium"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700">Mật khẩu</label>
+            <RouterLink to="/forgot-password" class="text-xs text-amber-600 font-extrabold hover:underline no-underline">Quên mật khẩu?</RouterLink>
+          </div>
+          <input
+            v-model="passwordInput"
+            type="password"
+            required
+            placeholder="••••••••"
+            class="h-11 px-4 text-xs bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:border-amber-600 font-medium"
+          />
+        </div>
+
+        <label class="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
+          <input type="checkbox" v-model="rememberMe" class="accent-amber-600 w-4 h-4 rounded" />
+          <span>Ghi nhớ đăng nhập</span>
+        </label>
+
+        <button
+          type="submit"
+          :disabled="isLoading"
+          class="h-12 bg-slate-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl hover:bg-amber-600 transition-all cursor-pointer shadow-md disabled:opacity-50"
+        >
+          {{ isLoading ? 'Đang xử lý...' : 'ĐĂNG NHẬP BẰNG EMAIL' }}
+        </button>
+      </form>
+
+      <p class="text-center text-xs text-slate-500 border-t border-slate-100 pt-4">
+        Chưa có tài khoản?
+        <RouterLink to="/register" class="text-amber-600 font-extrabold hover:underline no-underline ml-1">Đăng ký ngay</RouterLink>
+      </p>
+
     </div>
   </div>
 </template>

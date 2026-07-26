@@ -1,0 +1,115 @@
+[
+  {
+    "id": "KV-1042",
+    "createdAt": "25/07/2026 14:30",
+    "customer": {
+      "name": "Nguyễn Văn A",
+      "phone": "0987654321",
+      "email": "nguyenvana@gmail.com",
+      "address": "Số 10 Phạm Hùng, Phường Dịch Vọng, Quận Cầu Giấy, Hà Nội"
+    },
+    "status": "DELIVERING",
+    "statusLabel": "Đang giao hàng",
+    "statusVariant": "info",
+    "paymentMethod": "VietQR Bank",
+    "paymentStatus": "PAID",
+    "shippingFee": 0,
+    "discount": 100000,
+    "total": 6480000,
+    "items": [
+      {
+        "id": 1,
+        "name": "Air Force Kinetic White Gold",
+        "brand": "Nike",
+        "size": 41,
+        "color": "Trắng",
+        "price": 2890000,
+        "qty": 1,
+        "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": 2,
+        "name": "Ultraboost City Running 2026",
+        "brand": "Adidas",
+        "size": 42,
+        "color": "Navy",
+        "price": 3590000,
+        "qty": 1,
+        "image": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&q=80&auto=format&fit=crop"
+      }
+    ],
+    "timeline": [
+      { "time": "25/07 14:30", "title": "Đặt hàng thành công", "desc": "Khách hàng tạo đơn qua Website" },
+      { "time": "25/07 15:00", "title": "Đã xác nhận thanh toán", "desc": "Hệ thống xác nhận tiền qua VietQR" },
+      { "time": "25/07 16:30", "title": "Đóng gói & Bàn giao", "desc": "Bàn giao cho đơn vị GHN" },
+      { "time": "26/07 08:15", "title": "Đang vận chuyển", "desc": "Kiện hàng tới bưu cục Cầu Giấy" }
+    ]
+  },
+  {
+    "id": "KV-1041",
+    "createdAt": "20/07/2026 10:15",
+    "customer": {
+      "name": "Trần Thị B",
+      "phone": "0912345678",
+      "email": "tranthib@gmail.com",
+      "address": "45 Lê Lợi, Quận 1, TP. Hồ Chí Minh"
+    },
+    "status": "COMPLETED",
+    "statusLabel": "Đã hoàn thành",
+    "statusVariant": "success",
+    "paymentMethod": "COD",
+    "paymentStatus": "PAID",
+    "shippingFee": 35000,
+    "discount": 0,
+    "total": 4325000,
+    "items": [
+      {
+        "id": 3,
+        "name": "Jordan 1 Retro Low OG Chicago",
+        "brand": "Jordan",
+        "size": 40,
+        "color": "Đỏ/Trắng/Đen",
+        "price": 4290000,
+        "qty": 1,
+        "image": "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=400&q=80&auto=format&fit=crop"
+      }
+    ],
+    "timeline": [
+      { "time": "20/07 10:15", "title": "Đặt hàng thành công", "desc": "Thanh toán COD" },
+      { "time": "21/07 14:00", "title": "Giao hàng thành công", "desc": "Khách đã ký nhận và thanh toán" }
+    ]
+  },
+  {
+    "id": "KV-1040",
+    "createdAt": "18/07/2026 09:00",
+    "customer": {
+      "name": "Lê Văn C",
+      "phone": "0933445566",
+      "email": "levanc@gmail.com",
+      "address": "12 Nguyễn Văn Linh, Đà Nẵng"
+    },
+    "status": "PENDING",
+    "statusLabel": "Chờ xác nhận",
+    "statusVariant": "warning",
+    "paymentMethod": "MoMo",
+    "paymentStatus": "UNPAID",
+    "shippingFee": 35000,
+    "discount": 40000,
+    "total": 1885000,
+    "items": [
+      {
+        "id": 6,
+        "name": "Converse Chuck 70 High Top Black",
+        "brand": "Converse",
+        "size": 41,
+        "color": "Đen",
+        "price": 1890000,
+        "qty": 1,
+        "image": "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&q=80&auto=format&fit=crop"
+      }
+    ],
+    "timeline": [
+      { "time": "18/07 09:00", "title": "Tạo đơn hàng thành công", "desc": "Chờ khách hàng chuyển khoản MoMo" }
+    ]
+  }
+]

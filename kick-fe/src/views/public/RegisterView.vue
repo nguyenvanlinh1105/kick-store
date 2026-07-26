@@ -1,8 +1,7 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { ref, reactive } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import authService from '@/services/authService'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -11,301 +10,271 @@ const fullName = ref('')
 const email = ref('')
 const phone = ref('')
 const password = ref('')
-const confirm = ref('')
+const confirmPassword = ref('')
+const acceptTerms = ref(true)
+const isLoading = ref(false)
 
-const fullNameError = ref('')
-const emailError = ref('')
-const phoneError = ref('')
-const passwordError = ref('')
-const confirmError = ref('')
-const loading = ref(false)
-
-// Focus states for input animations
-const nameFocused = ref(false)
-const emailFocused = ref(false)
-const phoneFocused = ref(false)
-const passFocused = ref(false)
-const confirmFocused = ref(false)
-
-const isEmailValid = computed(() => {
-  if (!email.value) return false
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return re.test(email.value)
-})
-
-const isPhoneValid = computed(() => {
-  if (!phone.value) return false
-  const re = /^[0-9]{10}$/
-  return re.test(phone.value)
+const errors = reactive({
+  fullName: '',
+  email: '',
+  phone: '',
+  password: '',
+  confirmPassword: '',
+  acceptTerms: '',
 })
 
 function validateForm() {
   let isValid = true
-  fullNameError.value = ''
-  emailError.value = ''
-  phoneError.value = ''
-  passwordError.value = ''
-  confirmError.value = ''
+  // Reset errors
+  errors.fullName = ''
+  errors.email = ''
+  errors.phone = ''
+  errors.password = ''
+  errors.confirmPassword = ''
+  errors.acceptTerms = ''
 
+  // Fullname check
   if (!fullName.value.trim()) {
-    fullNameError.value = 'Vui lòng nhập họ và tên.'
+    errors.fullName = 'Vui lòng nhập họ và tên.'
     isValid = false
   } else if (fullName.value.trim().length < 2) {
-    fullNameError.value = 'Họ và tên phải dài từ 2 ký tự trở lên.'
+    errors.fullName = 'Họ và tên phải có ít nhất 2 ký tự.'
     isValid = false
   }
 
-  if (!email.value) {
-    emailError.value = 'Vui lòng nhập địa chỉ email.'
+  // Email check
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!email.value.trim()) {
+    errors.email = 'Vui lòng nhập địa chỉ email.'
     isValid = false
-  } else if (!isEmailValid.value) {
-    emailError.value = 'Địa chỉ email không hợp lệ.'
-    isValid = false
-  }
-
-  if (!phone.value) {
-    phoneError.value = 'Vui lòng nhập số điện thoại.'
-    isValid = false
-  } else if (!isPhoneValid.value) {
-    phoneError.value = 'Số điện thoại phải chứa đúng 10 số.'
+  } else if (!emailRegex.test(email.value.trim())) {
+    errors.email = 'Địa chỉ email không đúng định dạng (VD: name@example.com).'
     isValid = false
   }
 
+  // Phone check (optional or 10-digit check)
+  if (phone.value.trim()) {
+    const phoneRegex = /(03|05|07|08|09)+([0-9]{8})\b/
+    if (!phoneRegex.test(phone.value.trim())) {
+      errors.phone = 'Số điện thoại không hợp lệ (gồm 10 chữ số bắt đầu bằng 03, 05, 07, 08, 09).'
+      isValid = false
+    }
+  }
+
+  // Password check
   if (!password.value) {
-    passwordError.value = 'Vui lòng nhập mật khẩu.'
+    errors.password = 'Vui lòng nhập mật khẩu.'
     isValid = false
   } else if (password.value.length < 8) {
-    passwordError.value = 'Mật khẩu phải chứa ít nhất 8 ký tự.'
+    errors.password = 'Mật khẩu phải có độ dài ít nhất 8 ký tự.'
     isValid = false
   }
 
-  if (!confirm.value) {
-    confirmError.value = 'Vui lòng xác nhận mật khẩu.'
+  // Confirm password check
+  if (!confirmPassword.value) {
+    errors.confirmPassword = 'Vui lòng nhập lại mật khẩu.'
     isValid = false
-  } else if (password.value !== confirm.value) {
-    confirmError.value = 'Mật khẩu xác nhận không khớp.'
+  } else if (password.value !== confirmPassword.value) {
+    errors.confirmPassword = 'Mật khẩu xác nhận không trùng khớp với mật khẩu đã nhập.'
+    isValid = false
+  }
+
+  // Terms check
+  if (!acceptTerms.value) {
+    errors.acceptTerms = 'Bạn phải đồng ý với Điều khoản dịch vụ & Bảo mật để tạo tài khoản.'
     isValid = false
   }
 
   return isValid
 }
 
-async function submit() {
-  if (!validateForm()) return
-  
-  loading.value = true
-  try {
-    // 1. Call registration API
-    await authService.register({
-      email: email.value,
-      password: password.value,
-      fullName: fullName.value,
-      phone: phone.value,
+function handleGoogleRegister() {
+  isLoading.value = true
+  setTimeout(() => {
+    isLoading.value = false
+    auth.login({
+      fullName: 'Khách Hàng Mới (Google)',
+      email: 'newuser@gmail.com',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&q=80',
     })
-
-    // 2. Automatically log in on success
-    const loginRes = await authService.login({
-      email: email.value,
-      password: password.value,
-    })
-
-    auth.login(loginRes.data)
     router.push('/account')
-  } catch (error) {
-    console.error('Registration error:', error)
-    const serverMessage = error.response?.data?.message || ''
-    
-    if (serverMessage.toLowerCase().includes('email')) {
-      emailError.value = serverMessage
-    } else if (serverMessage.toLowerCase().includes('phone') || serverMessage.toLowerCase().includes('sđt') || serverMessage.toLowerCase().includes('số điện thoại')) {
-      phoneError.value = serverMessage
-    } else {
-      emailError.value = serverMessage || 'Đăng ký không thành công. Vui lòng kiểm tra lại thông tin.'
-    }
-  } finally {
-    loading.value = false
-  }
+  }, 600)
+}
+
+function handleRegisterSubmit() {
+  if (!validateForm()) return
+
+  isLoading.value = true
+  setTimeout(() => {
+    isLoading.value = false
+    auth.login({
+      fullName: fullName.value,
+      email: email.value,
+    })
+    router.push('/account')
+  }, 600)
 }
 </script>
 
 <template>
-  <div class="relative w-full flex flex-col items-center justify-center bg-canvas-light py-6 px-4 sm:px-6 overflow-hidden">
-    
-    <!-- Subtle neutral background accents for modern clean aesthetic -->
-    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-neutral-200/20 rounded-full blur-[100px] pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-neutral-100/30 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
-
-    <div class="w-full max-w-[450px] relative z-10 kv-animate-fade-up">
-      <!-- Main Frosted Glass Card -->
-      <div class="w-full bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-6 sm:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.03)]">
-        
-        <!-- Brand Signature -->
-        <div class="text-center mb-8 flex flex-col items-center">
-          <img src="/logo.png?v=2" alt="KickVerse Logo" class="h-24 w-auto object-contain" />
-          <h1 class="text-2xl font-bold tracking-tight text-neutral-900 mt-4 mb-2">Đăng ký thành viên</h1>
-          <p class="text-sm text-neutral-500">Gia nhập cộng đồng sneaker streetwear cao cấp</p>
+  <div class="bg-slate-50 pt-8 pb-24 flex items-center justify-center text-slate-900 px-4">
+    <!-- WIDE BALANCED 2-COLUMN REGISTER CARD -->
+    <div class="w-full max-w-4xl bg-white border border-slate-200 rounded-3xl p-8 md:p-10 shadow-2xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      
+      <!-- LEFT COLUMN: BRAND PERKS & GOOGLE 1-CLICK -->
+      <div class="flex flex-col gap-6 border-b md:border-b-0 md:border-r border-slate-100 pb-8 md:pb-0 md:pr-8">
+        <div>
+          <RouterLink to="/" class="font-display text-3xl tracking-[3px] text-slate-900 no-underline mb-2 block">
+            KICK<span class="text-amber-600 font-extrabold">VERSE</span>
+          </RouterLink>
+          <h1 class="text-2xl font-extrabold text-slate-900">Gia Nhập KickVerse</h1>
+          <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+            Tạo tài khoản thành viên để tận hưởng đặc quyền mua sắm sản phẩm sneaker cao cấp độc quyền.
+          </p>
         </div>
 
-        <!-- Form fields -->
-        <form class="flex flex-col gap-4.5" @submit.prevent="submit" novalidate>
+        <!-- MEMBER PERKS -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col gap-3">
+          <span class="text-xs font-extrabold text-amber-600 uppercase tracking-wider">Đặc quyền thành viên VIP:</span>
           
-          <!-- Họ và tên -->
-          <div class="flex flex-col gap-1.5">
-            <label class="text-[11px] font-bold tracking-wider uppercase text-neutral-500 px-1" for="reg-name">Họ và tên *</label>
-            <input
-              id="reg-name"
-              v-model="fullName"
-              type="text"
-              class="w-full h-12 px-4 text-[14.5px] text-black bg-neutral-50/50 border rounded-xl outline-none transition-all duration-200"
-              :class="[
-                fullNameError ? 'border-commerce focus:shadow-[0_0_0_3px_rgba(239,68,68,0.08)]' : 'border-neutral-200/80 focus:border-black focus:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]',
-                nameFocused ? 'bg-white' : ''
-              ]"
-              placeholder="Nguyễn Văn A"
-              required
-              @focus="nameFocused = true"
-              @blur="nameFocused = false"
-            />
-            <p v-if="fullNameError" class="text-xs text-commerce px-1 mt-1 font-medium flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-              {{ fullNameError }}
-            </p>
+          <div class="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+            <span class="text-base">🎁</span>
+            <span>Tặng ngay <strong>Voucher 100.000đ</strong> vào ví cá nhân</span>
           </div>
 
-          <!-- Email -->
-          <div class="flex flex-col gap-1.5">
-            <div class="flex justify-between items-center px-1">
-              <label class="text-[11px] font-bold tracking-wider uppercase text-neutral-500" for="reg-email">Email *</label>
-              <span v-if="isEmailValid" class="text-[10px] font-bold text-neutral-800 flex items-center gap-1">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg> Hợp lệ
-              </span>
+          <div class="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+            <span class="text-base">⭐</span>
+            <span>Tích điểm nâng hạng Bạc / Vàng / Kim Cương</span>
+          </div>
+
+          <div class="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+            <span class="text-base">🚚</span>
+            <span>Theo dõi hành trình đơn hàng chi tiết 24/7</span>
+          </div>
+
+          <div class="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+            <span class="text-base">🔄</span>
+            <span>Đổi trả size giày miễn phí tận nhà trong 14 ngày</span>
+          </div>
+        </div>
+
+        <!-- GOOGLE 1-CLICK REGISTRATION -->
+        <div class="flex flex-col gap-2">
+          <button
+            type="button"
+            :disabled="isLoading"
+            class="w-full h-13 bg-white border-2 border-slate-200 hover:border-amber-600 text-slate-800 font-extrabold text-xs rounded-2xl flex items-center justify-center gap-3 transition-all cursor-pointer shadow-sm hover:shadow-md active:scale-98 disabled:opacity-50"
+            @click="handleGoogleRegister"
+          >
+            <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>ĐĂNG KÝ NHANH GOOGLE (1-CLICK)</span>
+          </button>
+          <span class="text-[11px] text-slate-400 text-center font-medium">⚡ Đăng ký tự động 3 giây bằng Google Account</span>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: MULTI-COLUMN FORM WITH VALIDATION -->
+      <div class="flex flex-col gap-5">
+        <h2 class="text-base font-extrabold text-slate-900 border-b border-slate-100 pb-2">Đăng Ký Tài Khoản Mới</h2>
+
+        <form @submit.prevent="handleRegisterSubmit" novalidate class="flex flex-col gap-4">
+          <!-- Row 1: Full Name & Phone -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="flex flex-col gap-1">
+              <label class="text-xs font-bold text-slate-700">Họ và tên *</label>
+              <input
+                v-model="fullName"
+                type="text"
+                placeholder="Nguyễn Văn A"
+                class="h-10 px-3 text-xs bg-slate-50 border rounded-xl text-slate-900 focus:outline-none font-medium transition-colors"
+                :class="[errors.fullName ? 'border-red-500 bg-red-50/20' : 'border-slate-200 focus:border-amber-600']"
+              />
+              <span v-if="errors.fullName" class="text-[11px] text-red-500 font-bold mt-0.5">{{ errors.fullName }}</span>
             </div>
+
+            <div class="flex flex-col gap-1">
+              <label class="text-xs font-bold text-slate-700">Số điện thoại</label>
+              <input
+                v-model="phone"
+                type="text"
+                placeholder="0987654321"
+                class="h-10 px-3 text-xs bg-slate-50 border rounded-xl text-slate-900 focus:outline-none font-medium transition-colors"
+                :class="[errors.phone ? 'border-red-500 bg-red-50/20' : 'border-slate-200 focus:border-amber-600']"
+              />
+              <span v-if="errors.phone" class="text-[11px] text-red-500 font-bold mt-0.5">{{ errors.phone }}</span>
+            </div>
+          </div>
+
+          <!-- Row 2: Email -->
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-bold text-slate-700">Địa chỉ Email *</label>
             <input
-              id="reg-email"
               v-model="email"
               type="email"
-              class="w-full h-12 px-4 text-[14.5px] text-black bg-neutral-50/50 border rounded-xl outline-none transition-all duration-200"
-              :class="[
-                emailError ? 'border-commerce focus:shadow-[0_0_0_3px_rgba(239,68,68,0.08)]' : 'border-neutral-200/80 focus:border-black focus:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]',
-                emailFocused ? 'bg-white' : ''
-              ]"
-              placeholder="tenban@email.com"
-              autocomplete="email"
-              required
-              @focus="emailFocused = true"
-              @blur="emailFocused = false"
+              placeholder="name@example.com"
+              class="h-10 px-3 text-xs bg-slate-50 border rounded-xl text-slate-900 focus:outline-none font-medium transition-colors"
+              :class="[errors.email ? 'border-red-500 bg-red-50/20' : 'border-slate-200 focus:border-amber-600']"
             />
-            <p v-if="emailError" class="text-xs text-commerce px-1 mt-1 font-medium flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-              {{ emailError }}
-            </p>
+            <span v-if="errors.email" class="text-[11px] text-red-500 font-bold mt-0.5">{{ errors.email }}</span>
           </div>
 
-          <!-- Số điện thoại -->
-          <div class="flex flex-col gap-1.5">
-            <label class="text-[11px] font-bold tracking-wider uppercase text-neutral-500 px-1" for="reg-phone">Số điện thoại *</label>
-            <input
-              id="reg-phone"
-              v-model="phone"
-              type="tel"
-              class="w-full h-12 px-4 text-[14.5px] text-black bg-neutral-50/50 border rounded-xl outline-none transition-all duration-200"
-              :class="[
-                phoneError ? 'border-commerce focus:shadow-[0_0_0_3px_rgba(239,68,68,0.08)]' : 'border-neutral-200/80 focus:border-black focus:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]',
-                phoneFocused ? 'bg-white' : ''
-              ]"
-              placeholder="09xx xxx xxx"
-              @focus="phoneFocused = true"
-              @blur="phoneFocused = false"
-            />
-            <p v-if="phoneError" class="text-xs text-commerce px-1 mt-1 font-medium flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-              {{ phoneError }}
-            </p>
+          <!-- Row 3: Password & Confirm Password -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="flex flex-col gap-1">
+              <label class="text-xs font-bold text-slate-700">Mật khẩu *</label>
+              <input
+                v-model="password"
+                type="password"
+                placeholder="••••••••"
+                class="h-10 px-3 text-xs bg-slate-50 border rounded-xl text-slate-900 focus:outline-none font-medium transition-colors"
+                :class="[errors.password ? 'border-red-500 bg-red-50/20' : 'border-slate-200 focus:border-amber-600']"
+              />
+              <span v-if="errors.password" class="text-[11px] text-red-500 font-bold mt-0.5">{{ errors.password }}</span>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <label class="text-xs font-bold text-slate-700">Nhập lại mật khẩu *</label>
+              <input
+                v-model="confirmPassword"
+                type="password"
+                placeholder="••••••••"
+                class="h-10 px-3 text-xs bg-slate-50 border rounded-xl text-slate-900 focus:outline-none font-medium transition-colors"
+                :class="[errors.confirmPassword ? 'border-red-500 bg-red-50/20' : 'border-slate-200 focus:border-amber-600']"
+              />
+              <span v-if="errors.confirmPassword" class="text-[11px] text-red-500 font-bold mt-0.5">{{ errors.confirmPassword }}</span>
+            </div>
           </div>
 
-          <!-- Mật khẩu -->
-          <div class="flex flex-col gap-1.5">
-            <label class="text-[11px] font-bold tracking-wider uppercase text-neutral-500 px-1" for="reg-password">Mật khẩu *</label>
-            <input
-              id="reg-password"
-              v-model="password"
-              type="password"
-              class="w-full h-12 px-4 text-[14.5px] text-black bg-neutral-50/50 border rounded-xl outline-none transition-all duration-200"
-              :class="[
-                passwordError ? 'border-commerce focus:shadow-[0_0_0_3px_rgba(239,68,68,0.08)]' : 'border-neutral-200/80 focus:border-black focus:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]',
-                passFocused ? 'bg-white' : ''
-              ]"
-              placeholder="Tối thiểu 8 ký tự"
-              autocomplete="new-password"
-              required
-              @focus="passFocused = true"
-              @blur="passFocused = false"
-            />
-            <p v-if="passwordError" class="text-xs text-commerce px-1 mt-1 font-medium flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-              {{ passwordError }}
-            </p>
-          </div>
-
-          <!-- Xác nhận mật khẩu -->
-          <div class="flex flex-col gap-1.5">
-            <label class="text-[11px] font-bold tracking-wider uppercase text-neutral-500 px-1" for="reg-confirm">Xác nhận mật khẩu *</label>
-            <input
-              id="reg-confirm"
-              v-model="confirm"
-              type="password"
-              class="w-full h-12 px-4 text-[14.5px] text-black bg-neutral-50/50 border rounded-xl outline-none transition-all duration-200"
-              :class="[
-                confirmError ? 'border-commerce focus:shadow-[0_0_0_3px_rgba(239,68,68,0.08)]' : 'border-neutral-200/80 focus:border-black focus:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]',
-                confirmFocused ? 'bg-white' : ''
-              ]"
-              placeholder="Nhập lại mật khẩu"
-              autocomplete="new-password"
-              required
-              @focus="confirmFocused = true"
-              @blur="confirmFocused = false"
-            />
-            <p v-if="confirmError" class="text-xs text-commerce px-1 mt-1 font-medium flex items-center gap-1.5">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-              {{ confirmError }}
-            </p>
+          <!-- Terms Checkbox -->
+          <div class="flex flex-col gap-1 pt-1">
+            <label class="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
+              <input type="checkbox" v-model="acceptTerms" class="accent-amber-600 w-4 h-4 rounded" />
+              <span>Tôi đồng ý với <RouterLink to="/terms" class="text-amber-600 font-bold hover:underline">Điều khoản dịch vụ</RouterLink> và <RouterLink to="/privacy" class="text-amber-600 font-bold hover:underline">Bảo mật</RouterLink></span>
+            </label>
+            <span v-if="errors.acceptTerms" class="text-[11px] text-red-500 font-bold">{{ errors.acceptTerms }}</span>
           </div>
 
           <!-- Submit Button -->
           <button
             type="submit"
-            class="w-full mt-4 h-12 text-xs font-bold tracking-widest uppercase text-white bg-black hover:bg-neutral-800 active:scale-[0.98] rounded-xl shadow-md transition-all duration-200 flex items-center justify-center border-0 cursor-pointer"
-            :disabled="loading"
+            :disabled="isLoading"
+            class="h-12 bg-slate-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl hover:bg-amber-600 transition-all cursor-pointer shadow-md mt-1 disabled:opacity-50"
           >
-            <span v-if="!loading" class="flex items-center gap-2">
-              Đăng ký tài khoản
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-              </svg>
-            </span>
-            <span v-else class="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+            {{ isLoading ? 'Đang tạo tài khoản...' : 'TẠO TÀI KHOẢN MỚI →' }}
           </button>
         </form>
 
-        <!-- Redirect to login -->
-        <p class="text-center text-sm text-neutral-500 mt-8 mb-0">
-          Đã có tài khoản?
-          <RouterLink to="/login" class="text-black font-bold no-underline hover:underline">Đăng nhập</RouterLink>
+        <p class="text-center text-xs text-slate-500 border-t border-slate-100 pt-3">
+          Đã có tài khoản thành viên?
+          <RouterLink to="/login" class="text-amber-600 font-extrabold hover:underline no-underline ml-1">Đăng nhập ngay</RouterLink>
         </p>
-
       </div>
+
     </div>
   </div>
 </template>
