@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const activeTab = ref('order-guide')
-const searchQuery = ref('')
 
 const sizeChartData = [
   { eu: 38, us: 5.5, cm: '23.5 cm' },
@@ -30,39 +29,30 @@ function submitConsultation() {
 
 <template>
   <div class="bg-slate-50 text-slate-900 min-h-screen">
-    <!-- HERO HEADER BANNER -->
+    <!-- HERO HEADER BANNER (NO INPUT, ELEGANT SANS TITLE WITH GOLD ACCENT) -->
     <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white py-16 px-4">
       <div class="kv-container max-w-4xl text-center flex flex-col items-center gap-4">
-        <span class="px-3.5 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-400 font-extrabold text-xs tracking-wider uppercase rounded-full">
+        <span class="px-3.5 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-400 font-extrabold text-xs tracking-widest uppercase rounded-full">
           Trung Tâm Trợ Giúp KickVerse
         </span>
-        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-          HƯỚNG DẪN MUA SẮM & TƯ VẤN KHÁCH HÀNG
+        
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-white max-w-3xl">
+          Hướng Dẫn Mua Sắm & <span class="text-amber-500">Tư Vấn Khách Hàng</span>
         </h1>
+
         <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
           Giải đáp mọi thắc mắc về cách đặt hàng, bảng hướng dẫn chọn size chuẩn 100%, quy trình đổi trả hàng miễn phí 14 ngày & kênh tư vấn trực tuyến 24/7.
         </p>
 
-        <!-- Search Bar -->
-        <div class="relative w-full max-w-xl mt-4">
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Nhập nội dung cần trợ giúp (VD: Đổi size, Cách mua hàng, Freeship...)"
-            class="w-full h-13 pl-12 pr-6 text-xs bg-white text-slate-900 rounded-2xl border-2 border-amber-500 focus:outline-none shadow-xl font-medium"
-          />
-          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">🔍</span>
-        </div>
-
         <!-- Quick Contacts Badges -->
-        <div class="flex flex-wrap items-center justify-center gap-4 mt-2 text-xs">
-          <a href="tel:19006789" class="px-4 py-2 bg-white/10 border border-white/15 rounded-xl hover:bg-amber-600 hover:border-amber-600 transition-all text-white font-bold no-underline">
+        <div class="flex flex-wrap items-center justify-center gap-3.5 mt-4 text-xs">
+          <a href="tel:19006789" class="px-4 py-2.5 bg-white/10 border border-white/15 rounded-xl hover:bg-amber-600 hover:border-amber-600 transition-all text-white font-bold no-underline">
             📞 Hotline: 1900 6789 (8:00 - 22:00)
           </a>
-          <RouterLink to="/staff/support" class="px-4 py-2 bg-amber-600 text-white rounded-xl hover:bg-amber-500 transition-all font-extrabold no-underline shadow">
+          <RouterLink to="/staff/support" class="px-4 py-2.5 bg-amber-600 text-white rounded-xl hover:bg-amber-500 transition-all font-extrabold no-underline shadow-lg">
             💬 Chat CSKH Trực Tuyến
           </RouterLink>
-          <a href="mailto:cskh@kickverse.vn" class="px-4 py-2 bg-white/10 border border-white/15 rounded-xl hover:bg-white hover:text-slate-900 transition-all text-white font-bold no-underline">
+          <a href="mailto:cskh@kickverse.vn" class="px-4 py-2.5 bg-white/10 border border-white/15 rounded-xl hover:bg-white hover:text-slate-900 transition-all text-white font-bold no-underline">
             ✉️ cskh@kickverse.vn
           </a>
         </div>
@@ -121,7 +111,7 @@ function submitConsultation() {
 
           <div class="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col gap-3 shadow-sm hover:shadow-md transition-all">
             <span class="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-700 font-extrabold text-sm flex items-center justify-center">04</span>
-            <h3 class="text-sm font-extrabold text-slate-900">Thanh Toán & Xóa Đơn</h3>
+            <h3 class="text-sm font-extrabold text-slate-900">Thanh Toán & Xác Nhận</h3>
             <p class="text-xs text-slate-500 leading-relaxed font-medium">Chọn VietQR Chuyển khoản hoặc COD. Hệ thống tự động tạo mã theo dõi tiến trình.</p>
           </div>
         </div>
