@@ -25,6 +25,7 @@ const router = createRouter({
         { path: 'cart', name: 'cart', component: () => import('@/views/customer/CartView.vue') },
         { path: 'checkout', name: 'checkout', component: () => import('@/views/customer/CheckoutView.vue') },
         { path: 'order-success', name: 'order-success', component: () => import('@/views/public/OrderSuccessView.vue') },
+        { path: 'support', name: 'support', component: () => import('@/views/public/SupportView.vue') },
         
         // Blogs & Static Policy Views
         { path: 'blog', name: 'blog', component: () => import('@/views/public/BlogListView.vue') },
