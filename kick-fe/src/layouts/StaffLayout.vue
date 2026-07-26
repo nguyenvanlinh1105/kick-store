@@ -4,33 +4,31 @@ import DashboardTopBar from '@/components/layout/DashboardTopBar.vue'
 import DashboardSidebar from '@/components/layout/DashboardSidebar.vue'
 
 const links = [
-  { to: '/staff', label: 'Dashboard' },
-  { to: '/staff/orders', label: 'Xử lý đơn' },
-  { to: '/staff/inventory', label: 'Kiểm kho' },
-  { to: '/staff/customers', label: 'Khách hàng' },
-  { to: '/staff/support', label: 'Chat hỗ trợ' },
+  { to: '/staff/pos', label: '🛒 POS Bán Hàng Tại Quầy' },
+  { to: '/staff/support', label: '💬 Chat Tư Vấn Khách Hàng' },
+  { to: '/admin', label: '⚙️ Trang Quản Trị Admin' },
 ]
 </script>
 
 <template>
-  <div class="min-h-screen bg-surface-soft">
-    <DashboardTopBar brand="KickVerse Staff" home-to="/staff">
+  <div class="min-h-screen bg-slate-50 text-slate-900">
+    <DashboardTopBar brand="KICKVERSE STAFF" home-to="/staff/pos">
       <template #nav>
-        <span class="rounded-full bg-commerce/30 px-3 py-1 text-caption-sm text-on-dark">
-          Nhân viên
+        <span class="rounded-full bg-amber-500/20 border border-amber-500/40 px-3 py-1 text-xs font-extrabold text-amber-400 uppercase">
+          Cổng Nhân Viên POS & CSKH
         </span>
       </template>
       <template #actions>
-        <RouterLink to="/" class="text-caption-md text-on-dark-mute active:text-on-dark">
-          Xem store
+        <RouterLink to="/" class="text-xs font-bold text-slate-300 hover:text-white no-underline">
+          🌐 Xem Store Cửa Hàng
         </RouterLink>
       </template>
     </DashboardTopBar>
 
-    <div class="flex flex-col kv:flex-row">
-      <DashboardSidebar title="Vận hành" :links="links" />
-      <main class="flex-1 px-lg py-xl">
-        <div class="mx-auto max-w-6xl">
+    <div class="flex flex-col md:flex-row">
+      <DashboardSidebar title="Mô-đun Nhân Viên" :links="links" />
+      <main class="flex-1 p-6">
+        <div class="mx-auto max-w-7xl">
           <RouterView />
         </div>
       </main>

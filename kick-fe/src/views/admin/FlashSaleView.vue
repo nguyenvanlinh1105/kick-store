@@ -11,23 +11,26 @@ const campaigns = ref([
   <div class="flex flex-col gap-6">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-extrabold text-white">Quản Lý Flash Sale & Chiến Dịch Combo</h1>
-        <p class="text-xs text-neutral-400 mt-1">Cấu hình các đợt giảm giá chớp nhoáng đếm ngược trên trang chủ</p>
+        <h1 class="text-2xl font-extrabold text-slate-900">Quản Lý Flash Sale & Chiến Dịch Combo</h1>
+        <p class="text-xs text-slate-500 mt-1 font-medium">Cấu hình các đợt giảm giá chớp nhoáng đếm ngược trên trang chủ</p>
       </div>
 
-      <button class="px-5 py-2.5 bg-primary text-black font-extrabold text-xs rounded-xl hover:bg-primary-hover cursor-pointer">
+      <button class="px-5 py-2.5 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 transition-all cursor-pointer shadow">
         + Tạo Đợt Flash Sale Mới
       </button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div v-for="c in campaigns" :key="c.id" class="bg-neutral-900 border border-white/10 rounded-2xl p-5 flex flex-col gap-3">
+    <!-- PURE WHITE LIGHT FLASH SALE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div v-for="c in campaigns" :key="c.id" class="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col gap-3 shadow-sm hover:shadow-md transition-all">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-primary uppercase">{{ c.status === 'ACTIVE' ? '🔴 Đang diễn ra' : '⏳ Sắp diễn ra' }}</span>
-          <span class="text-xs text-neutral-400">{{ c.endIn }}</span>
+          <span class="text-xs font-extrabold uppercase" :class="[c.status === 'ACTIVE' ? 'text-red-600' : 'text-amber-600']">
+            {{ c.status === 'ACTIVE' ? '🔴 Đang diễn ra' : '⏳ Sắp diễn ra' }}
+          </span>
+          <span class="text-xs text-slate-500 font-bold">{{ c.endIn }}</span>
         </div>
-        <h3 class="text-base font-bold text-white">{{ c.name }}</h3>
-        <span class="text-xs text-neutral-300">Mức giảm: <strong class="text-emerald-400">{{ c.discountPct }}</strong> ({{ c.itemCount }} sản phẩm áp dụng)</span>
+        <h3 class="text-base font-extrabold text-slate-900">{{ c.name }}</h3>
+        <span class="text-xs text-slate-600 font-medium">Mức giảm: <strong class="text-emerald-600 font-extrabold">{{ c.discountPct }}</strong> ({{ c.itemCount }} sản phẩm áp dụng)</span>
       </div>
     </div>
   </div>

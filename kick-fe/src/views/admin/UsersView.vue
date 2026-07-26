@@ -15,7 +15,7 @@ const availableModules = [
 ]
 
 function togglePermission(staff, moduleKey) {
-  if (staff.role === 'SUPER_ADMIN') return // Super Admin has all
+  if (staff.role === 'SUPER_ADMIN') return
   const idx = staff.permissions.indexOf(moduleKey)
   if (idx > -1) {
     staff.permissions.splice(idx, 1)
@@ -29,39 +29,39 @@ function togglePermission(staff, moduleKey) {
   <div class="flex flex-col gap-6">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-extrabold text-white">Quản Lý Nhân Viên & Ma Trận Phân Quyền RBAC</h1>
-        <p class="text-xs text-neutral-400 mt-1">Thiết lập quyền truy cập theo từng mô-đun chức năng cho tài khoản nội bộ</p>
+        <h1 class="text-2xl font-extrabold text-slate-900">Quản Lý Nhân Viên & Ma Trận Phân Quyền RBAC</h1>
+        <p class="text-xs text-slate-500 mt-1 font-medium">Thiết lập quyền truy cập theo từng mô-đun chức năng cho tài khoản nội bộ</p>
       </div>
 
-      <button class="px-5 py-2.5 bg-primary text-black font-extrabold text-xs rounded-xl hover:bg-primary-hover cursor-pointer">
+      <button class="px-5 py-2.5 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 transition-all cursor-pointer shadow">
         + Thêm Nhân Viên Mới
       </button>
     </div>
 
-    <!-- RBAC Permissions Matrix Table -->
-    <div class="bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden">
-      <table class="w-full text-left text-xs text-neutral-300">
-        <thead class="bg-black text-white font-bold uppercase border-b border-white/10">
+    <!-- PURE WHITE LIGHT RBAC PERMISSIONS TABLE -->
+    <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+      <table class="w-full text-left text-xs text-slate-700">
+        <thead class="bg-slate-900 text-white font-bold uppercase border-b border-slate-200">
           <tr>
             <th class="p-4">Nhân Viên</th>
             <th class="p-4">Chức Danh / Vai Trò</th>
             <th v-for="m in availableModules" :key="m.key" class="p-4 text-center">{{ m.label }}</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-white/5">
-          <tr v-for="st in staffList" :key="st.id" class="hover:bg-white/5">
+        <tbody class="divide-y divide-slate-100">
+          <tr v-for="st in staffList" :key="st.id" class="hover:bg-slate-50 transition-colors">
             <td class="p-4">
-              <span class="font-bold text-white block">{{ st.fullName }}</span>
-              <span class="text-[10px] text-neutral-400 font-mono">{{ st.email }}</span>
+              <span class="font-extrabold text-slate-900 block">{{ st.fullName }}</span>
+              <span class="text-[10px] text-slate-400 font-mono font-bold">{{ st.email }}</span>
             </td>
-            <td class="p-4 font-bold text-primary">{{ st.roleName }}</td>
+            <td class="p-4 font-extrabold text-amber-600">{{ st.roleName }}</td>
             <td v-for="m in availableModules" :key="m.key" class="p-4 text-center">
               <input
                 type="checkbox"
                 :checked="st.permissions.includes(m.key)"
                 :disabled="st.role === 'SUPER_ADMIN'"
                 @change="togglePermission(st, m.key)"
-                class="accent-primary w-4 h-4 rounded cursor-pointer disabled:opacity-50"
+                class="accent-amber-600 w-4 h-4 rounded cursor-pointer disabled:opacity-50"
               />
             </td>
           </tr>

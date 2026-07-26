@@ -169,5 +169,171 @@
     "specs": [
       { "label": "Thương hiệu", "value": "Converse" }
     ]
+  },
+  {
+    "id": 7,
+    "slug": "nike-dunk-low-panda",
+    "name": "Nike Dunk Low Retro Panda",
+    "brand": "Nike",
+    "category": "lifestyle",
+    "price": 3190000,
+    "priceLabel": "3.190.000đ",
+    "compareAt": "3.590.000đ",
+    "badge": "Hot Deal",
+    "badgeVariant": "commerce",
+    "rating": 4.9,
+    "reviewCount": 112,
+    "inStock": true,
+    "stockCount": 18,
+    "image": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Trắng Đen Panda"],
+    "sizes": [38, 39, 40, 41, 42, 43, 44],
+    "materials": ["Da tổng hợp cao cấp"],
+    "sku": "NK-DUNK-PANDA",
+    "description": "Phiên bản Dunk Low Panda quốc dân phối màu Trắng Đen cực kỳ dễ phối đồ Streetwear.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Nike" },
+      { "label": "Phối màu", "value": "Black / White Panda" }
+    ]
+  },
+  {
+    "id": 8,
+    "slug": "adidas-samba-og",
+    "name": "Adidas Samba OG Cloud White",
+    "brand": "Adidas",
+    "category": "lifestyle",
+    "price": 2990000,
+    "priceLabel": "2.990.000đ",
+    "badge": "Trendy",
+    "badgeVariant": "gold",
+    "rating": 4.8,
+    "reviewCount": 84,
+    "inStock": true,
+    "stockCount": 14,
+    "image": "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Cloud White / Core Black"],
+    "sizes": [36, 37, 38, 39, 40, 41, 42],
+    "materials": ["Da thuộc & Mũi da lộn Suede"],
+    "sku": "AD-SAMBA-WHT",
+    "description": "Thiết kế bóng đá indoor thập niên 70 trở thành mẫu sneaker trendy hàng đầu thế giới.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Adidas" },
+      { "label": "Đế ngoài", "value": "Cao su Gum Sole" }
+    ]
+  },
+  {
+    "id": 9,
+    "slug": "new-balance-2002r",
+    "name": "New Balance 2002R Protection Pack",
+    "brand": "New Balance",
+    "category": "running",
+    "price": 4590000,
+    "priceLabel": "4.590.000đ",
+    "badge": "Limited Drop",
+    "badgeVariant": "gold",
+    "rating": 5.0,
+    "reviewCount": 42,
+    "inStock": true,
+    "stockCount": 6,
+    "image": "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Rain Cloud Grey"],
+    "sizes": [40, 41, 42, 43, 44],
+    "materials": ["Suede xé rách x Mesh"],
+    "sku": "NB-2002R-PP",
+    "description": "Phiên bản Protection Pack thiết kế lớp da lộn rách nghệ thuật kết hợp đệm ABZORB êm ái tuyệt đỉnh.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "New Balance" },
+      { "label": "Đệm chân", "value": "ABZORB & N-ergy" }
+    ]
+  },
+  {
+    "id": 10,
+    "slug": "jordan-4-retro-military",
+    "name": "Jordan 4 Retro Military Black",
+    "brand": "Jordan",
+    "category": "lifestyle",
+    "price": 5490000,
+    "priceLabel": "5.490.000đ",
+    "compareAt": "5.990.000đ",
+    "badge": "VIP Exclusive",
+    "badgeVariant": "commerce",
+    "rating": 5.0,
+    "reviewCount": 77,
+    "inStock": true,
+    "stockCount": 4,
+    "image": "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Military Black / Neutral Grey"],
+    "sizes": [40, 41, 42, 43, 44],
+    "materials": ["Da Nubuck & Lưới Mesh"],
+    "sku": "JD-4RETRO-MB",
+    "description": "Jordan 4 Military Black đẳng cấp với chi tiết nhựa cánh chim nẹp hông và đệm Air mở gót.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Jordan" }
+    ]
+  },
+  {
+    "id": 11,
+    "slug": "vans-old-skool-black",
+    "name": "Vans Old Skool Core Black White",
+    "brand": "Vans",
+    "category": "lifestyle",
+    "price": 1750000,
+    "priceLabel": "1.750.000đ",
+    "rating": 4.8,
+    "reviewCount": 140,
+    "inStock": true,
+    "stockCount": 25,
+    "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Đen Sọc Trắng"],
+    "sizes": [36, 37, 38, 39, 40, 41, 42, 43],
+    "materials": ["Da thuộc x Canvas"],
+    "sku": "VN-OLDSKOOL-BLK",
+    "description": "Dải sọc Jazz Stripe đi cùng năm tháng, đế cao su bánh xếp Waffle cực bám đường.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Vans" }
+    ]
+  },
+  {
+    "id": 12,
+    "slug": "asics-gel-kayano-14",
+    "name": "Asics GEL-Kayano 14 Metallic Plum",
+    "brand": "Asics",
+    "category": "running",
+    "price": 3890000,
+    "priceLabel": "3.890.000đ",
+    "badge": "New Generation",
+    "badgeVariant": "info",
+    "rating": 4.9,
+    "reviewCount": 38,
+    "inStock": true,
+    "stockCount": 9,
+    "image": "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Metallic Silver / Cream"],
+    "sizes": [39, 40, 41, 42, 43],
+    "materials": ["Mesh thoáng khí & Da kim loại"],
+    "sku": "AS-GEL-K14-SLV",
+    "description": "Phong cách Y2K Runner đỉnh cao kết hợp công nghệ gel giảm xóc êm ái.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Asics" },
+      { "label": "Công nghệ đệm", "value": "GEL Technology Cushioning" }
+    ]
   }
 ]

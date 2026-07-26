@@ -12,29 +12,30 @@ function markAllAsRead() {
 <template>
   <div class="flex flex-col gap-6">
     <div class="flex items-center justify-between">
-      <h1 class="text-2xl font-extrabold text-white">Thông Báo Của Tôi</h1>
+      <h1 class="text-2xl font-extrabold text-slate-900">Thông Báo Của Tôi</h1>
       <button
         type="button"
-        class="text-xs text-primary font-bold hover:underline cursor-pointer"
+        class="text-xs text-amber-600 font-extrabold hover:underline cursor-pointer"
         @click="markAllAsRead"
       >
         Đánh dấu tất cả đã đọc
       </button>
     </div>
 
+    <!-- PURE WHITE LIGHT NOTIFICATION CARDS -->
     <div class="flex flex-col gap-3">
       <div
         v-for="n in list"
         :key="n.id"
-        class="p-4 bg-neutral-900 border rounded-2xl flex flex-col gap-1 transition-all"
-        :class="[n.read ? 'border-white/5 text-neutral-400' : 'border-primary/40 bg-primary/5 text-white']"
+        class="p-5 bg-white border rounded-3xl flex flex-col gap-1.5 transition-all shadow-sm text-slate-900"
+        :class="[n.read ? 'border-slate-200 opacity-80' : 'border-amber-600 bg-amber-500/5']"
       >
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-primary uppercase tracking-wider">{{ n.type }}</span>
-          <span class="text-[10px] text-neutral-500">{{ n.createdAt }}</span>
+          <span class="text-xs font-extrabold text-amber-600 uppercase tracking-wider">{{ n.type }}</span>
+          <span class="text-[10px] text-slate-400 font-bold">{{ n.createdAt }}</span>
         </div>
-        <h3 class="text-sm font-bold text-white">{{ n.title }}</h3>
-        <p class="text-xs leading-relaxed text-neutral-300">{{ n.body }}</p>
+        <h3 class="text-sm font-extrabold text-slate-900">{{ n.title }}</h3>
+        <p class="text-xs leading-relaxed text-slate-600 font-medium">{{ n.body }}</p>
       </div>
     </div>
   </div>

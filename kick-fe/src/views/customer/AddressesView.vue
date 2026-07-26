@@ -58,41 +58,42 @@ function deleteAddress(id) {
 <template>
   <div class="flex flex-col gap-6">
     <div class="flex items-center justify-between">
-      <h1 class="text-2xl font-extrabold text-white">Sổ Địa Chỉ Nhận Hàng</h1>
+      <h1 class="text-2xl font-extrabold text-slate-900">Sổ Địa Chỉ Nhận Hàng</h1>
       <button
         type="button"
-        class="px-4 py-2 bg-primary text-black font-extrabold text-xs rounded-xl hover:bg-primary-hover cursor-pointer"
+        class="px-5 py-2.5 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 cursor-pointer shadow transition-all"
         @click="openAddModal"
       >
         + Thêm Địa Chỉ Mới
       </button>
     </div>
 
+    <!-- PURE WHITE LIGHT ADDRESS CARDS -->
     <div class="grid grid-cols-1 gap-4">
       <div
         v-for="addr in addressList"
         :key="addr.id"
-        class="bg-neutral-900 border rounded-2xl p-6 flex flex-col gap-3"
-        :class="[addr.isDefault ? 'border-primary bg-primary/5' : 'border-white/10']"
+        class="bg-white border rounded-3xl p-6 flex flex-col gap-3 shadow-sm transition-all text-slate-900"
+        :class="[addr.isDefault ? 'border-amber-600 bg-amber-500/5' : 'border-slate-200']"
       >
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-sm font-bold text-white">{{ addr.receiverName }}</span>
-            <span class="text-xs text-neutral-400">({{ addr.phone }})</span>
-            <span v-if="addr.isDefault" class="text-[10px] bg-primary text-black font-extrabold px-2 py-0.5 rounded">Mặc định</span>
+            <span class="text-sm font-extrabold text-slate-900">{{ addr.receiverName }}</span>
+            <span class="text-xs text-slate-500 font-bold">({{ addr.phone }})</span>
+            <span v-if="addr.isDefault" class="text-[10px] bg-amber-600 text-white font-extrabold px-2.5 py-0.5 rounded-full">Mặc định</span>
           </div>
           <div class="flex items-center gap-3 text-xs">
-            <button @click="openEditModal(addr)" class="text-primary font-bold hover:underline cursor-pointer">Sửa</button>
-            <button v-if="!addr.isDefault" @click="deleteAddress(addr.id)" class="text-red-400 font-bold hover:underline cursor-pointer">Xóa</button>
+            <button @click="openEditModal(addr)" class="text-amber-600 font-extrabold hover:underline cursor-pointer">Sửa</button>
+            <button v-if="!addr.isDefault" @click="deleteAddress(addr.id)" class="text-red-500 font-extrabold hover:underline cursor-pointer">Xóa</button>
           </div>
         </div>
 
-        <p class="text-xs text-neutral-300">{{ addr.street }}, {{ addr.ward }}, {{ addr.district }}, {{ addr.province }}</p>
+        <p class="text-xs text-slate-600 font-medium">{{ addr.street }}, {{ addr.ward }}, {{ addr.district }}, {{ addr.province }}</p>
 
         <button
           v-if="!addr.isDefault"
           type="button"
-          class="self-start text-[11px] font-bold text-neutral-400 hover:text-white cursor-pointer mt-1"
+          class="self-start text-[11px] font-extrabold text-slate-500 hover:text-amber-600 cursor-pointer mt-1"
           @click="setDefault(addr.id)"
         >
           Đặt làm địa chỉ mặc định
@@ -101,23 +102,23 @@ function deleteAddress(id) {
     </div>
 
     <!-- Add/Edit Address Modal -->
-    <KvModal v-model="showModal" :title="editingAddress ? 'Sửa Địa Chỉ Nhận Hàng' : 'Thêm Địa Chỉ Mới'" :dark="true">
+    <KvModal v-model="showModal" :title="editingAddress ? 'Sửa Địa Chỉ Nhận Hàng' : 'Thêm Địa Chỉ Mới'" :dark="false">
       <form @submit.prevent="saveAddress" class="flex flex-col gap-4">
         <div class="grid grid-cols-2 gap-3">
-          <input v-model="form.receiverName" placeholder="Họ và tên *" required class="h-10 px-3 text-xs bg-black border border-white/15 rounded-lg text-white" />
-          <input v-model="form.phone" placeholder="Số điện thoại *" required class="h-10 px-3 text-xs bg-black border border-white/15 rounded-lg text-white" />
+          <input v-model="form.receiverName" placeholder="Họ và tên *" required class="h-10 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium" />
+          <input v-model="form.phone" placeholder="Số điện thoại *" required class="h-10 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium" />
         </div>
         <div class="grid grid-cols-3 gap-3">
-          <KvSelect v-model="form.province" label="Tỉnh / Thành" :options="provinceOptions" :dark="true" />
-          <KvSelect v-model="form.district" label="Quận / Huyện" :options="districtOptions" :dark="true" />
-          <KvSelect v-model="form.ward" label="Phường / Xã" :options="wardOptions" :dark="true" />
+          <KvSelect v-model="form.province" label="Tỉnh / Thành" :options="provinceOptions" :dark="false" />
+          <KvSelect v-model="form.district" label="Quận / Huyện" :options="districtOptions" :dark="false" />
+          <KvSelect v-model="form.ward" label="Phường / Xã" :options="wardOptions" :dark="false" />
         </div>
-        <input v-model="form.street" placeholder="Địa chỉ cụ thể (Số nhà, đường...)" required class="h-10 px-3 text-xs bg-black border border-white/15 rounded-lg text-white" />
-        <label class="flex items-center gap-2 text-xs text-neutral-300 cursor-pointer">
-          <input type="checkbox" v-model="form.isDefault" class="accent-primary w-4 h-4" />
+        <input v-model="form.street" placeholder="Địa chỉ cụ thể (Số nhà, đường...)" required class="h-10 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium" />
+        <label class="flex items-center gap-2 text-xs text-slate-700 font-bold cursor-pointer">
+          <input type="checkbox" v-model="form.isDefault" class="accent-amber-600 w-4 h-4 rounded" />
           <span>Đặt làm địa chỉ mặc định</span>
         </label>
-        <button type="submit" class="h-11 bg-primary text-black font-extrabold text-xs rounded-xl hover:bg-primary-hover cursor-pointer mt-2">LƯU ĐỊA CHỈ</button>
+        <button type="submit" class="h-11 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 cursor-pointer shadow mt-2">LƯU ĐỊA CHỈ</button>
       </form>
     </KvModal>
   </div>

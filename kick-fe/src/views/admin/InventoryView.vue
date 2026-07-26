@@ -40,15 +40,15 @@ function processImport() {
   <div class="flex flex-col gap-6">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-extrabold text-white">Quản Lý Tồn Kho & Nhập Hàng</h1>
-        <p class="text-xs text-neutral-400 mt-1">Theo dõi tồn kho thực tế theo từng biến thể SKU và tạo phiếu nhập kho</p>
+        <h1 class="text-2xl font-extrabold text-slate-900">Quản Lý Tồn Kho & Nhập Hàng</h1>
+        <p class="text-xs text-slate-500 mt-1 font-medium">Theo dõi tồn kho thực tế theo từng biến thể SKU và tạo phiếu nhập kho</p>
       </div>
     </div>
 
-    <!-- Inventory Table -->
-    <div class="bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden">
-      <table class="w-full text-left text-xs text-neutral-300">
-        <thead class="bg-black text-white font-bold uppercase border-b border-white/10">
+    <!-- PURE WHITE LIGHT INVENTORY TABLE -->
+    <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+      <table class="w-full text-left text-xs text-slate-700">
+        <thead class="bg-slate-900 text-white font-bold uppercase border-b border-slate-200">
           <tr>
             <th class="p-4">Mã SKU</th>
             <th class="p-4">Tên Sản Phẩm</th>
@@ -58,16 +58,16 @@ function processImport() {
             <th class="p-4 text-right">Thao Tác</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-white/5">
-          <tr v-for="item in inventoryList" :key="item.id" class="hover:bg-white/5">
-            <td class="p-4 font-mono font-bold text-primary">{{ item.sku }}</td>
-            <td class="p-4 font-bold text-white">{{ item.name }}</td>
-            <td class="p-4 text-neutral-400">{{ item.supplier }}</td>
-            <td class="p-4 font-bold text-white">{{ formatVnd(item.importPrice) }}</td>
+        <tbody class="divide-y divide-slate-100">
+          <tr v-for="item in inventoryList" :key="item.id" class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 font-mono font-extrabold text-amber-600">{{ item.sku }}</td>
+            <td class="p-4 font-extrabold text-slate-900">{{ item.name }}</td>
+            <td class="p-4 text-slate-500 font-medium">{{ item.supplier }}</td>
+            <td class="p-4 font-extrabold text-slate-900">{{ formatVnd(item.importPrice) }}</td>
             <td class="p-4">
               <span
                 class="px-2.5 py-1 font-extrabold text-[11px] rounded-full"
-                :class="[item.stockCount <= 10 ? 'bg-red-500/20 text-red-400 border border-red-500/40' : 'bg-emerald-500/20 text-emerald-400']"
+                :class="[item.stockCount <= 10 ? 'bg-red-500/10 text-red-600 border border-red-200' : 'bg-emerald-500/10 text-emerald-700']"
               >
                 {{ item.stockCount }} đôi
               </span>
@@ -75,7 +75,7 @@ function processImport() {
             <td class="p-4 text-right">
               <button
                 @click="openImportModal(item)"
-                class="px-3 py-1.5 bg-primary text-black font-extrabold text-xs rounded-lg hover:bg-primary-hover cursor-pointer"
+                class="px-3.5 py-1.5 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 transition-colors cursor-pointer shadow"
               >
                 + Nhập Kho
               </button>
@@ -86,24 +86,24 @@ function processImport() {
     </div>
 
     <!-- Stock Import Receipt Modal -->
-    <KvModal v-model="showImportModal" title="Tạo Phiếu Nhập Kho" :dark="true">
+    <KvModal v-model="showImportModal" title="Tạo Phiếu Nhập Kho" :dark="false">
       <form @submit.prevent="processImport" class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
-          <label class="text-xs font-bold text-neutral-400">Mã SKU nhận nhập:</label>
-          <span class="text-sm font-extrabold text-primary font-mono">{{ selectedSku }}</span>
+          <label class="text-xs font-bold text-slate-600">Mã SKU nhận nhập:</label>
+          <span class="text-sm font-extrabold text-amber-600 font-mono">{{ selectedSku }}</span>
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs font-bold text-neutral-300">Số lượng nhập bổ sung:</label>
-          <input v-model.number="importQty" type="number" min="1" required class="h-10 px-3 bg-black border border-white/15 rounded-lg text-white text-xs" />
+          <label class="text-xs font-bold text-slate-700">Số lượng nhập bổ sung:</label>
+          <input v-model.number="importQty" type="number" min="1" required class="h-10 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs font-medium" />
         </div>
 
         <div class="flex flex-col gap-1">
-          <label class="text-xs font-bold text-neutral-300">Đơn giá nhập (VNĐ):</label>
-          <input v-model.number="importPriceInput" type="number" step="50000" required class="h-10 px-3 bg-black border border-white/15 rounded-lg text-white text-xs" />
+          <label class="text-xs font-bold text-slate-700">Đơn giá nhập (VNĐ):</label>
+          <input v-model.number="importPriceInput" type="number" step="50000" required class="h-10 px-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-xs font-medium" />
         </div>
 
-        <button type="submit" class="h-11 bg-primary text-black font-extrabold text-xs rounded-xl hover:bg-primary-hover cursor-pointer mt-2">
+        <button type="submit" class="h-11 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 transition-all cursor-pointer mt-2 shadow">
           HOÀN TẤT NHẬP KHO
         </button>
       </form>

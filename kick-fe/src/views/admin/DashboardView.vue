@@ -1,10 +1,17 @@
 <script setup>
 import { ref } from 'vue'
-import { formatVnd } from '@/data/demo'
+import { RouterLink } from 'vue-router'
 import productsJson from '@/data/json/products.json'
-import ordersJson from '@/data/json/orders.json'
+import KvSelect from '@/components/ui/KvSelect.vue'
 
 const selectedPeriod = ref('month')
+
+const periodOptions = [
+  { value: 'today', label: 'Hôm nay' },
+  { value: 'week', label: 'Tuần này' },
+  { value: 'month', label: 'Tháng này' },
+  { value: 'year', label: 'Năm 2026' },
+]
 
 const stats = ref([
   { title: 'Tổng Doanh Thu', value: '148.500.000đ', change: '+18.5%', isUp: true },
@@ -18,26 +25,23 @@ const lowStockItems = productsJson.filter((p) => p.stockCount <= 10)
 
 <template>
   <div class="flex flex-col gap-8">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-white">Báo Cáo Tổng Quan Dashboard</h1>
-        <p class="text-xs text-neutral-400 mt-1">Thống kê hiệu suất kinh doanh toàn hệ thống KickVerse</p>
+        <h1 class="text-2xl font-extrabold text-slate-900">Báo Cáo Tổng Quan Dashboard</h1>
+        <p class="text-xs text-slate-500 mt-1 font-medium">Thống kê hiệu suất kinh doanh toàn hệ thống KickVerse</p>
       </div>
 
-      <select v-model="selectedPeriod" class="h-10 px-4 text-xs bg-neutral-900 border border-white/15 rounded-xl text-white font-bold">
-        <option value="today">Hôm nay</option>
-        <option value="week">Tuần này</option>
-        <option value="month">Tháng này</option>
-        <option value="year">Năm 2026</option>
-      </select>
+      <div class="w-48">
+        <KvSelect v-model="selectedPeriod" :options="periodOptions" :dark="false" />
+      </div>
     </div>
 
     <!-- METRIC CARDS GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <div v-for="s in stats" :key="s.title" class="bg-neutral-900 border border-white/10 rounded-2xl p-5 flex flex-col gap-2">
-        <span class="text-xs font-bold text-neutral-400">{{ s.title }}</span>
-        <span class="text-2xl font-extrabold text-white">{{ s.value }}</span>
-        <span class="text-[11px] font-bold" :class="[s.isUp ? 'text-emerald-400' : 'text-red-400']">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+      <div v-for="s in stats" :key="s.title" class="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col gap-2 shadow-sm hover:shadow-md transition-all">
+        <span class="text-xs font-bold text-slate-500">{{ s.title }}</span>
+        <span class="text-2xl font-extrabold text-slate-900">{{ s.value }}</span>
+        <span class="text-xs font-extrabold" :class="[s.isUp ? 'text-emerald-600' : 'text-red-500']">
           {{ s.change }} so với kỳ trước
         </span>
       </div>
@@ -46,41 +50,41 @@ const lowStockItems = productsJson.filter((p) => p.stockCount <= 10)
     <!-- REVENUE CHART & LOW STOCK ALERT GRID -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Simulated Revenue Chart -->
-      <div class="md:col-span-2 bg-neutral-900 border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
-        <div class="flex items-center justify-between border-b border-white/10 pb-3">
-          <h2 class="text-sm font-bold text-white uppercase tracking-wider">Biểu Đồ Doanh Thu Theo Tháng</h2>
-          <span class="text-xs text-primary font-bold">Đơn vị: Triệu VNĐ</span>
+      <div class="md:col-span-2 bg-white border border-slate-200 rounded-3xl p-6 flex flex-col gap-4 shadow-sm">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h2 class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Biểu Đồ Doanh Thu Theo Tháng</h2>
+          <span class="text-xs text-amber-600 font-extrabold">Đơn vị: Triệu VNĐ</span>
         </div>
 
-        <div class="h-64 flex items-end justify-between gap-3 pt-6 px-4 border-b border-white/10">
+        <div class="h-64 flex items-end justify-between gap-3 pt-6 px-4 border-b border-slate-100">
           <div v-for="(val, idx) in [45, 68, 92, 110, 85, 130, 148]" :key="idx" class="flex-1 flex flex-col items-center gap-2 group">
-            <span class="text-[10px] font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">{{ val }}M</span>
-            <div class="w-full bg-gradient-to-t from-primary/30 to-primary rounded-t-lg transition-all group-hover:bg-primary-hover" :style="{ height: `${val * 1.5}px` }"></div>
-            <span class="text-[10px] text-neutral-400">T{{ idx + 1 }}</span>
+            <span class="text-[10px] font-extrabold text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">{{ val }}M</span>
+            <div class="w-full bg-gradient-to-t from-slate-800 to-slate-900 rounded-t-xl transition-all group-hover:bg-amber-600" :style="{ height: `${val * 1.5}px` }"></div>
+            <span class="text-[10px] text-slate-500 font-bold">T{{ idx + 1 }}</span>
           </div>
         </div>
       </div>
 
       <!-- Low Stock Warnings Widget -->
-      <div class="bg-neutral-900 border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
-        <div class="flex items-center justify-between border-b border-white/10 pb-3">
-          <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+      <div class="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col gap-4 shadow-sm">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h2 class="text-xs font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
             Cảnh Báo Sắp Hết Hàng
           </h2>
-          <RouterLink to="/admin/inventory" class="text-xs text-primary font-bold hover:underline no-underline">Quản lý kho</RouterLink>
+          <RouterLink to="/admin/inventory" class="text-xs text-amber-600 font-extrabold hover:underline no-underline">Quản lý kho</RouterLink>
         </div>
 
         <div class="flex flex-col gap-3">
-          <div v-for="item in lowStockItems" :key="item.id" class="flex items-center justify-between p-3 bg-black/40 border border-white/5 rounded-xl text-xs">
+          <div v-for="item in lowStockItems" :key="item.id" class="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs">
             <div class="flex items-center gap-3">
-              <img :src="item.image" :alt="item.name" class="w-10 h-10 object-cover rounded-lg" />
+              <img :src="item.image" :alt="item.name" class="w-10 h-10 object-cover rounded-xl border border-slate-200" />
               <div>
-                <span class="font-bold text-white line-clamp-1 block">{{ item.name }}</span>
-                <span class="text-[10px] text-neutral-400">SKU: {{ item.sku }}</span>
+                <span class="font-extrabold text-slate-900 line-clamp-1 block">{{ item.name }}</span>
+                <span class="text-[10px] text-slate-400 font-bold">SKU: {{ item.sku }}</span>
               </div>
             </div>
-            <span class="px-2 py-1 bg-red-500/20 text-red-400 font-extrabold rounded-lg text-xs">
+            <span class="px-2.5 py-1 bg-red-500/10 text-red-600 font-extrabold rounded-lg text-xs">
               Còn {{ item.stockCount }}
             </span>
           </div>

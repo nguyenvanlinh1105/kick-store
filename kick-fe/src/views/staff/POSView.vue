@@ -55,123 +55,123 @@ function completeCheckout() {
 </script>
 
 <template>
-  <div class="h-screen bg-black text-white flex flex-col overflow-hidden">
+  <div class="h-screen bg-slate-50 text-slate-900 flex flex-col overflow-hidden">
     <!-- POS HEADER -->
-    <header class="h-14 bg-neutral-900 border-b border-white/10 px-6 flex items-center justify-between shrink-0">
+    <header class="h-14 bg-slate-900 text-white px-6 flex items-center justify-between shrink-0 shadow-md">
       <div class="flex items-center gap-3">
-        <span class="text-xs font-extrabold px-2.5 py-1 bg-primary text-black rounded uppercase">KICKVERSE POS</span>
-        <span class="text-xs text-neutral-300">Bán Hàng Tại Quầy - Quầy 01</span>
+        <span class="text-xs font-extrabold px-3 py-1 bg-amber-600 text-white rounded-lg uppercase">KICKVERSE POS</span>
+        <span class="text-xs text-slate-300 font-bold">Bán Hàng Tại Quầy - Quầy 01</span>
       </div>
 
       <div class="flex items-center gap-4 text-xs">
-        <span class="text-neutral-400">Thu ngân: <strong class="text-white">Hoàng Anh Tuấn</strong></span>
-        <RouterLink to="/staff" class="text-primary font-bold hover:underline no-underline">Thoát POS →</RouterLink>
+        <span class="text-slate-300">Thu ngân: <strong class="text-white font-extrabold">Hoàng Anh Tuấn</strong></span>
+        <RouterLink to="/staff" class="text-amber-400 font-extrabold hover:underline no-underline">Thoát POS →</RouterLink>
       </div>
     </header>
 
     <!-- POS MAIN WORKSPACE -->
     <div class="flex flex-1 overflow-hidden">
       <!-- LEFT: PRODUCT SEARCH & CATALOG -->
-      <div class="flex-1 p-6 flex flex-col gap-4 overflow-y-auto border-r border-white/10">
+      <div class="flex-1 p-6 flex flex-col gap-4 overflow-y-auto border-r border-slate-200 bg-white">
         <!-- Barcode / Search Input -->
         <form @submit.prevent="handleBarcodeScan" class="relative">
           <input
             v-model="searchSKU"
             type="text"
             placeholder="🔍 Quét mã vạch Barcode hoặc nhập mã SKU sản phẩm (Nhấn Enter)..."
-            class="w-full h-12 px-4 pr-12 text-sm bg-neutral-900 border-2 border-primary/50 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-primary"
+            class="w-full h-12 px-4 pr-16 text-xs bg-slate-50 border-2 border-slate-200 focus:border-amber-600 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none font-medium shadow-sm transition-all"
           />
-          <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold bg-primary text-black px-3 py-1.5 rounded-lg cursor-pointer">
+          <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-extrabold bg-slate-900 text-white px-4 py-1.5 rounded-xl cursor-pointer hover:bg-amber-600 shadow">
             Thêm
           </button>
         </form>
 
         <!-- Quick Select Products Grid -->
-        <span class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Sản Phẩm Khả Dụng Trong Kho</span>
+        <span class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Sản Phẩm Khả Dụng Trong Kho (Chạm để chọn)</span>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
           <button
             v-for="p in productsJson"
             :key="p.id"
             type="button"
-            class="p-3 bg-neutral-900 border border-white/10 hover:border-primary rounded-xl flex items-center gap-3 text-left transition-all cursor-pointer"
+            class="p-3 bg-slate-50 border border-slate-200 hover:border-amber-600 rounded-2xl flex items-center gap-3 text-left transition-all cursor-pointer shadow-sm hover:shadow-md"
             @click="searchSKU = p.sku; handleBarcodeScan()"
           >
-            <img :src="p.image" :alt="p.name" class="w-12 h-12 object-cover rounded-lg shrink-0" />
-            <div class="flex flex-col">
-              <span class="text-xs font-bold text-white line-clamp-1">{{ p.name }}</span>
-              <span class="text-[10px] text-neutral-400 font-mono">{{ p.sku }}</span>
-              <span class="text-xs font-extrabold text-primary mt-1">{{ formatVnd(p.price) }}</span>
+            <img :src="p.image" :alt="p.name" class="w-12 h-12 object-cover rounded-xl shrink-0 border border-slate-200" />
+            <div class="flex flex-col min-w-0">
+              <span class="text-xs font-extrabold text-slate-900 truncate">{{ p.name }}</span>
+              <span class="text-[10px] text-slate-400 font-mono font-bold">{{ p.sku }}</span>
+              <span class="text-xs font-extrabold text-amber-600 mt-1">{{ formatVnd(p.price) }}</span>
             </div>
           </button>
         </div>
       </div>
 
       <!-- RIGHT: CURRENT RECEIPT CART & CHECKOUT -->
-      <div class="w-96 bg-neutral-950 p-6 flex flex-col justify-between shrink-0">
+      <div class="w-96 bg-slate-100 p-6 flex flex-col justify-between shrink-0 border-l border-slate-200">
         <div class="flex flex-col gap-4">
           <!-- Customer Lookup -->
-          <div class="p-3 bg-neutral-900 border border-white/10 rounded-xl flex items-center justify-between text-xs">
+          <div class="p-4 bg-white border border-slate-200 rounded-2xl flex items-center justify-between text-xs shadow-sm">
             <div>
-              <span class="text-[10px] text-neutral-400 block">Khách hàng tích điểm:</span>
-              <span class="font-bold text-white">{{ selectedCustomer.fullName }} ({{ selectedCustomer.phone }})</span>
+              <span class="text-[10px] text-slate-400 font-bold block">Khách hàng tích điểm:</span>
+              <span class="font-extrabold text-slate-900">{{ selectedCustomer.fullName }} ({{ selectedCustomer.phone }})</span>
             </div>
-            <span class="text-[10px] bg-amber-400 text-black font-extrabold px-1.5 py-0.5 rounded">Hạng {{ selectedCustomer.tier }}</span>
+            <span class="text-[10px] bg-amber-400 text-slate-900 font-extrabold px-2 py-0.5 rounded-full">Hạng {{ selectedCustomer.tier }}</span>
           </div>
 
           <!-- Items List -->
           <div class="flex flex-col gap-2 max-h-72 overflow-y-auto pr-1">
-            <div v-for="(item, idx) in posCart" :key="idx" class="p-3 bg-neutral-900 border border-white/5 rounded-xl flex items-center justify-between text-xs">
-              <div class="flex flex-col gap-0.5">
-                <span class="font-bold text-white line-clamp-1">{{ item.name }}</span>
-                <span class="text-[10px] text-neutral-400">Size {{ item.size }} | {{ formatVnd(item.price) }}</span>
+            <div v-for="(item, idx) in posCart" :key="idx" class="p-3 bg-white border border-slate-200 rounded-2xl flex items-center justify-between text-xs shadow-sm">
+              <div class="flex flex-col gap-0.5 min-w-0 pr-2">
+                <span class="font-extrabold text-slate-900 truncate">{{ item.name }}</span>
+                <span class="text-[10px] text-slate-500 font-bold">Size {{ item.size }} | {{ formatVnd(item.price) }}</span>
               </div>
-              <div class="flex items-center gap-2">
-                <button @click="updateQty(idx, -1)" class="w-6 h-6 bg-black rounded text-white font-bold cursor-pointer">-</button>
-                <span class="font-bold text-white">{{ item.qty }}</span>
-                <button @click="updateQty(idx, 1)" class="w-6 h-6 bg-black rounded text-white font-bold cursor-pointer">+</button>
+              <div class="flex items-center gap-2 shrink-0">
+                <button @click="updateQty(idx, -1)" class="w-7 h-7 bg-slate-100 border border-slate-200 rounded-lg text-slate-900 font-extrabold cursor-pointer hover:bg-slate-200">-</button>
+                <span class="font-extrabold text-slate-900">{{ item.qty }}</span>
+                <button @click="updateQty(idx, 1)" class="w-7 h-7 bg-slate-100 border border-slate-200 rounded-lg text-slate-900 font-extrabold cursor-pointer hover:bg-slate-200">+</button>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Checkout Controls -->
-        <div class="flex flex-col gap-4 border-t border-white/10 pt-4">
+        <div class="flex flex-col gap-4 border-t border-slate-200 pt-4">
           <!-- Payment Method Radios -->
           <div class="grid grid-cols-3 gap-2 text-center text-xs">
             <button
               type="button"
-              class="py-2 font-bold rounded-lg border cursor-pointer transition-all"
-              :class="[selectedPayment === 'cash' ? 'bg-primary text-black border-primary' : 'bg-neutral-900 border-white/10 text-neutral-300']"
+              class="py-2.5 font-extrabold rounded-xl border cursor-pointer transition-all shadow-sm"
+              :class="[selectedPayment === 'cash' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300']"
               @click="selectedPayment = 'cash'"
             >
               💵 Tiền mặt
             </button>
             <button
               type="button"
-              class="py-2 font-bold rounded-lg border cursor-pointer transition-all"
-              :class="[selectedPayment === 'vietqr' ? 'bg-primary text-black border-primary' : 'bg-neutral-900 border-white/10 text-neutral-300']"
+              class="py-2.5 font-extrabold rounded-xl border cursor-pointer transition-all shadow-sm"
+              :class="[selectedPayment === 'vietqr' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300']"
               @click="selectedPayment = 'vietqr'"
             >
               🏦 VietQR
             </button>
             <button
               type="button"
-              class="py-2 font-bold rounded-lg border cursor-pointer transition-all"
-              :class="[selectedPayment === 'card' ? 'bg-primary text-black border-primary' : 'bg-neutral-900 border-white/10 text-neutral-300']"
+              class="py-2.5 font-extrabold rounded-xl border cursor-pointer transition-all shadow-sm"
+              :class="[selectedPayment === 'card' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300']"
               @click="selectedPayment = 'card'"
             >
               💳 Quẹt thẻ
             </button>
           </div>
 
-          <div class="flex justify-between text-base font-extrabold text-white">
+          <div class="flex justify-between text-base font-extrabold text-slate-900">
             <span>Tổng thanh toán:</span>
-            <span class="text-primary text-xl">{{ formatVnd(subtotal) }}</span>
+            <span class="text-amber-600 text-xl">{{ formatVnd(subtotal) }}</span>
           </div>
 
           <button
             type="button"
-            class="w-full h-14 bg-primary text-black font-extrabold text-sm uppercase tracking-wider rounded-xl hover:bg-primary-hover transition-all cursor-pointer shadow-lg"
+            class="w-full h-14 bg-slate-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl hover:bg-amber-600 transition-all cursor-pointer shadow-lg"
             @click="completeCheckout"
           >
             🖨️ THANH TOÁN & IN BILL (80mm)
@@ -181,21 +181,21 @@ function completeCheckout() {
     </div>
 
     <!-- Thermal Receipt Modal 80mm -->
-    <KvModal v-model="showReceiptModal" title="Hóa Đơn Bán Lẻ Tại Quầy (Máy in 80mm)" :dark="true">
-      <div class="flex flex-col gap-3 text-xs text-neutral-300 font-mono p-4 bg-white text-black rounded-xl max-w-xs mx-auto">
-        <div class="text-center border-b border-black pb-2">
-          <h3 class="font-extrabold text-base">KICKVERSE SNEAKER</h3>
-          <p class="text-[10px]">Hóa đơn bán lẻ tại quầy</p>
+    <KvModal v-model="showReceiptModal" title="Hóa Đơn Bán Lẻ Tại Quầy (Máy in 80mm)" :dark="false">
+      <div class="flex flex-col gap-3 text-xs text-slate-900 font-mono p-4 bg-slate-50 border border-slate-200 rounded-2xl max-w-xs mx-auto">
+        <div class="text-center border-b border-slate-300 pb-2">
+          <h3 class="font-extrabold text-base text-slate-900">KICKVERSE SNEAKER</h3>
+          <p class="text-[10px] text-slate-500 font-bold">Hóa đơn bán lẻ tại quầy</p>
         </div>
         <div v-for="i in posCart" :key="i.id" class="flex justify-between">
           <span>{{ i.name }} (x{{ i.qty }})</span>
-          <span class="font-bold">{{ formatVnd(i.price * i.qty) }}</span>
+          <span class="font-bold text-slate-900">{{ formatVnd(i.price * i.qty) }}</span>
         </div>
-        <div class="border-t border-black pt-2 flex justify-between font-extrabold text-sm">
+        <div class="border-t border-slate-300 pt-2 flex justify-between font-extrabold text-sm">
           <span>TỔNG TIỀN:</span>
-          <span>{{ formatVnd(subtotal) }}</span>
+          <span class="text-amber-600">{{ formatVnd(subtotal) }}</span>
         </div>
-        <button @click="showReceiptModal = false; alert('Đã in bill 80mm thành công!')" class="h-10 bg-black text-white font-bold text-xs rounded-lg mt-2 cursor-pointer">
+        <button @click="showReceiptModal = false; alert('Đã in bill 80mm thành công!')" class="h-11 bg-slate-900 text-white font-extrabold text-xs rounded-xl mt-2 cursor-pointer hover:bg-amber-600 shadow">
           🖨️ IN BILL NGAY
         </button>
       </div>
