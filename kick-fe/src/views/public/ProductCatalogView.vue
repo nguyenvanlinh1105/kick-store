@@ -125,7 +125,7 @@ onMounted(() => {
 
       <!-- Main Grid: Sidebar + Products -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- Sidebar Filter with Custom Bo Tròn Rounded-2xl Dropdowns -->
+        <!-- Sidebar Filter -->
         <aside class="md:col-span-1 bg-white border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 h-fit shadow-sm">
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Bộ Lọc Tìm Kiếm</h3>
@@ -182,7 +182,7 @@ onMounted(() => {
           </label>
         </aside>
 
-        <!-- Product Listing Grid -->
+        <!-- Product Listing Grid: 1 PRODUCT PER ROW ON MOBILE (grid-cols-1 sm:grid-cols-2 md:grid-cols-3) -->
         <main class="md:col-span-3">
           <div v-if="filteredProducts.length === 0" class="py-16 text-center bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
             <p class="text-slate-600 font-bold mb-4">Không tìm thấy sản phẩm phù hợp với bộ lọc.</p>
@@ -192,7 +192,7 @@ onMounted(() => {
           </div>
 
           <div v-else>
-            <div v-if="displayMode === 'grid'" class="grid grid-cols-2 md:grid-cols-3 gap-5">
+            <div v-if="displayMode === 'grid'" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               <KvProductCard
                 v-for="p in paginatedProducts"
                 :key="p.id"
@@ -208,8 +208,8 @@ onMounted(() => {
                 :key="p.id"
                 class="flex flex-col sm:flex-row items-center gap-6 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all"
               >
-                <img :src="p.image" :alt="p.name" class="w-36 h-36 object-cover rounded-xl shrink-0" />
-                <div class="flex-1 flex flex-col gap-1.5">
+                <img :src="p.image" :alt="p.name" class="w-full sm:w-36 h-48 sm:h-36 object-cover rounded-xl shrink-0" />
+                <div class="flex-1 flex flex-col gap-1.5 w-full">
                   <span class="text-xs font-extrabold text-amber-600 uppercase">{{ p.brand }}</span>
                   <h3 class="text-base font-extrabold text-slate-900">{{ p.name }}</h3>
                   <p class="text-xs text-slate-500 line-clamp-2">{{ p.description }}</p>
@@ -220,7 +220,7 @@ onMounted(() => {
                 </div>
                 <button
                   type="button"
-                  class="px-6 py-3 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 shrink-0 cursor-pointer shadow"
+                  class="w-full sm:w-auto px-6 py-3 bg-slate-900 text-white font-extrabold text-xs rounded-xl hover:bg-amber-600 shrink-0 cursor-pointer shadow"
                   @click="cart.addItem(p)"
                 >
                   + MUA NGAY

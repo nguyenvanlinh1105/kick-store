@@ -15,9 +15,9 @@ function removeFromWishlist(id) {
 
 <template>
   <div class="flex flex-col gap-6">
-    <div class="flex items-center justify-between">
-      <h1 class="text-2xl font-extrabold text-white">Danh Sách Yêu Thích</h1>
-      <span class="text-xs text-neutral-400">{{ wishlistItems.length }} sản phẩm</span>
+    <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+      <h1 class="text-2xl font-extrabold text-slate-900">Danh Sách Yêu Thích</h1>
+      <span class="text-xs text-slate-500 font-bold">{{ wishlistItems.length }} sản phẩm đã lưu</span>
     </div>
 
     <div v-if="wishlistItems.length === 0" class="py-12">
@@ -29,12 +29,13 @@ function removeFromWishlist(id) {
       />
     </div>
 
-    <div v-else class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <!-- 1 PRODUCT PER ROW ON MOBILE (grid-cols-1 sm:grid-cols-2 md:grid-cols-3) -->
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       <div v-for="p in wishlistItems" :key="p.id" class="relative group">
-        <KvProductCard :product="p" @add-to-cart="cart.addItem" />
+        <KvProductCard :product="p" :dark="false" @add-to-cart="cart.addItem" />
         <button
           type="button"
-          class="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/80 border border-white/20 text-red-400 text-xs flex items-center justify-center cursor-pointer hover:scale-110 transition-transform"
+          class="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-white/90 border border-slate-200 text-red-500 text-xs flex items-center justify-center cursor-pointer hover:scale-110 shadow-md transition-transform"
           @click="removeFromWishlist(p.id)"
           title="Xóa khỏi Wishlist"
         >
