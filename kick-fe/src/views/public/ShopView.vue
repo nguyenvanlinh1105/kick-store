@@ -35,7 +35,8 @@ watch(
   () => route.query.cat,
   (newCat) => {
     selectedCategory.value = newCat ? newCat.toLowerCase() : 'all'
-  }
+  },
+  { immediate: true }
 )
 
 // Set category and update query params

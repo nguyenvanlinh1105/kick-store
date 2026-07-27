@@ -56,7 +56,7 @@
     "sizes": [40, 41, 42, 43, 44],
     "materials": ["Vải dệt Primeknit", "Đế Boost"],
     "sku": "AD-UB-CITY-GY",
-    "description": "Cảm nhận năng lượng bứt phá cùng Ultraboost City. Thân vải Primeknit ôm sát như một đôi tất thứ hai, đến Boost phản hồi lực 100%.",
+    "description": "Cảm nhận năng lượng bứt phá cùng Ultraboost City. Thân vải Primeknit ôm sát như một đôi tất thứ hai, đệm Boost phản hồi lực 100%.",
     "specs": [
       { "label": "Thương hiệu", "value": "Adidas" },
       { "label": "Chất liệu", "value": "Primeknit Textile" },
@@ -334,6 +334,339 @@
     "specs": [
       { "label": "Thương hiệu", "value": "Asics" },
       { "label": "Công nghệ đệm", "value": "GEL Technology Cushioning" }
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "nike-pegasus-41",
+    "name": "Nike Pegasus 41 ReactX Volt",
+    "brand": "Nike",
+    "category": "running",
+    "price": 3690000,
+    "priceLabel": "3.690.000đ",
+    "compareAt": "4.190.000đ",
+    "badge": "Mới Về",
+    "badgeVariant": "info",
+    "rating": 4.9,
+    "reviewCount": 28,
+    "inStock": true,
+    "stockCount": 16,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Xanh Volt", "Đen Trắng"],
+    "sizes": [39, 40, 41, 42, 43, 44],
+    "materials": ["Bọt ReactX", "Vải dệt Engineered Mesh"],
+    "sku": "NK-PEG41-VLT",
+    "description": "Đôi giày chạy bộ quốc dân thế hệ mới với bộ bọt ReactX hoàn trả năng lượng cực cao.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Nike" },
+      { "label": "Công nghệ đệm", "value": "Nike ReactX & Air Zoom" }
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "adidas-adizero-boston-12",
+    "name": "Adidas Adizero Boston 12 Pro",
+    "brand": "Adidas",
+    "category": "running",
+    "price": 4190000,
+    "priceLabel": "4.190.000đ",
+    "badge": "Pro Run",
+    "badgeVariant": "gold",
+    "rating": 4.8,
+    "reviewCount": 35,
+    "inStock": true,
+    "stockCount": 11,
+    "image": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Xanh Neon", "Đen"],
+    "sizes": [40, 41, 42, 43, 44],
+    "materials": ["Lightstrike Pro", "Thanh EnergyRods 2.0"],
+    "sku": "AD-BOS12-NEO",
+    "description": "Mẫu giày chạy tốc độ chuyên nghiệp được tích hợp thanh thủy tinh EnergyRods 2.0.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Adidas" },
+      { "label": "Bộ đệm", "value": "Lightstrike Pro x Lightstrike 2.0" }
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "new-balance-1906r",
+    "name": "New Balance 1906R Cordura Metallic",
+    "brand": "New Balance",
+    "category": "running",
+    "price": 4290000,
+    "priceLabel": "4.290.000đ",
+    "compareAt": "4.790.000đ",
+    "badge": "Hot Drop",
+    "badgeVariant": "gold",
+    "rating": 4.9,
+    "reviewCount": 52,
+    "inStock": true,
+    "stockCount": 8,
+    "image": "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Metallic Grey", "Black Olive"],
+    "sizes": [39, 40, 41, 42, 43],
+    "materials": ["Chống nước Cordura", "ABZORB Cushioning"],
+    "sku": "NB-1906R-MTL",
+    "description": "Thiết kế thể thao đậm chất Y2K kết hợp chất liệu siêu bền Cordura bám đường tốt.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "New Balance" },
+      { "label": "Hệ thống đệm", "value": "N-ergy & Stability Web" }
+    ]
+  },
+  {
+    "id": 16,
+    "slug": "nike-zoomx-vaporfly-3",
+    "name": "Nike ZoomX Vaporfly NEXT% 3 Prototype",
+    "brand": "Nike",
+    "category": "running",
+    "price": 6290000,
+    "priceLabel": "6.290.000đ",
+    "compareAt": "6.990.000đ",
+    "badge": "Marathon King",
+    "badgeVariant": "commerce",
+    "rating": 5.0,
+    "reviewCount": 89,
+    "inStock": true,
+    "stockCount": 5,
+    "image": "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["White / Bright Crimson"],
+    "sizes": [40, 41, 42, 43, 44],
+    "materials": ["Đệm ZoomX", "Đĩa Carbon Flyplate"],
+    "sku": "NK-VPF3-PROTO",
+    "description": "Vua tốc độ cự ly Marathon. Đĩa Carbon toàn chiều dài kết hợp siêu bọt ZoomX bứt phá giới hạn.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Nike" },
+      { "label": "Trọng lượng", "value": "Siêu nhẹ 185g" }
+    ]
+  },
+  {
+    "id": 17,
+    "slug": "asics-novablast-4",
+    "name": "Asics Novablast 4 Illusion Blue",
+    "brand": "Asics",
+    "category": "running",
+    "price": 3790000,
+    "priceLabel": "3.790.000đ",
+    "badge": "Bouncing",
+    "badgeVariant": "info",
+    "rating": 4.8,
+    "reviewCount": 31,
+    "inStock": true,
+    "stockCount": 12,
+    "image": "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Illuminated Blue", "Sunrise Red"],
+    "sizes": [39, 40, 41, 42, 43],
+    "materials": ["FF BLAST PLUS ECO"],
+    "sku": "AS-NOVA4-BLU",
+    "description": "Cảm giác nảy như bạt nhún trampolines với công nghệ bọt FF BLAST PLUS ECO thân thiện môi trường.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Asics" },
+      { "label": "Đế ngoài", "value": "AHAR Low Hardness Rubber" }
+    ]
+  },
+  {
+    "id": 18,
+    "slug": "puma-velocity-nitro-3",
+    "name": "Puma Velocity Nitro 3 Fireglow",
+    "brand": "Puma",
+    "category": "running",
+    "price": 2990000,
+    "priceLabel": "2.990.000đ",
+    "rating": 4.7,
+    "reviewCount": 22,
+    "inStock": true,
+    "stockCount": 14,
+    "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Sun Stream / Sunset Glow"],
+    "sizes": [39, 40, 41, 42, 43, 44],
+    "materials": ["Bọt Nitro Foam", "Đế PUMAGRIP"],
+    "sku": "PM-VEL3-FIRE",
+    "description": "Bơm khí Nitrogen thế hệ 3 đem lại cảm giác chạy mượt mà và bám đường tối ưu trên mọi địa hình.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Puma" },
+      { "label": "Độ bám", "value": "Công nghệ PUMAGRIP All-Terrain" }
+    ]
+  },
+  {
+    "id": 19,
+    "slug": "jordan-1-high-lost-found",
+    "name": "Jordan 1 High OG Lost & Found",
+    "brand": "Jordan",
+    "category": "lifestyle",
+    "price": 5890000,
+    "priceLabel": "5.890.000đ",
+    "compareAt": "6.500.000đ",
+    "badge": "Grail",
+    "badgeVariant": "gold",
+    "rating": 5.0,
+    "reviewCount": 104,
+    "inStock": true,
+    "stockCount": 3,
+    "image": "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Varsity Red / Black / Sail"],
+    "sizes": [40, 41, 42, 43, 44],
+    "materials": ["Da rạn Vintage Leather"],
+    "sku": "JD-1HIGH-LNF",
+    "description": "Bản phối Chicago huyền thoại được chế tác theo vết nứt vintage của thập niên 80s tuyệt đẹp.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Jordan" },
+      { "label": "Bộ sưu tập", "value": "Reimagined Series 2026" }
+    ]
+  },
+  {
+    "id": 20,
+    "slug": "nike-air-max-1-big-bubble",
+    "name": "Nike Air Max 1 '86 Big Bubble Red",
+    "brand": "Nike",
+    "category": "lifestyle",
+    "price": 3490000,
+    "priceLabel": "3.490.000đ",
+    "badge": "Air Max Day",
+    "badgeVariant": "commerce",
+    "rating": 4.8,
+    "reviewCount": 46,
+    "inStock": true,
+    "stockCount": 10,
+    "image": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["White / Sport Red"],
+    "sizes": [38, 39, 40, 41, 42, 43],
+    "materials": ["Mesh & Da lộn Suede"],
+    "sku": "NK-AM1-BB86",
+    "description": "Tái bản khoang Air bong bóng lớn nguyên bản ra đời năm 1986 mang phong cách Retro đậm nét.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Nike" },
+      { "label": "Đệm khí", "value": "Original Big Bubble Max Air" }
+    ]
+  },
+  {
+    "id": 21,
+    "slug": "adidas-gazelle-indoor",
+    "name": "Adidas Gazelle Indoor Bliss Pink Purple",
+    "brand": "Adidas",
+    "category": "lifestyle",
+    "price": 2790000,
+    "priceLabel": "2.790.000đ",
+    "badge": "Bán chạy",
+    "badgeVariant": "gold",
+    "rating": 4.9,
+    "reviewCount": 67,
+    "inStock": true,
+    "stockCount": 15,
+    "image": "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Bliss Pink / Core Black"],
+    "sizes": [36, 37, 38, 39, 40, 41],
+    "materials": ["Da lộn cao cấp", "Đế Gum trong suốt"],
+    "sku": "AD-GAZ-PNK",
+    "description": "Phối màu hồng pastel ngọt ngào làm chao đảo cộng đồng thời trang streetwear toàn cầu.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Adidas" },
+      { "label": "Chất liệu", "value": "Premium Suede Upper" }
+    ]
+  },
+  {
+    "id": 22,
+    "slug": "new-balance-9060-sea-salt",
+    "name": "New Balance 9060 Sea Salt Cherry",
+    "brand": "New Balance",
+    "category": "lifestyle",
+    "price": 4190000,
+    "priceLabel": "4.190.000đ",
+    "compareAt": "4.590.000đ",
+    "badge": "Chunky Trend",
+    "badgeVariant": "info",
+    "rating": 4.9,
+    "reviewCount": 58,
+    "inStock": true,
+    "stockCount": 7,
+    "image": "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1539185441755-769473a23570?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Sea Salt / Castlerock"],
+    "sizes": [38, 39, 40, 41, 42, 43],
+    "materials": ["Da thuộc x Mesh hố lớn"],
+    "sku": "NB-9060-SALT",
+    "description": "Dáng Chunky Sneaker hiện đại phóng tác từ dòng 99X với bộ đệm hầm hố ấn tượng.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "New Balance" },
+      { "label": "Đệm lót", "value": "ABZORB & SBS Cushioning" }
+    ]
+  },
+  {
+    "id": 23,
+    "slug": "vans-knu-skool-black",
+    "name": "Vans Knu Skool Fat Lace Black White",
+    "brand": "Vans",
+    "category": "lifestyle",
+    "price": 2190000,
+    "priceLabel": "2.190.000đ",
+    "rating": 4.8,
+    "reviewCount": 74,
+    "inStock": true,
+    "stockCount": 20,
+    "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Black / White 3D"],
+    "sizes": [36, 37, 38, 39, 40, 41, 42],
+    "materials": ["Da lộn & Lõi bông padded"],
+    "sku": "VN-KNUSKOOL-BLK",
+    "description": "Phiên bản biến tấu dây bẹt to bản cùng dải sọc SideStripe 3D nổi bật cá tính skate 90s.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Vans" }
+    ]
+  },
+  {
+    "id": 24,
+    "slug": "converse-run-star-hike",
+    "name": "Converse Run Star Hike Lugged High",
+    "brand": "Converse",
+    "category": "lifestyle",
+    "price": 2590000,
+    "priceLabel": "2.590.000đ",
+    "rating": 4.9,
+    "reviewCount": 88,
+    "inStock": true,
+    "stockCount": 16,
+    "image": "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&q=80&auto=format&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=800&q=80&auto=format&fit=crop"
+    ],
+    "colors": ["Black / White / Gum"],
+    "sizes": [36, 37, 38, 39, 40, 41],
+    "materials": ["Vải Canvas dày & Đế răng cưa"],
+    "sku": "CV-RUNSTAR-HI",
+    "description": "Đế răng cưa cao hack dáng cực chất kết hợp biểu tượng Chuck Taylor cổ điển.",
+    "specs": [
+      { "label": "Thương hiệu", "value": "Converse" }
     ]
   }
 ]

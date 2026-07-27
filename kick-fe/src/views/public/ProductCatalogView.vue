@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import KvProductCard from '@/components/ui/KvProductCard.vue'
 import KvPagination from '@/components/ui/KvPagination.vue'
 import KvSelect from '@/components/ui/KvSelect.vue'
@@ -9,16 +9,17 @@ import { DEMO_BRANDS, formatVnd } from '@/data/demo'
 import { useCartStore } from '@/stores/cart'
 
 const route = useRoute()
+const router = useRouter()
 const cart = useCartStore()
 
 const displayMode = ref('grid')
 
-const selectedCategory = ref(route.query.cat || 'all')
+const selectedCategory = ref(route.query.cat ? String(route.query.cat).toLowerCase() : 'all')
 const selectedBrand = ref(route.query.brand || 'all')
 const selectedSize = ref('')
 const selectedColor = ref('')
 const onlyInStock = ref(false)
-const maxPrice = ref(5000000)
+const maxPrice = ref(10000000)
 const searchQuery = ref('')
 
 const sortBy = ref('newest')
@@ -45,9 +46,48 @@ const brandOptions = computed(() => [
 
 const availableSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44]
 
+// Keep selected state in sync with route query parameters
+watch(
+  () => route.query,
+  (newQuery) => {
+    selectedCategory.value = newQuery.cat ? String(newQuery.cat).toLowerCase() : 'all'
+    selectedBrand.value = newQuery.brand || 'all'
+    currentPage.value = 1
+  },
+  { immediate: true, deep: true }
+)
+
+// Sync dropdown category changes back to route query
+watch(selectedCategory, (newCat) => {
+  const currentQueryCat = route.query.cat ? String(route.query.cat).toLowerCase() : 'all'
+  if (newCat !== currentQueryCat) {
+    const query = { ...route.query }
+    if (newCat && newCat !== 'all') {
+      query.cat = newCat
+    } else {
+      delete query.cat
+    }
+    router.push({ query })
+  }
+})
+
+// Sync dropdown brand changes back to route query
+watch(selectedBrand, (newBrand) => {
+  const currentQueryBrand = route.query.brand || 'all'
+  if (newBrand !== currentQueryBrand) {
+    const query = { ...route.query }
+    if (newBrand && newBrand !== 'all') {
+      query.brand = newBrand
+    } else {
+      delete query.brand
+    }
+    router.push({ query })
+  }
+})
+
 const filteredProducts = computed(() => {
   return productsJson.filter((p) => {
-    if (selectedCategory.value !== 'all' && p.category !== selectedCategory.value) return false
+    if (selectedCategory.value !== 'all' && p.category?.toLowerCase() !== selectedCategory.value.toLowerCase()) return false
     if (selectedBrand.value !== 'all' && p.brand.toLowerCase() !== selectedBrand.value.toLowerCase()) return false
     if (selectedSize.value && !p.sizes.includes(Number(selectedSize.value))) return false
     if (selectedColor.value && !p.colors.includes(selectedColor.value)) return false
@@ -76,15 +116,11 @@ function resetFilters() {
   selectedSize.value = ''
   selectedColor.value = ''
   onlyInStock.value = false
-  maxPrice.value = 5000000
+  maxPrice.value = 10000000
   searchQuery.value = ''
   currentPage.value = 1
+  router.push({ query: {} })
 }
-
-onMounted(() => {
-  if (route.query.cat) selectedCategory.value = route.query.cat
-  if (route.query.brand) selectedBrand.value = route.query.brand
-})
 </script>
 
 <template>
@@ -156,7 +192,7 @@ onMounted(() => {
               <span class="font-bold text-slate-700">Khoảng giá tối đa</span>
               <span class="text-amber-600 font-extrabold">{{ formatVnd(maxPrice) }}</span>
             </div>
-            <input type="range" v-model.number="maxPrice" min="1000000" max="5000000" step="200000" class="w-full accent-amber-600 cursor-pointer" />
+            <input type="range" v-model.number="maxPrice" min="1000000" max="10000000" step="500000" class="w-full accent-amber-600 cursor-pointer" />
           </div>
 
           <!-- Size Options Grid -->
